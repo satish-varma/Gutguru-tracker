@@ -1,0 +1,4862 @@
+[
+  {
+    "id": "INV-672189_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20251013-20251015-3376",
+    "date": "2025-10-17",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 3376,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-13 to 2025-10-15"
+  },
+  {
+    "id": "INV-672279_payment_advice_LiveCounter_IBM-20251013-20251015-47309",
+    "date": "2025-10-17",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 47309,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-13 to 2025-10-15"
+  },
+  {
+    "id": "INV-672277_payment_advice_LiveCounter_IBM-20251013-20251015-31660",
+    "date": "2025-10-17",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 31660,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-13 to 2025-10-15"
+  },
+  {
+    "id": "INV-672275_payment_advice_LiveCounter_IBM-20251013-20251015-1007",
+    "date": "2025-10-17",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 1007,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-13 to 2025-10-15"
+  },
+  {
+    "id": "INV-672726_payment_advice_TuckShop_IBM-20251013-20251015-776",
+    "date": "2025-10-17",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 776,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-13 to 2025-10-15"
+  },
+  {
+    "id": "INV-671981_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20251013-20251015-3574",
+    "date": "2025-10-17",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 3574,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-13 to 2025-10-15"
+  },
+  {
+    "id": "INV-674806_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20251016-20251019-1522",
+    "date": "2025-10-21",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 1522,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-16 to 2025-10-19"
+  },
+  {
+    "id": "INV-675001_payment_advice_LiveCounter_IBM-20251016-20251019-500",
+    "date": "2025-10-21",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 500,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-16 to 2025-10-19"
+  },
+  {
+    "id": "INV-675002_payment_advice_LiveCounter_IBM-20251016-20251019-15995",
+    "date": "2025-10-21",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 15995,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-16 to 2025-10-19"
+  },
+  {
+    "id": "INV-675003_payment_advice_LiveCounter_IBM-20251016-20251019-20127",
+    "date": "2025-10-21",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 20127,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-16 to 2025-10-19"
+  },
+  {
+    "id": "INV-674744_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20251016-20251019-1068",
+    "date": "2025-10-21",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 1068,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-16 to 2025-10-19"
+  },
+  {
+    "id": "INV-675219_payment_advice_TuckShop_IBM-20251016-20251019-376",
+    "date": "2025-10-21",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 376,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-16 to 2025-10-19"
+  },
+  {
+    "id": "INV-676711_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20251020-20251022-744",
+    "date": "2025-10-24",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 744,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-20 to 2025-10-22"
+  },
+  {
+    "id": "INV-676647_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20251020-20251022-947",
+    "date": "2025-10-24",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 947,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-20 to 2025-10-22"
+  },
+  {
+    "id": "INV-676836_payment_advice_LiveCounter_IBM-20251020-20251022-219",
+    "date": "2025-10-24",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 219,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-20 to 2025-10-22"
+  },
+  {
+    "id": "INV-677006_payment_advice_TuckShop_IBM-20251020-20251022-328",
+    "date": "2025-10-24",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 328,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-20 to 2025-10-22"
+  },
+  {
+    "id": "INV-676839_payment_advice_LiveCounter_IBM-20251020-20251022-13569",
+    "date": "2025-10-24",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 13569,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-20 to 2025-10-22"
+  },
+  {
+    "id": "INV-676840_payment_advice_LiveCounter_IBM-20251020-20251022-24342",
+    "date": "2025-10-24",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 24342,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-20 to 2025-10-22"
+  },
+  {
+    "id": "INV-677089_payment_advice_SnackOnDLF_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251020-20251022-304",
+    "date": "2025-10-24",
+    "location": "CGI Information Systems",
+    "stall": "Snack On (DLF) CGI DLF",
+    "amount": 304,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-20 to 2025-10-22"
+  },
+  {
+    "id": "INV-677022_payment_advice_SipnByteDLF_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251020-20251022-2065",
+    "date": "2025-10-24",
+    "location": "CGI Information Systems",
+    "stall": "Sip n Byte (DLF) CGI DLF",
+    "amount": 2065,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-20 to 2025-10-22"
+  },
+  {
+    "id": "INV-677023_payment_advice_SipnByteSkyview_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251020-20251022-646",
+    "date": "2025-10-24",
+    "location": "CGI Information Systems",
+    "stall": "Sip n Byte (Skyview) CGI Sky",
+    "amount": 646,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-20 to 2025-10-22"
+  },
+  {
+    "id": "INV-678789_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20251023-20251026-1097",
+    "date": "2025-10-28",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 1097,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-23 to 2025-10-26"
+  },
+  {
+    "id": "INV-678742_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20251023-20251026-588",
+    "date": "2025-10-28",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 588,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-23 to 2025-10-26"
+  },
+  {
+    "id": "INV-679082_payment_advice_TuckShop_IBM-20251023-20251026-342",
+    "date": "2025-10-28",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 342,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-23 to 2025-10-26"
+  },
+  {
+    "id": "INV-678922_payment_advice_LiveCounter_IBM-20251023-20251026-433",
+    "date": "2025-10-28",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 433,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-23 to 2025-10-26"
+  },
+  {
+    "id": "INV-678924_payment_advice_LiveCounter_IBM-20251023-20251026-14647",
+    "date": "2025-10-28",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 14647,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-23 to 2025-10-26"
+  },
+  {
+    "id": "INV-678925_payment_advice_LiveCounter_IBM-20251023-20251026-21840",
+    "date": "2025-10-28",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 21840,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-23 to 2025-10-26"
+  },
+  {
+    "id": "INV-679109_payment_advice_SipnByteDLF_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251023-20251026-5126",
+    "date": "2025-10-28",
+    "location": "CGI Information Systems",
+    "stall": "Sip n Byte (DLF) CGI DLF",
+    "amount": 5126,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-23 to 2025-10-26"
+  },
+  {
+    "id": "INV-679110_payment_advice_SipnByteSkyview_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251023-20251026-1722",
+    "date": "2025-10-28",
+    "location": "CGI Information Systems",
+    "stall": "Sip n Byte (Skyview) CGI Sky",
+    "amount": 1722,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-23 to 2025-10-26"
+  },
+  {
+    "id": "INV-679799_payment_advice_SnackOnDLF_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251023-20251026-2761",
+    "date": "2025-10-28",
+    "location": "CGI Information Systems",
+    "stall": "Snack On (DLF) CGI DLF",
+    "amount": 2761,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-23 to 2025-10-26"
+  },
+  {
+    "id": "INV-681094_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20251027-20251029-1826",
+    "date": "2025-10-31",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 1826,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-27 to 2025-10-29"
+  },
+  {
+    "id": "INV-681180_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20251027-20251029-2731",
+    "date": "2025-10-31",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 2731,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-27 to 2025-10-29"
+  },
+  {
+    "id": "INV-681475_payment_advice_TuckShop_IBM-20251027-20251029-1133",
+    "date": "2025-10-31",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 1133,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-27 to 2025-10-29"
+  },
+  {
+    "id": "INV-681322_payment_advice_LiveCounter_IBM-20251027-20251029-294",
+    "date": "2025-10-31",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 294,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-27 to 2025-10-29"
+  },
+  {
+    "id": "INV-681323_payment_advice_LiveCounter_IBM-20251027-20251029-25252",
+    "date": "2025-10-31",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 25252,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-27 to 2025-10-29"
+  },
+  {
+    "id": "INV-681325_payment_advice_LiveCounter_IBM-20251027-20251029-39726",
+    "date": "2025-10-31",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 39726,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-27 to 2025-10-29"
+  },
+  {
+    "id": "INV-682145_payment_advice_SnackOnDLF_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251027-20251029-5410",
+    "date": "2025-10-31",
+    "location": "CGI Information Systems",
+    "stall": "Snack On (DLF) CGI DLF",
+    "amount": 5410,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-27 to 2025-10-29"
+  },
+  {
+    "id": "INV-681629_payment_advice_SipnByteDLF_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251027-20251029-5458",
+    "date": "2025-10-31",
+    "location": "CGI Information Systems",
+    "stall": "Sip n Byte (DLF) CGI DLF",
+    "amount": 5458,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-27 to 2025-10-29"
+  },
+  {
+    "id": "INV-681630_payment_advice_SipnByteSkyview_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251027-20251029-3019",
+    "date": "2025-10-31",
+    "location": "CGI Information Systems",
+    "stall": "Sip n Byte (Skyview) CGI Sky",
+    "amount": 3019,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-27 to 2025-10-29"
+  },
+  {
+    "id": "INV-683674_payment_advice_LiveCounter_IBM-20251030-20251102-325",
+    "date": "2025-11-04",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 325,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-30 to 2025-11-02"
+  },
+  {
+    "id": "INV-683675_payment_advice_LiveCounter_IBM-20251030-20251102-13914",
+    "date": "2025-11-04",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 13914,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-30 to 2025-11-02"
+  },
+  {
+    "id": "INV-683677_payment_advice_LiveCounter_IBM-20251030-20251102-22877",
+    "date": "2025-11-04",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 22877,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-30 to 2025-11-02"
+  },
+  {
+    "id": "INV-683866_payment_advice_TuckShop_IBM-20251030-20251102-606",
+    "date": "2025-11-04",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 606,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-30 to 2025-11-02"
+  },
+  {
+    "id": "INV-683598_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20251030-20251102-1555",
+    "date": "2025-11-04",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 1555,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-30 to 2025-11-02"
+  },
+  {
+    "id": "INV-683888_payment_advice_SipnByteDLF_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251030-20251102-3725",
+    "date": "2025-11-04",
+    "location": "CGI Information Systems",
+    "stall": "Sip n Byte (DLF) CGI DLF",
+    "amount": 3725,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-30 to 2025-11-02"
+  },
+  {
+    "id": "INV-683890_payment_advice_SipnByteSkyview_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251030-20251102-2183",
+    "date": "2025-11-04",
+    "location": "CGI Information Systems",
+    "stall": "Sip n Byte (Skyview) CGI Sky",
+    "amount": 2183,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-30 to 2025-11-02"
+  },
+  {
+    "id": "INV-683435_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20251030-20251102-519",
+    "date": "2025-11-04",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 519,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-30 to 2025-11-02"
+  },
+  {
+    "id": "INV-683131_payment_advice_Tuckshop_IBM-20251030-20251102-20",
+    "date": "2025-11-04",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 20,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-30 to 2025-11-02"
+  },
+  {
+    "id": "INV-684031_payment_advice_SnackOnDLF_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251030-20251102-3545",
+    "date": "2025-11-04",
+    "location": "CGI Information Systems",
+    "stall": "Snack On (DLF) CGI DLF",
+    "amount": 3545,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-30 to 2025-11-02"
+  },
+  {
+    "id": "INV-685609_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20251103-20251105-1872",
+    "date": "2025-11-07",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 1872,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-03 to 2025-11-05"
+  },
+  {
+    "id": "INV-685461_payment_advice_Tuckshop_IBM-20251103-20251105-29",
+    "date": "2025-11-07",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 29,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-03 to 2025-11-05"
+  },
+  {
+    "id": "INV-685821_payment_advice_LiveCounter_IBM-20251103-20251105-283",
+    "date": "2025-11-07",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 283,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-03 to 2025-11-05"
+  },
+  {
+    "id": "INV-685823_payment_advice_LiveCounter_IBM-20251103-20251105-28684",
+    "date": "2025-11-07",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 28684,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-03 to 2025-11-05"
+  },
+  {
+    "id": "INV-685824_payment_advice_LiveCounter_IBM-20251103-20251105-50261",
+    "date": "2025-11-07",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 50261,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-03 to 2025-11-05"
+  },
+  {
+    "id": "INV-686027_payment_advice_SnackOnDLF_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251103-20251105-5341",
+    "date": "2025-11-07",
+    "location": "CGI Information Systems",
+    "stall": "Snack On (DLF) CGI DLF",
+    "amount": 5341,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-03 to 2025-11-05"
+  },
+  {
+    "id": "INV-685693_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20251103-20251105-2065",
+    "date": "2025-11-07",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 2065,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-03 to 2025-11-05"
+  },
+  {
+    "id": "INV-686052_payment_advice_TuckShop_IBM-20251103-20251105-1159",
+    "date": "2025-11-07",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 1159,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-03 to 2025-11-05"
+  },
+  {
+    "id": "INV-686084_payment_advice_SipnByteDLF_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251103-20251105-15130",
+    "date": "2025-11-07",
+    "location": "CGI Information Systems",
+    "stall": "Sip n Byte (DLF) CGI DLF",
+    "amount": 15130,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-03 to 2025-11-05"
+  },
+  {
+    "id": "INV-686086_payment_advice_SipnByteSkyview_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251103-20251105-2813",
+    "date": "2025-11-07",
+    "location": "CGI Information Systems",
+    "stall": "Sip n Byte (Skyview) CGI Sky",
+    "amount": 2813,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-03 to 2025-11-05"
+  },
+  {
+    "id": "INV-688027_payment_advice_Tuckshop_IBM-20251106-20251109-38",
+    "date": "2025-11-11",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 38,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-06 to 2025-11-09"
+  },
+  {
+    "id": "INV-688223_payment_advice_LiveCounter_IBM-20251106-20251109-16120",
+    "date": "2025-11-11",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 16120,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-06 to 2025-11-09"
+  },
+  {
+    "id": "INV-688224_payment_advice_LiveCounter_IBM-20251106-20251109-30358",
+    "date": "2025-11-11",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 30358,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-06 to 2025-11-09"
+  },
+  {
+    "id": "INV-687965_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20251106-20251109-732",
+    "date": "2025-11-11",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 732,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-06 to 2025-11-09"
+  },
+  {
+    "id": "INV-688354_payment_advice_SnackOnDLF_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251106-20251109-2431",
+    "date": "2025-11-11",
+    "location": "CGI Information Systems",
+    "stall": "Snack On (DLF) CGI DLF",
+    "amount": 2431,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-06 to 2025-11-09"
+  },
+  {
+    "id": "INV-688195_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20251106-20251109-1799",
+    "date": "2025-11-11",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 1799,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-06 to 2025-11-09"
+  },
+  {
+    "id": "INV-688214_payment_advice_LiveCounter_IBM-20251106-20251109-223",
+    "date": "2025-11-11",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 223,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-06 to 2025-11-09"
+  },
+  {
+    "id": "INV-688396_payment_advice_SipnByteDLF_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251106-20251109-4114",
+    "date": "2025-11-11",
+    "location": "CGI Information Systems",
+    "stall": "Sip n Byte (DLF) CGI DLF",
+    "amount": 4114,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-06 to 2025-11-09"
+  },
+  {
+    "id": "INV-688397_payment_advice_SipnByteSkyview_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251106-20251109-2051",
+    "date": "2025-11-11",
+    "location": "CGI Information Systems",
+    "stall": "Sip n Byte (Skyview) CGI Sky",
+    "amount": 2051,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-06 to 2025-11-09"
+  },
+  {
+    "id": "INV-688403_payment_advice_TuckShop_IBM-20251106-20251109-671",
+    "date": "2025-11-11",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 671,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-06 to 2025-11-09"
+  },
+  {
+    "id": "INV-690225_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20251110-20251112-2686",
+    "date": "2025-11-14",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 2686,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-10 to 2025-11-12"
+  },
+  {
+    "id": "INV-690313_payment_advice_LiveCounter_IBM-20251110-20251112-29290",
+    "date": "2025-11-14",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 29290,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-10 to 2025-11-12"
+  },
+  {
+    "id": "INV-690314_payment_advice_LiveCounter_IBM-20251110-20251112-45029",
+    "date": "2025-11-14",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 45029,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-10 to 2025-11-12"
+  },
+  {
+    "id": "INV-690443_payment_advice_SipnByteDLF_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251110-20251112-7212",
+    "date": "2025-11-14",
+    "location": "CGI Information Systems",
+    "stall": "Sip n Byte (DLF) CGI DLF",
+    "amount": 7212,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-10 to 2025-11-12"
+  },
+  {
+    "id": "INV-690444_payment_advice_SipnByteSkyview_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251110-20251112-2739",
+    "date": "2025-11-14",
+    "location": "CGI Information Systems",
+    "stall": "Sip n Byte (Skyview) CGI Sky",
+    "amount": 2739,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-10 to 2025-11-12"
+  },
+  {
+    "id": "INV-690450_payment_advice_TuckShop_IBM-20251110-20251112-799",
+    "date": "2025-11-14",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 799,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-10 to 2025-11-12"
+  },
+  {
+    "id": "INV-691707_payment_advice_SnackOnDLF_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251110-20251112-5484",
+    "date": "2025-11-14",
+    "location": "CGI Information Systems",
+    "stall": "Snack On (DLF) CGI DLF",
+    "amount": 5484,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-10 to 2025-11-12"
+  },
+  {
+    "id": "INV-691900_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20251110-20251112-1853",
+    "date": "2025-11-14",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 1853,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-10 to 2025-11-12"
+  },
+  {
+    "id": "INV-691630_payment_advice_Tuckshop_IBM-20251110-20251112-9",
+    "date": "2025-11-14",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 9,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-10 to 2025-11-12"
+  },
+  {
+    "id": "INV-691659_payment_advice_LiveCounter_IBM-20251110-20251112-427",
+    "date": "2025-11-14",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 427,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-10 to 2025-11-12"
+  },
+  {
+    "id": "INV-692386_payment_advice_LiveCounter_IBM-20251113-20251116-581",
+    "date": "2025-11-18",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 581,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-13 to 2025-11-16"
+  },
+  {
+    "id": "INV-692860_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20251113-20251116-2473",
+    "date": "2025-11-18",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 2473,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-13 to 2025-11-16"
+  },
+  {
+    "id": "INV-692967_payment_advice_TuckShop_IBM-20251113-20251116-311",
+    "date": "2025-11-18",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 311,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-13 to 2025-11-16"
+  },
+  {
+    "id": "INV-693826_payment_advice_SipnByteDLF_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251113-20251116-2640",
+    "date": "2025-11-18",
+    "location": "CGI Information Systems",
+    "stall": "Sip n Byte (DLF) CGI DLF",
+    "amount": 2640,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-13 to 2025-11-16"
+  },
+  {
+    "id": "INV-693827_payment_advice_SipnByteSkyview_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251113-20251116-2044",
+    "date": "2025-11-18",
+    "location": "CGI Information Systems",
+    "stall": "Sip n Byte (Skyview) CGI Sky",
+    "amount": 2044,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-13 to 2025-11-16"
+  },
+  {
+    "id": "INV-693743_payment_advice_SnackOnDLF_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251113-20251116-3474",
+    "date": "2025-11-18",
+    "location": "CGI Information Systems",
+    "stall": "Snack On (DLF) CGI DLF",
+    "amount": 3474,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-13 to 2025-11-16"
+  },
+  {
+    "id": "INV-693685_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20251113-20251116-1633",
+    "date": "2025-11-18",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 1633,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-13 to 2025-11-16"
+  },
+  {
+    "id": "INV-694074_payment_advice_LiveCounter_IBM-20251113-20251116-17779",
+    "date": "2025-11-18",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 17779,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-13 to 2025-11-16"
+  },
+  {
+    "id": "INV-694075_payment_advice_LiveCounter_IBM-20251113-20251116-28264",
+    "date": "2025-11-18",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 28264,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-13 to 2025-11-16"
+  },
+  {
+    "id": "INV-694734_payment_advice_LiveCounter_IBM-20251117-20251119-1275",
+    "date": "2025-11-21",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 1275,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-17 to 2025-11-19"
+  },
+  {
+    "id": "INV-695445_payment_advice_TuckShop_IBM-20251117-20251119-570",
+    "date": "2025-11-21",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 570,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-17 to 2025-11-19"
+  },
+  {
+    "id": "INV-695531_payment_advice_LiveCounter_IBM-20251117-20251119-35896",
+    "date": "2025-11-21",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 35896,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-17 to 2025-11-19"
+  },
+  {
+    "id": "INV-695532_payment_advice_LiveCounter_IBM-20251117-20251119-55170",
+    "date": "2025-11-21",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 55170,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-17 to 2025-11-19"
+  },
+  {
+    "id": "INV-696215_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20251117-20251119-1877",
+    "date": "2025-11-21",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 1877,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-17 to 2025-11-19"
+  },
+  {
+    "id": "INV-696222_payment_advice_Tuckshop_IBM-20251117-20251119-28",
+    "date": "2025-11-21",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 28,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-17 to 2025-11-19"
+  },
+  {
+    "id": "INV-696400_payment_advice_SipnByteDLF_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251117-20251119-6025",
+    "date": "2025-11-21",
+    "location": "CGI Information Systems",
+    "stall": "Sip n Byte (DLF) CGI DLF",
+    "amount": 6025,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-17 to 2025-11-19"
+  },
+  {
+    "id": "INV-696401_payment_advice_SipnByteSkyview_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251117-20251119-3118",
+    "date": "2025-11-21",
+    "location": "CGI Information Systems",
+    "stall": "Sip n Byte (Skyview) CGI Sky",
+    "amount": 3118,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-17 to 2025-11-19"
+  },
+  {
+    "id": "INV-696268_payment_advice_SnackOnDLF_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251117-20251119-5817",
+    "date": "2025-11-21",
+    "location": "CGI Information Systems",
+    "stall": "Snack On (DLF) CGI DLF",
+    "amount": 5817,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-17 to 2025-11-19"
+  },
+  {
+    "id": "INV-695278_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20251117-20251119-8171",
+    "date": "2025-11-21",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 8171,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-17 to 2025-11-19"
+  },
+  {
+    "id": "INV-697211_payment_advice_LiveCounter_IBM-20251120-20251123-564",
+    "date": "2025-11-25",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 564,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-20 to 2025-11-23"
+  },
+  {
+    "id": "INV-697698_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20251120-20251123-1764",
+    "date": "2025-11-25",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 1764,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-20 to 2025-11-23"
+  },
+  {
+    "id": "INV-697741_payment_advice_TuckShop_IBM-20251120-20251123-384",
+    "date": "2025-11-25",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 384,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-20 to 2025-11-23"
+  },
+  {
+    "id": "INV-698687_payment_advice_Tuckshop_IBM-20251120-20251123-19",
+    "date": "2025-11-25",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 19,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-20 to 2025-11-23"
+  },
+  {
+    "id": "INV-698714_payment_advice_SnackOnDLF_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251120-20251123-3516",
+    "date": "2025-11-25",
+    "location": "CGI Information Systems",
+    "stall": "Snack On (DLF) CGI DLF",
+    "amount": 3516,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-20 to 2025-11-23"
+  },
+  {
+    "id": "INV-698834_payment_advice_SipnByteDLF_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251120-20251123-3822",
+    "date": "2025-11-25",
+    "location": "CGI Information Systems",
+    "stall": "Sip n Byte (DLF) CGI DLF",
+    "amount": 3822,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-20 to 2025-11-23"
+  },
+  {
+    "id": "INV-698835_payment_advice_SipnByteSkyview_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251120-20251123-1660",
+    "date": "2025-11-25",
+    "location": "CGI Information Systems",
+    "stall": "Sip n Byte (Skyview) CGI Sky",
+    "amount": 1660,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-20 to 2025-11-23"
+  },
+  {
+    "id": "INV-698766_payment_advice_LiveCounter_IBM-20251120-20251123-37508",
+    "date": "2025-11-25",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 37508,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-20 to 2025-11-23"
+  },
+  {
+    "id": "INV-698767_payment_advice_LiveCounter_IBM-20251120-20251123-27096",
+    "date": "2025-11-25",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 27096,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-20 to 2025-11-23"
+  },
+  {
+    "id": "INV-698680_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20251120-20251123-866",
+    "date": "2025-11-25",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 866,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-20 to 2025-11-23"
+  },
+  {
+    "id": "INV-699625_payment_advice_LiveCounter_IBM-20251124-20251126-1220",
+    "date": "2025-11-28",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 1220,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-24 to 2025-11-26"
+  },
+  {
+    "id": "INV-699651_payment_advice_Tuckshop_IBM-20251124-20251126-348",
+    "date": "2025-11-28",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 348,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-24 to 2025-11-26"
+  },
+  {
+    "id": "INV-700151_payment_advice_TuckShop_IBM-20251124-20251126-350",
+    "date": "2025-11-28",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 350,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-24 to 2025-11-26"
+  },
+  {
+    "id": "INV-700160_payment_advice_LiveCounter_IBM-20251124-20251126-32879",
+    "date": "2025-11-28",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 32879,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-24 to 2025-11-26"
+  },
+  {
+    "id": "INV-700161_payment_advice_LiveCounter_IBM-20251124-20251126-44655",
+    "date": "2025-11-28",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 44655,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-24 to 2025-11-26"
+  },
+  {
+    "id": "INV-701015_payment_advice_SipnByteDLF_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251124-20251126-5576",
+    "date": "2025-11-28",
+    "location": "CGI Information Systems",
+    "stall": "Sip n Byte (DLF) CGI DLF",
+    "amount": 5576,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-24 to 2025-11-26"
+  },
+  {
+    "id": "INV-701016_payment_advice_SipnByteSkyview_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251124-20251126-2221",
+    "date": "2025-11-28",
+    "location": "CGI Information Systems",
+    "stall": "Sip n Byte (Skyview) CGI Sky",
+    "amount": 2221,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-24 to 2025-11-26"
+  },
+  {
+    "id": "INV-700930_payment_advice_SnackOnDLF_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251124-20251126-5967",
+    "date": "2025-11-28",
+    "location": "CGI Information Systems",
+    "stall": "Snack On (DLF) CGI DLF",
+    "amount": 5967,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-24 to 2025-11-26"
+  },
+  {
+    "id": "INV-701299_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20251124-20251126-2963",
+    "date": "2025-11-28",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 2963,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-24 to 2025-11-26"
+  },
+  {
+    "id": "INV-700959_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20251124-20251126-2535",
+    "date": "2025-11-28",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 2535,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-24 to 2025-11-26"
+  },
+  {
+    "id": "INV-701629_payment_advice_JuicytailesJuiceCounter_Broadridge_Financial_Solutions_India_Private_Limited_-20251124-20251126-7581",
+    "date": "2025-11-28",
+    "location": "Broadridge",
+    "stall": "Juicy tailes - Juice Counter Main Cafeteria",
+    "amount": 7581,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-24 to 2025-11-26"
+  },
+  {
+    "id": "INV-701630_payment_advice_SlurpstoreBakery_Broadridge_Financial_Solutions_India_Private_Limited_-20251124-20251126-10027",
+    "date": "2025-11-28",
+    "location": "Broadridge",
+    "stall": "Slurp store - Bakery Main Cafeteria",
+    "amount": 10027,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-24 to 2025-11-26"
+  },
+  {
+    "id": "INV-701631_payment_advice_MunchboxLiveCounter_Broadridge_Financial_Solutions_India_Private_Limited_-20251124-20251126-14275",
+    "date": "2025-11-28",
+    "location": "Broadridge",
+    "stall": "Munch box - Live Counter Main Cafeteria",
+    "amount": 14275,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-24 to 2025-11-26"
+  },
+  {
+    "id": "INV-702046_payment_advice_Tuckshop_IBM-20251127-20251130-316",
+    "date": "2025-12-02",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 316,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-27 to 2025-11-30"
+  },
+  {
+    "id": "INV-702345_payment_advice_LiveCounter_IBM-20251127-20251130-900",
+    "date": "2025-12-02",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 900,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-27 to 2025-11-30"
+  },
+  {
+    "id": "INV-703066_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20251127-20251130-2335",
+    "date": "2025-12-02",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 2335,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-27 to 2025-11-30"
+  },
+  {
+    "id": "INV-703458_payment_advice_SnackOnDLF_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251127-20251130-4424",
+    "date": "2025-12-02",
+    "location": "CGI Information Systems",
+    "stall": "Snack On (DLF) CGI DLF",
+    "amount": 4424,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-27 to 2025-11-30"
+  },
+  {
+    "id": "INV-703994_payment_advice_JuicytailesJuiceCounter_Broadridge_Financial_Solutions_India_Private_Limited_-20251127-20251130-2323",
+    "date": "2025-12-02",
+    "location": "Broadridge",
+    "stall": "Juicy tailes - Juice Counter Main Cafeteria",
+    "amount": 2323,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-27 to 2025-11-30"
+  },
+  {
+    "id": "INV-703996_payment_advice_MunchboxLiveCounter_Broadridge_Financial_Solutions_India_Private_Limited_-20251127-20251130-6633",
+    "date": "2025-12-02",
+    "location": "Broadridge",
+    "stall": "Munch box - Live Counter Main Cafeteria",
+    "amount": 6633,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-27 to 2025-11-30"
+  },
+  {
+    "id": "INV-703995_payment_advice_SlurpstoreBakery_Broadridge_Financial_Solutions_India_Private_Limited_-20251127-20251130-3485",
+    "date": "2025-12-02",
+    "location": "Broadridge",
+    "stall": "Slurp store - Bakery Main Cafeteria",
+    "amount": 3485,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-27 to 2025-11-30"
+  },
+  {
+    "id": "INV-702879_payment_advice_TuckShop_IBM-20251127-20251130-238",
+    "date": "2025-12-02",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 238,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-27 to 2025-11-30"
+  },
+  {
+    "id": "INV-702704_payment_advice_LiveCounter_IBM-20251127-20251130-13337",
+    "date": "2025-12-02",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 13337,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-27 to 2025-11-30"
+  },
+  {
+    "id": "INV-702707_payment_advice_LiveCounter_IBM-20251127-20251130-23844",
+    "date": "2025-12-02",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 23844,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-27 to 2025-11-30"
+  },
+  {
+    "id": "INV-703421_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20251127-20251130-1032",
+    "date": "2025-12-02",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 1032,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-27 to 2025-11-30"
+  },
+  {
+    "id": "INV-703532_payment_advice_SipnByteDLF_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251127-20251130-3802",
+    "date": "2025-12-02",
+    "location": "CGI Information Systems",
+    "stall": "Sip n Byte (DLF) CGI DLF",
+    "amount": 3802,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-27 to 2025-11-30"
+  },
+  {
+    "id": "INV-703533_payment_advice_SipnByteSkyview_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251127-20251130-2047",
+    "date": "2025-12-02",
+    "location": "CGI Information Systems",
+    "stall": "Sip n Byte (Skyview) CGI Sky",
+    "amount": 2047,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-27 to 2025-11-30"
+  },
+  {
+    "id": "INV-704436_payment_advice_Tuckshop_IBM-20251201-20251203-516",
+    "date": "2025-12-05",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 516,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-01 to 2025-12-03"
+  },
+  {
+    "id": "INV-704892_payment_advice_TuckShop_IBM-20251201-20251203-1346",
+    "date": "2025-12-05",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 1346,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-01 to 2025-12-03"
+  },
+  {
+    "id": "INV-705632_payment_advice_SipnByteDLF_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251201-20251203-5321",
+    "date": "2025-12-05",
+    "location": "CGI Information Systems",
+    "stall": "Sip n Byte (DLF) CGI DLF",
+    "amount": 5321,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-01 to 2025-12-03"
+  },
+  {
+    "id": "INV-705633_payment_advice_SipnByteSkyview_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251201-20251203-2520",
+    "date": "2025-12-05",
+    "location": "CGI Information Systems",
+    "stall": "Sip n Byte (Skyview) CGI Sky",
+    "amount": 2520,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-01 to 2025-12-03"
+  },
+  {
+    "id": "INV-705768_payment_advice_LiveCounter_IBM-20251201-20251203-512",
+    "date": "2025-12-05",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 512,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-01 to 2025-12-03"
+  },
+  {
+    "id": "INV-706344_payment_advice_JuicytailesJuiceCounter_Broadridge_Financial_Solutions_India_Private_Limited_-20251201-20251203-4681",
+    "date": "2025-12-05",
+    "location": "Broadridge",
+    "stall": "Juicy tailes - Juice Counter Main Cafeteria",
+    "amount": 4681,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-01 to 2025-12-03"
+  },
+  {
+    "id": "INV-706345_payment_advice_SlurpstoreBakery_Broadridge_Financial_Solutions_India_Private_Limited_-20251201-20251203-8278",
+    "date": "2025-12-05",
+    "location": "Broadridge",
+    "stall": "Slurp store - Bakery Main Cafeteria",
+    "amount": 8278,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-01 to 2025-12-03"
+  },
+  {
+    "id": "INV-706346_payment_advice_MunchboxLiveCounter_Broadridge_Financial_Solutions_India_Private_Limited_-20251201-20251203-10872",
+    "date": "2025-12-05",
+    "location": "Broadridge",
+    "stall": "Munch box - Live Counter Main Cafeteria",
+    "amount": 10872,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-01 to 2025-12-03"
+  },
+  {
+    "id": "INV-706465_payment_advice_LiveCounter_IBM-20251201-20251203-24941",
+    "date": "2025-12-05",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 24941,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-01 to 2025-12-03"
+  },
+  {
+    "id": "INV-706466_payment_advice_LiveCounter_IBM-20251201-20251203-43218",
+    "date": "2025-12-05",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 43218,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-01 to 2025-12-03"
+  },
+  {
+    "id": "INV-705554_payment_advice_SnackOnDLF_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251201-20251203-5960",
+    "date": "2025-12-05",
+    "location": "CGI Information Systems",
+    "stall": "Snack On (DLF) CGI DLF",
+    "amount": 5960,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-01 to 2025-12-03"
+  },
+  {
+    "id": "INV-705560_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20251201-20251203-2540",
+    "date": "2025-12-05",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 2540,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-01 to 2025-12-03"
+  },
+  {
+    "id": "INV-705588_payment_advice_TuckShop_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251201-20251203-2045",
+    "date": "2025-12-05",
+    "location": "CGI Information Systems",
+    "stall": "Tuck Shop CGI Nexity",
+    "amount": 2045,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-01 to 2025-12-03"
+  },
+  {
+    "id": "INV-705592_payment_advice_Tuckshop_IBM-20251201-20251203-28",
+    "date": "2025-12-05",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 28,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-01 to 2025-12-03"
+  },
+  {
+    "id": "INV-705226_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20251201-20251203-3968",
+    "date": "2025-12-05",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 3968,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-01 to 2025-12-03"
+  },
+  {
+    "id": "INV-707279_payment_advice_TuckShop_IBM-20251204-20251207-991",
+    "date": "2025-12-09",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 991,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-04 to 2025-12-07"
+  },
+  {
+    "id": "INV-706930_payment_advice_Tuckshop_IBM-20251204-20251207-270",
+    "date": "2025-12-09",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 270,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-04 to 2025-12-07"
+  },
+  {
+    "id": "INV-707892_payment_advice_SipnByteDLF_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251204-20251207-4640",
+    "date": "2025-12-09",
+    "location": "CGI Information Systems",
+    "stall": "Sip n Byte (DLF) CGI DLF",
+    "amount": 4640,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-04 to 2025-12-07"
+  },
+  {
+    "id": "INV-707894_payment_advice_SipnByteSkyview_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251204-20251207-1549",
+    "date": "2025-12-09",
+    "location": "CGI Information Systems",
+    "stall": "Sip n Byte (Skyview) CGI Sky",
+    "amount": 1549,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-04 to 2025-12-07"
+  },
+  {
+    "id": "INV-707939_payment_advice_Tuckshop_IBM-20251204-20251207-9",
+    "date": "2025-12-09",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 9,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-04 to 2025-12-07"
+  },
+  {
+    "id": "INV-708758_payment_advice_LiveCounter_IBM-20251204-20251207-316",
+    "date": "2025-12-09",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 316,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-04 to 2025-12-07"
+  },
+  {
+    "id": "INV-707315_payment_advice_LiveCounter_IBM-20251204-20251207-14203",
+    "date": "2025-12-09",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 14203,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-04 to 2025-12-07"
+  },
+  {
+    "id": "INV-707316_payment_advice_LiveCounter_IBM-20251204-20251207-25987",
+    "date": "2025-12-09",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 25987,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-04 to 2025-12-07"
+  },
+  {
+    "id": "INV-707536_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20251204-20251207-2277",
+    "date": "2025-12-09",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 2277,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-04 to 2025-12-07"
+  },
+  {
+    "id": "INV-707846_payment_advice_TuckShop_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251204-20251207-961",
+    "date": "2025-12-09",
+    "location": "CGI Information Systems",
+    "stall": "Tuck Shop CGI Nexity",
+    "amount": 961,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-04 to 2025-12-07"
+  },
+  {
+    "id": "INV-707816_payment_advice_SnackOnDLF_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251204-20251207-3571",
+    "date": "2025-12-09",
+    "location": "CGI Information Systems",
+    "stall": "Snack On (DLF) CGI DLF",
+    "amount": 3571,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-04 to 2025-12-07"
+  },
+  {
+    "id": "INV-707823_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20251204-20251207-1630",
+    "date": "2025-12-09",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 1630,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-04 to 2025-12-07"
+  },
+  {
+    "id": "INV-708523_payment_advice_JuicytailesJuiceCounter_Broadridge_Financial_Solutions_India_Private_Limited_-20251204-20251207-2788",
+    "date": "2025-12-09",
+    "location": "Broadridge",
+    "stall": "Juicy tailes - Juice Counter Main Cafeteria",
+    "amount": 2788,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-04 to 2025-12-07"
+  },
+  {
+    "id": "INV-708525_payment_advice_SlurpstoreBakery_Broadridge_Financial_Solutions_India_Private_Limited_-20251204-20251207-5830",
+    "date": "2025-12-09",
+    "location": "Broadridge",
+    "stall": "Slurp store - Bakery Main Cafeteria",
+    "amount": 5830,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-04 to 2025-12-07"
+  },
+  {
+    "id": "INV-708526_payment_advice_MunchboxLiveCounter_Broadridge_Financial_Solutions_India_Private_Limited_-20251204-20251207-10088",
+    "date": "2025-12-09",
+    "location": "Broadridge",
+    "stall": "Munch box - Live Counter Main Cafeteria",
+    "amount": 10088,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-04 to 2025-12-07"
+  },
+  {
+    "id": "INV-709595_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20251208-20251210-3536",
+    "date": "2025-12-12",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 3536,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-08 to 2025-12-10"
+  },
+  {
+    "id": "INV-709862_payment_advice_MunchboxLiveCounter_Broadridge_Financial_Solutions_India_Private_Limited_-20251208-20251210-12799",
+    "date": "2025-12-12",
+    "location": "Broadridge",
+    "stall": "Munch box - Live Counter Main Cafeteria",
+    "amount": 12799,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-08 to 2025-12-10"
+  },
+  {
+    "id": "INV-709997_payment_advice_LiveCounter_IBM-20251208-20251210-32968",
+    "date": "2025-12-12",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 32968,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-08 to 2025-12-10"
+  },
+  {
+    "id": "INV-709998_payment_advice_LiveCounter_IBM-20251208-20251210-51539",
+    "date": "2025-12-12",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 51539,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-08 to 2025-12-10"
+  },
+  {
+    "id": "INV-710565_payment_advice_SnackOnDLF_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251208-20251210-7709",
+    "date": "2025-12-12",
+    "location": "CGI Information Systems",
+    "stall": "Snack On (DLF) CGI DLF",
+    "amount": 7709,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-08 to 2025-12-10"
+  },
+  {
+    "id": "INV-709926_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20251208-20251210-2994",
+    "date": "2025-12-12",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 2994,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-08 to 2025-12-10"
+  },
+  {
+    "id": "INV-710515_payment_advice_Tuckshop_IBM-20251208-20251210-19",
+    "date": "2025-12-12",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 19,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-08 to 2025-12-10"
+  },
+  {
+    "id": "INV-711319_payment_advice_LiveCounter_IBM-20251208-20251210-404",
+    "date": "2025-12-12",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 404,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-08 to 2025-12-10"
+  },
+  {
+    "id": "INV-709257_payment_advice_Tuckshop_IBM-20251208-20251210-640",
+    "date": "2025-12-12",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 640,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-08 to 2025-12-10"
+  },
+  {
+    "id": "INV-709738_payment_advice_TuckShop_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251208-20251210-1577",
+    "date": "2025-12-12",
+    "location": "CGI Information Systems",
+    "stall": "Tuck Shop CGI Nexity",
+    "amount": 1577,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-08 to 2025-12-10"
+  },
+  {
+    "id": "INV-709861_payment_advice_SlurpstoreBakery_Broadridge_Financial_Solutions_India_Private_Limited_-20251208-20251210-7458",
+    "date": "2025-12-12",
+    "location": "Broadridge",
+    "stall": "Slurp store - Bakery Main Cafeteria",
+    "amount": 7458,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-08 to 2025-12-10"
+  },
+  {
+    "id": "INV-709757_payment_advice_SipnByteDLF_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251208-20251210-5531",
+    "date": "2025-12-12",
+    "location": "CGI Information Systems",
+    "stall": "Sip n Byte (DLF) CGI DLF",
+    "amount": 5531,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-08 to 2025-12-10"
+  },
+  {
+    "id": "INV-709758_payment_advice_SipnByteSkyview_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251208-20251210-3070",
+    "date": "2025-12-12",
+    "location": "CGI Information Systems",
+    "stall": "Sip n Byte (Skyview) CGI Sky",
+    "amount": 3070,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-08 to 2025-12-10"
+  },
+  {
+    "id": "INV-710028_payment_advice_TuckShop_IBM-20251208-20251210-1911",
+    "date": "2025-12-12",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 1911,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-08 to 2025-12-10"
+  },
+  {
+    "id": "INV-709860_payment_advice_JuicytailesJuiceCounter_Broadridge_Financial_Solutions_India_Private_Limited_-20251208-20251210-4615",
+    "date": "2025-12-12",
+    "location": "Broadridge",
+    "stall": "Juicy tailes - Juice Counter Main Cafeteria",
+    "amount": 4615,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-08 to 2025-12-10"
+  },
+  {
+    "id": "INV-711722_payment_advice_Tuckshop_IBM-20251211-20251214-214",
+    "date": "2025-12-16",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 214,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-11 to 2025-12-14"
+  },
+  {
+    "id": "INV-712009_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20251211-20251214-2929",
+    "date": "2025-12-16",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 2929,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-11 to 2025-12-14"
+  },
+  {
+    "id": "INV-712624_payment_advice_TuckShop_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251211-20251214-987",
+    "date": "2025-12-16",
+    "location": "CGI Information Systems",
+    "stall": "Tuck Shop CGI Nexity",
+    "amount": 987,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-11 to 2025-12-14"
+  },
+  {
+    "id": "INV-713755_payment_advice_LiveCounter_IBM-20251211-20251214-445",
+    "date": "2025-12-16",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 445,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-11 to 2025-12-14"
+  },
+  {
+    "id": "INV-712131_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20251211-20251214-984",
+    "date": "2025-12-16",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 984,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-11 to 2025-12-14"
+  },
+  {
+    "id": "INV-712222_payment_advice_LiveCounter_IBM-20251211-20251214-11885",
+    "date": "2025-12-16",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 11885,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-11 to 2025-12-14"
+  },
+  {
+    "id": "INV-712223_payment_advice_LiveCounter_IBM-20251211-20251214-22918",
+    "date": "2025-12-16",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 22918,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-11 to 2025-12-14"
+  },
+  {
+    "id": "INV-712343_payment_advice_TuckShop_IBM-20251211-20251214-893",
+    "date": "2025-12-16",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 893,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-11 to 2025-12-14"
+  },
+  {
+    "id": "INV-712650_payment_advice_SipnByteSkyview_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251211-20251214-1933",
+    "date": "2025-12-16",
+    "location": "CGI Information Systems",
+    "stall": "Sip n Byte (Skyview) CGI Sky",
+    "amount": 1933,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-11 to 2025-12-14"
+  },
+  {
+    "id": "INV-712649_payment_advice_SipnByteDLF_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251211-20251214-3474",
+    "date": "2025-12-16",
+    "location": "CGI Information Systems",
+    "stall": "Sip n Byte (DLF) CGI DLF",
+    "amount": 3474,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-11 to 2025-12-14"
+  },
+  {
+    "id": "INV-712805_payment_advice_JuicytailesJuiceCounter_Broadridge_Financial_Solutions_India_Private_Limited_-20251211-20251214-3248",
+    "date": "2025-12-16",
+    "location": "Broadridge",
+    "stall": "Juicy tailes - Juice Counter Main Cafeteria",
+    "amount": 3248,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-11 to 2025-12-14"
+  },
+  {
+    "id": "INV-712806_payment_advice_SlurpstoreBakery_Broadridge_Financial_Solutions_India_Private_Limited_-20251211-20251214-5712",
+    "date": "2025-12-16",
+    "location": "Broadridge",
+    "stall": "Slurp store - Bakery Main Cafeteria",
+    "amount": 5712,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-11 to 2025-12-14"
+  },
+  {
+    "id": "INV-712808_payment_advice_MunchboxLiveCounter_Broadridge_Financial_Solutions_India_Private_Limited_-20251211-20251214-10329",
+    "date": "2025-12-16",
+    "location": "Broadridge",
+    "stall": "Munch box - Live Counter Main Cafeteria",
+    "amount": 10329,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-11 to 2025-12-14"
+  },
+  {
+    "id": "INV-713210_payment_advice_Tuckshop_IBM-20251211-20251214-9",
+    "date": "2025-12-16",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 9,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-11 to 2025-12-14"
+  },
+  {
+    "id": "INV-713221_payment_advice_SnackOnDLF_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251211-20251214-4271",
+    "date": "2025-12-16",
+    "location": "CGI Information Systems",
+    "stall": "Snack On (DLF) CGI DLF",
+    "amount": 4271,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-11 to 2025-12-14"
+  },
+  {
+    "id": "INV-714194_payment_advice_Tuckshop_IBM-20251215-20251217-675",
+    "date": "2025-12-19",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 675,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-15 to 2025-12-17"
+  },
+  {
+    "id": "INV-714695_payment_advice_TuckShop_IBM-20251215-20251217-1654",
+    "date": "2025-12-19",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 1654,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-15 to 2025-12-17"
+  },
+  {
+    "id": "INV-714539_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20251215-20251217-3208",
+    "date": "2025-12-19",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 3208,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-15 to 2025-12-17"
+  },
+  {
+    "id": "INV-714723_payment_advice_LiveCounter_IBM-20251215-20251217-30605",
+    "date": "2025-12-19",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 30605,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-15 to 2025-12-17"
+  },
+  {
+    "id": "INV-714724_payment_advice_LiveCounter_IBM-20251215-20251217-48473",
+    "date": "2025-12-19",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 48473,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-15 to 2025-12-17"
+  },
+  {
+    "id": "INV-715118_payment_advice_SipnByteDLF_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251215-20251217-4669",
+    "date": "2025-12-19",
+    "location": "CGI Information Systems",
+    "stall": "Sip n Byte (DLF) CGI DLF",
+    "amount": 4669,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-15 to 2025-12-17"
+  },
+  {
+    "id": "INV-715119_payment_advice_SipnByteSkyview_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251215-20251217-2789",
+    "date": "2025-12-19",
+    "location": "CGI Information Systems",
+    "stall": "Sip n Byte (Skyview) CGI Sky",
+    "amount": 2789,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-15 to 2025-12-17"
+  },
+  {
+    "id": "INV-715134_payment_advice_TuckShop_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251215-20251217-2172",
+    "date": "2025-12-19",
+    "location": "CGI Information Systems",
+    "stall": "Tuck Shop CGI Nexity",
+    "amount": 2172,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-15 to 2025-12-17"
+  },
+  {
+    "id": "INV-715557_payment_advice_SnackOnDLF_CGI_Information_Systems___Management_Consultants_Pvt_Ltd-20251215-20251217-5392",
+    "date": "2025-12-19",
+    "location": "CGI Information Systems",
+    "stall": "Snack On (DLF) CGI DLF",
+    "amount": 5392,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-15 to 2025-12-17"
+  },
+  {
+    "id": "INV-716087_payment_advice_LiveCounter_IBM-20251215-20251217-183",
+    "date": "2025-12-19",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 183,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-15 to 2025-12-17"
+  },
+  {
+    "id": "INV-714790_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20251215-20251217-2181",
+    "date": "2025-12-19",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 2181,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-15 to 2025-12-17"
+  },
+  {
+    "id": "INV-715235_payment_advice_JuicytailesJuiceCounter_Broadridge_Financial_Solutions_India_Private_Limited_-20251215-20251217-5092",
+    "date": "2025-12-19",
+    "location": "Broadridge",
+    "stall": "Juicy tailes - Juice Counter Main Cafeteria",
+    "amount": 5092,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-15 to 2025-12-17"
+  },
+  {
+    "id": "INV-715236_payment_advice_SlurpstoreBakery_Broadridge_Financial_Solutions_India_Private_Limited_-20251215-20251217-8771",
+    "date": "2025-12-19",
+    "location": "Broadridge",
+    "stall": "Slurp store - Bakery Main Cafeteria",
+    "amount": 8771,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-15 to 2025-12-17"
+  },
+  {
+    "id": "INV-715267_payment_advice_MunchboxLiveCounter_Broadridge_Financial_Solutions_India_Private_Limited_-20251215-20251217-14058",
+    "date": "2025-12-19",
+    "location": "Broadridge",
+    "stall": "Munch box - Live Counter Main Cafeteria",
+    "amount": 14058,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-15 to 2025-12-17"
+  },
+  {
+    "id": "INV-670643_payment_advice_TuckShop_IBM-20251009-20251012-331",
+    "date": "2025-10-14",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 331,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-09 to 2025-10-12"
+  },
+  {
+    "id": "INV-670570_payment_advice_LiveCounter_IBM-20251009-20251012-534",
+    "date": "2025-10-14",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 534,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-09 to 2025-10-12"
+  },
+  {
+    "id": "INV-670571_payment_advice_LiveCounter_IBM-20251009-20251012-16212",
+    "date": "2025-10-14",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 16212,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-09 to 2025-10-12"
+  },
+  {
+    "id": "INV-670572_payment_advice_LiveCounter_IBM-20251009-20251012-32637",
+    "date": "2025-10-14",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 32637,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-09 to 2025-10-12"
+  },
+  {
+    "id": "INV-670085_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20251009-20251012-1663",
+    "date": "2025-10-14",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 1663,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-09 to 2025-10-12"
+  },
+  {
+    "id": "INV-669890_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20251009-20251012-1337",
+    "date": "2025-10-14",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 1337,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-09 to 2025-10-12"
+  },
+  {
+    "id": "INV-668410_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20251006-20251008-2439",
+    "date": "2025-10-10",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 2439,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-06 to 2025-10-08"
+  },
+  {
+    "id": "INV-668225_payment_advice_TuckShop_IBM-20251006-20251008-947",
+    "date": "2025-10-10",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 947,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-06 to 2025-10-08"
+  },
+  {
+    "id": "INV-667788_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20251006-20251008-2887",
+    "date": "2025-10-10",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 2887,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-06 to 2025-10-08"
+  },
+  {
+    "id": "INV-667845_payment_advice_LiveCounter_IBM-20251006-20251008-578",
+    "date": "2025-10-10",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 578,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-06 to 2025-10-08"
+  },
+  {
+    "id": "INV-667846_payment_advice_LiveCounter_IBM-20251006-20251008-25939",
+    "date": "2025-10-10",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 25939,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-06 to 2025-10-08"
+  },
+  {
+    "id": "INV-667847_payment_advice_LiveCounter_IBM-20251006-20251008-41325",
+    "date": "2025-10-10",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 41325,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-06 to 2025-10-08"
+  },
+  {
+    "id": "INV-667169_payment_advice_Tuckshop_IBM-20251006-20251008-18",
+    "date": "2025-10-10",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 18,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-06 to 2025-10-08"
+  },
+  {
+    "id": "INV-666028_payment_advice_TuckShop_IBM-20251002-20251005-140",
+    "date": "2025-10-07",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 140,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-02 to 2025-10-05"
+  },
+  {
+    "id": "INV-665841_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20251002-20251005-368",
+    "date": "2025-10-07",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 368,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-02 to 2025-10-05"
+  },
+  {
+    "id": "INV-665513_payment_advice_LiveCounter_IBM-20251002-20251005-2725",
+    "date": "2025-10-07",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 2725,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-02 to 2025-10-05"
+  },
+  {
+    "id": "INV-665514_payment_advice_LiveCounter_IBM-20251002-20251005-2870",
+    "date": "2025-10-07",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 2870,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-02 to 2025-10-05"
+  },
+  {
+    "id": "INV-664826_payment_advice_Tuckshop_IBM-20251002-20251005-9",
+    "date": "2025-10-07",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 9,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-02 to 2025-10-05"
+  },
+  {
+    "id": "INV-663562_payment_advice_LiveCounter_IBM-20250929-20251001-179",
+    "date": "2025-10-03",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 179,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-29 to 2025-10-01"
+  },
+  {
+    "id": "INV-663540_payment_advice_LiveCounter_IBM-20250929-20251001-16282",
+    "date": "2025-10-03",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 16282,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-29 to 2025-10-01"
+  },
+  {
+    "id": "INV-663541_payment_advice_LiveCounter_IBM-20250929-20251001-18110",
+    "date": "2025-10-03",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 18110,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-29 to 2025-10-01"
+  },
+  {
+    "id": "INV-662479_payment_advice_Tuckshop_IBM-20250929-20251001-45",
+    "date": "2025-10-03",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 45,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-29 to 2025-10-01"
+  },
+  {
+    "id": "INV-663392_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20250929-20251001-1319",
+    "date": "2025-10-03",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 1319,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-29 to 2025-10-01"
+  },
+  {
+    "id": "INV-663172_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20250929-20251001-935",
+    "date": "2025-10-03",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 935,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-29 to 2025-10-01"
+  },
+  {
+    "id": "INV-662990_payment_advice_TuckShop_IBM-20250929-20251001-675",
+    "date": "2025-10-03",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 675,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-29 to 2025-10-01"
+  },
+  {
+    "id": "INV-661571_payment_advice_LiveCounter_IBM-20250925-20250928-305",
+    "date": "2025-09-30",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 305,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-25 to 2025-09-28"
+  },
+  {
+    "id": "INV-661577_payment_advice_LiveCounter_IBM-20250925-20250928-20149",
+    "date": "2025-09-30",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 20149,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-25 to 2025-09-28"
+  },
+  {
+    "id": "INV-661579_payment_advice_LiveCounter_IBM-20250925-20250928-17964",
+    "date": "2025-09-30",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 17964,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-25 to 2025-09-28"
+  },
+  {
+    "id": "INV-661020_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20250925-20250928-2914",
+    "date": "2025-09-30",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 2914,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-25 to 2025-09-28"
+  },
+  {
+    "id": "INV-660914_payment_advice_TuckShop_IBM-20250925-20250928-238",
+    "date": "2025-09-30",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 238,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-25 to 2025-09-28"
+  },
+  {
+    "id": "INV-660773_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20250925-20250928-2456",
+    "date": "2025-09-30",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 2456,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-25 to 2025-09-28"
+  },
+  {
+    "id": "INV-659200_payment_advice_LiveCounter_IBM-20250922-20250924-983",
+    "date": "2025-09-26",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 983,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-22 to 2025-09-24"
+  },
+  {
+    "id": "INV-659210_payment_advice_LiveCounter_IBM-20250922-20250924-26733",
+    "date": "2025-09-26",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 26733,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-22 to 2025-09-24"
+  },
+  {
+    "id": "INV-659211_payment_advice_LiveCounter_IBM-20250922-20250924-44677",
+    "date": "2025-09-26",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 44677,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-22 to 2025-09-24"
+  },
+  {
+    "id": "INV-657654_payment_advice_Tuckshop_IBM-20250922-20250924-9",
+    "date": "2025-09-26",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 9,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-22 to 2025-09-24"
+  },
+  {
+    "id": "INV-658431_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20250922-20250924-3440",
+    "date": "2025-09-26",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 3440,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-22 to 2025-09-24"
+  },
+  {
+    "id": "INV-658287_payment_advice_TuckShop_IBM-20250922-20250924-862",
+    "date": "2025-09-26",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 862,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-22 to 2025-09-24"
+  },
+  {
+    "id": "INV-658352_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20250922-20250924-7913",
+    "date": "2025-09-26",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 7913,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-22 to 2025-09-24"
+  },
+  {
+    "id": "INV-656536_payment_advice_TuckShop_IBM-20250918-20250921-1354",
+    "date": "2025-09-23",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 1354,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-18 to 2025-09-21"
+  },
+  {
+    "id": "INV-656578_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20250918-20250921-2063",
+    "date": "2025-09-23",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 2063,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-18 to 2025-09-21"
+  },
+  {
+    "id": "INV-656100_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20250918-20250921-1319",
+    "date": "2025-09-23",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 1319,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-18 to 2025-09-21"
+  },
+  {
+    "id": "INV-655284_payment_advice_LiveCounter_IBM-20250918-20250921-606",
+    "date": "2025-09-23",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 606,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-18 to 2025-09-21"
+  },
+  {
+    "id": "INV-655295_payment_advice_LiveCounter_IBM-20250918-20250921-17293",
+    "date": "2025-09-23",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 17293,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-18 to 2025-09-21"
+  },
+  {
+    "id": "INV-655296_payment_advice_LiveCounter_IBM-20250918-20250921-25358",
+    "date": "2025-09-23",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 25358,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-18 to 2025-09-21"
+  },
+  {
+    "id": "INV-655292_payment_advice_Tuckshop_IBM-20250918-20250921-49",
+    "date": "2025-09-23",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 49,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-18 to 2025-09-21"
+  },
+  {
+    "id": "INV-654132_payment_advice_TuckShop_IBM-20250915-20250917-738",
+    "date": "2025-09-19",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 738,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-15 to 2025-09-17"
+  },
+  {
+    "id": "INV-653706_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20250915-20250917-2343",
+    "date": "2025-09-19",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 2343,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-15 to 2025-09-17"
+  },
+  {
+    "id": "INV-653862_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20250915-20250917-3727",
+    "date": "2025-09-19",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 3727,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-15 to 2025-09-17"
+  },
+  {
+    "id": "INV-652322_payment_advice_Tuckshop_IBM-20250915-20250917-30",
+    "date": "2025-09-19",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 30,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-15 to 2025-09-17"
+  },
+  {
+    "id": "INV-652334_payment_advice_LiveCounter_IBM-20250915-20250917-30936",
+    "date": "2025-09-19",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 30936,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-15 to 2025-09-17"
+  },
+  {
+    "id": "INV-652337_payment_advice_LiveCounter_IBM-20250915-20250917-41892",
+    "date": "2025-09-19",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 41892,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-15 to 2025-09-17"
+  },
+  {
+    "id": "INV-652312_payment_advice_LiveCounter_IBM-20250915-20250917-595",
+    "date": "2025-09-19",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 595,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-15 to 2025-09-17"
+  },
+  {
+    "id": "INV-651686_payment_advice_TuckShop_IBM-20250911-20250914-682",
+    "date": "2025-09-16",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 682,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-11 to 2025-09-14"
+  },
+  {
+    "id": "INV-651530_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20250911-20250914-2272",
+    "date": "2025-09-16",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 2272,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-11 to 2025-09-14"
+  },
+  {
+    "id": "INV-651151_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20250911-20250914-2364",
+    "date": "2025-09-16",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 2364,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-11 to 2025-09-14"
+  },
+  {
+    "id": "INV-650489_payment_advice_LiveCounter_IBM-20250911-20250914-831",
+    "date": "2025-09-16",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 831,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-11 to 2025-09-14"
+  },
+  {
+    "id": "INV-650492_payment_advice_LiveCounter_IBM-20250911-20250914-15502",
+    "date": "2025-09-16",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 15502,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-11 to 2025-09-14"
+  },
+  {
+    "id": "INV-650507_payment_advice_LiveCounter_IBM-20250911-20250914-25028",
+    "date": "2025-09-16",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 25028,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-11 to 2025-09-14"
+  },
+  {
+    "id": "INV-650490_payment_advice_Tuckshop_IBM-20250911-20250914-10",
+    "date": "2025-09-16",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 10,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-11 to 2025-09-14"
+  },
+  {
+    "id": "INV-650491_payment_advice_Tuckshop_IBM-20250911-20250914-371",
+    "date": "2025-09-16",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 371,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-11 to 2025-09-14"
+  },
+  {
+    "id": "INV-649488_payment_advice_TuckShop_IBM-20250908-20250910-965",
+    "date": "2025-09-12",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 965,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-08 to 2025-09-10"
+  },
+  {
+    "id": "INV-649220_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20250908-20250910-4098",
+    "date": "2025-09-12",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 4098,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-08 to 2025-09-10"
+  },
+  {
+    "id": "INV-648943_payment_advice_LiveCounter_IBM-20250908-20250910-1393",
+    "date": "2025-09-12",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 1393,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-08 to 2025-09-10"
+  },
+  {
+    "id": "INV-648947_payment_advice_LiveCounter_IBM-20250908-20250910-27658",
+    "date": "2025-09-12",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 27658,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-08 to 2025-09-10"
+  },
+  {
+    "id": "INV-648971_payment_advice_LiveCounter_IBM-20250908-20250910-47796",
+    "date": "2025-09-12",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 47796,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-08 to 2025-09-10"
+  },
+  {
+    "id": "INV-648945_payment_advice_Tuckshop_IBM-20250908-20250910-534",
+    "date": "2025-09-12",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 534,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-08 to 2025-09-10"
+  },
+  {
+    "id": "INV-648137_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20250908-20250910-3793",
+    "date": "2025-09-12",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 3793,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-08 to 2025-09-10"
+  },
+  {
+    "id": "INV-646733_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20250904-20250907-2391",
+    "date": "2025-09-09",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 2391,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-04 to 2025-09-07"
+  },
+  {
+    "id": "INV-646875_payment_advice_TuckShop_IBM-20250904-20250907-501",
+    "date": "2025-09-09",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 501,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-04 to 2025-09-07"
+  },
+  {
+    "id": "INV-646347_payment_advice_LiveCounter_IBM-20250904-20250907-19906",
+    "date": "2025-09-09",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 19906,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-04 to 2025-09-07"
+  },
+  {
+    "id": "INV-646299_payment_advice_LiveCounter_IBM-20250904-20250907-493",
+    "date": "2025-09-09",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 493,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-04 to 2025-09-07"
+  },
+  {
+    "id": "INV-646304_payment_advice_LiveCounter_IBM-20250904-20250907-36938",
+    "date": "2025-09-09",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 36938,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-04 to 2025-09-07"
+  },
+  {
+    "id": "INV-646300_payment_advice_Tuckshop_IBM-20250904-20250907-10",
+    "date": "2025-09-09",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 10,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-04 to 2025-09-07"
+  },
+  {
+    "id": "INV-646302_payment_advice_Tuckshop_IBM-20250904-20250907-525",
+    "date": "2025-09-09",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 525,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-04 to 2025-09-07"
+  },
+  {
+    "id": "INV-644976_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20250904-20250907-1737",
+    "date": "2025-09-09",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 1737,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-04 to 2025-09-07"
+  },
+  {
+    "id": "INV-644468_payment_advice_TuckShop_IBM-20250901-20250903-472",
+    "date": "2025-09-05",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 472,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-01 to 2025-09-03"
+  },
+  {
+    "id": "INV-643982_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20250901-20250903-3233",
+    "date": "2025-09-05",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 3233,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-01 to 2025-09-03"
+  },
+  {
+    "id": "INV-643753_payment_advice_LiveCounter_IBM-20250901-20250903-979",
+    "date": "2025-09-05",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 979,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-01 to 2025-09-03"
+  },
+  {
+    "id": "INV-643757_payment_advice_LiveCounter_IBM-20250901-20250903-52641",
+    "date": "2025-09-05",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 52641,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-01 to 2025-09-03"
+  },
+  {
+    "id": "INV-643845_payment_advice_LiveCounter_IBM-20250901-20250903-65312",
+    "date": "2025-09-05",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 65312,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-01 to 2025-09-03"
+  },
+  {
+    "id": "INV-643754_payment_advice_Tuckshop_IBM-20250901-20250903-78",
+    "date": "2025-09-05",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 78,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-01 to 2025-09-03"
+  },
+  {
+    "id": "INV-643755_payment_advice_Tuckshop_IBM-20250901-20250903-704",
+    "date": "2025-09-05",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 704,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-01 to 2025-09-03"
+  },
+  {
+    "id": "INV-642589_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20250901-20250903-2623",
+    "date": "2025-09-05",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 2623,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-01 to 2025-09-03"
+  },
+  {
+    "id": "INV-642200_payment_advice_TuckShop_IBM-20250828-20250831-272",
+    "date": "2025-09-02",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 272,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-28 to 2025-08-31"
+  },
+  {
+    "id": "INV-641639_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20250828-20250831-1828",
+    "date": "2025-09-02",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 1828,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-28 to 2025-08-31"
+  },
+  {
+    "id": "INV-641489_payment_advice_LiveCounter_IBM-20250828-20250831-24847",
+    "date": "2025-09-02",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 24847,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-28 to 2025-08-31"
+  },
+  {
+    "id": "INV-641397_payment_advice_LiveCounter_IBM-20250828-20250831-11780",
+    "date": "2025-09-02",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 11780,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-28 to 2025-08-31"
+  },
+  {
+    "id": "INV-641416_payment_advice_LiveCounter_IBM-20250828-20250831-430",
+    "date": "2025-09-02",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 430,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-28 to 2025-08-31"
+  },
+  {
+    "id": "INV-640621_payment_advice_Tuckshop_IBM-20250828-20250831-20",
+    "date": "2025-09-02",
+    "location": "IBM",
+    "stall": "Tuckshop Uppal-2nd Floor",
+    "amount": 20,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-28 to 2025-08-31"
+  },
+  {
+    "id": "INV-641396_payment_advice_Tuckshop_IBM-20250828-20250831-170",
+    "date": "2025-09-02",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 170,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-28 to 2025-08-31"
+  },
+  {
+    "id": "INV-640251_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20250828-20250831-372",
+    "date": "2025-09-02",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 372,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-28 to 2025-08-31"
+  },
+  {
+    "id": "INV-639406_payment_advice_LiveCounter_IBM-20250825-20250827-774",
+    "date": "2025-08-29",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 774,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-25 to 2025-08-27"
+  },
+  {
+    "id": "INV-639408_payment_advice_LiveCounter_IBM-20250825-20250827-16636",
+    "date": "2025-08-29",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 16636,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-25 to 2025-08-27"
+  },
+  {
+    "id": "INV-639633_payment_advice_LiveCounter_IBM-20250825-20250827-29132",
+    "date": "2025-08-29",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 29132,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-25 to 2025-08-27"
+  },
+  {
+    "id": "INV-639693_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20250825-20250827-1916",
+    "date": "2025-08-29",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 1916,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-25 to 2025-08-27"
+  },
+  {
+    "id": "INV-639407_payment_advice_Tuckshop_IBM-20250825-20250827-293",
+    "date": "2025-08-29",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 293,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-25 to 2025-08-27"
+  },
+  {
+    "id": "INV-638872_payment_advice_TuckShop_IBM-20250825-20250827-269",
+    "date": "2025-08-29",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 269,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-25 to 2025-08-27"
+  },
+  {
+    "id": "INV-637855_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20250825-20250827-1070",
+    "date": "2025-08-29",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 1070,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-25 to 2025-08-27"
+  },
+  {
+    "id": "INV-636243_payment_advice_LiveCounter_IBM-20250821-20250824-1189",
+    "date": "2025-08-26",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 1189,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-21 to 2025-08-24"
+  },
+  {
+    "id": "INV-636245_payment_advice_LiveCounter_IBM-20250821-20250824-18294",
+    "date": "2025-08-26",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 18294,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-21 to 2025-08-24"
+  },
+  {
+    "id": "INV-637716_payment_advice_LiveCounter_IBM-20250821-20250824-28421",
+    "date": "2025-08-26",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 28421,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-21 to 2025-08-24"
+  },
+  {
+    "id": "INV-636934_payment_advice_TuckShop_IBM-20250821-20250824-508",
+    "date": "2025-08-26",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 508,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-21 to 2025-08-24"
+  },
+  {
+    "id": "INV-636499_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20250821-20250824-1989",
+    "date": "2025-08-26",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 1989,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-21 to 2025-08-24"
+  },
+  {
+    "id": "INV-635917_payment_advice_Tuckshop_IBM-20250821-20250824-24",
+    "date": "2025-08-26",
+    "location": "IBM",
+    "stall": "Tuckshop Uppal-2nd Floor",
+    "amount": 24,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-21 to 2025-08-24"
+  },
+  {
+    "id": "INV-636244_payment_advice_Tuckshop_IBM-20250821-20250824-220",
+    "date": "2025-08-26",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 220,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-21 to 2025-08-24"
+  },
+  {
+    "id": "INV-635487_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20250821-20250824-1152",
+    "date": "2025-08-26",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 1152,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-21 to 2025-08-24"
+  },
+  {
+    "id": "INV-634089_payment_advice_LiveCounter_IBM-20250818-20250820-1253",
+    "date": "2025-08-22",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 1253,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-18 to 2025-08-20"
+  },
+  {
+    "id": "INV-634093_payment_advice_LiveCounter_IBM-20250818-20250820-23417",
+    "date": "2025-08-22",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 23417,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-18 to 2025-08-20"
+  },
+  {
+    "id": "INV-635172_payment_advice_LiveCounter_IBM-20250818-20250820-37048",
+    "date": "2025-08-22",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 37048,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-18 to 2025-08-20"
+  },
+  {
+    "id": "INV-634331_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20250818-20250820-2603",
+    "date": "2025-08-22",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 2603,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-18 to 2025-08-20"
+  },
+  {
+    "id": "INV-634407_payment_advice_TuckShop_IBM-20250818-20250820-595",
+    "date": "2025-08-22",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 595,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-18 to 2025-08-20"
+  },
+  {
+    "id": "INV-634091_payment_advice_Tuckshop_IBM-20250818-20250820-10",
+    "date": "2025-08-22",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 10,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-18 to 2025-08-20"
+  },
+  {
+    "id": "INV-634092_payment_advice_Tuckshop_IBM-20250818-20250820-622",
+    "date": "2025-08-22",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 622,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-18 to 2025-08-20"
+  },
+  {
+    "id": "INV-633023_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20250818-20250820-1131",
+    "date": "2025-08-22",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 1131,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-18 to 2025-08-20"
+  },
+  {
+    "id": "INV-631930_payment_advice_LiveCounter_IBM-20250814-20250817-5393",
+    "date": "2025-08-19",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 5393,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-14 to 2025-08-17"
+  },
+  {
+    "id": "INV-632642_payment_advice_LiveCounter_IBM-20250814-20250817-12772",
+    "date": "2025-08-19",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 12772,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-14 to 2025-08-17"
+  },
+  {
+    "id": "INV-631929_payment_advice_Tuckshop_IBM-20250814-20250817-180",
+    "date": "2025-08-19",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 180,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-14 to 2025-08-17"
+  },
+  {
+    "id": "INV-632155_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20250814-20250817-529",
+    "date": "2025-08-19",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 529,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-14 to 2025-08-17"
+  },
+  {
+    "id": "INV-631837_payment_advice_TuckShop_IBM-20250814-20250817-170",
+    "date": "2025-08-19",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 170,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-14 to 2025-08-17"
+  },
+  {
+    "id": "INV-629570_payment_advice_LiveCounter_IBM-20250811-20250813-456",
+    "date": "2025-08-15",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 456,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-11 to 2025-08-13"
+  },
+  {
+    "id": "INV-629572_payment_advice_LiveCounter_IBM-20250811-20250813-27067",
+    "date": "2025-08-15",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 27067,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-11 to 2025-08-13"
+  },
+  {
+    "id": "INV-630378_payment_advice_LiveCounter_IBM-20250811-20250813-48603",
+    "date": "2025-08-15",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 48603,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-11 to 2025-08-13"
+  },
+  {
+    "id": "INV-630170_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20250811-20250813-2623",
+    "date": "2025-08-15",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 2623,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-11 to 2025-08-13"
+  },
+  {
+    "id": "INV-629587_payment_advice_TuckShop_IBM-20250811-20250813-540",
+    "date": "2025-08-15",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 540,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-11 to 2025-08-13"
+  },
+  {
+    "id": "INV-629571_payment_advice_Tuckshop_IBM-20250811-20250813-939",
+    "date": "2025-08-15",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 939,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-11 to 2025-08-13"
+  },
+  {
+    "id": "INV-628291_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20250811-20250813-2113",
+    "date": "2025-08-15",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 2113,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-11 to 2025-08-13"
+  },
+  {
+    "id": "INV-626689_payment_advice_LiveCounter_IBM-20250807-20250810-11955",
+    "date": "2025-08-12",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 11955,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-07 to 2025-08-10"
+  },
+  {
+    "id": "INV-626687_payment_advice_LiveCounter_IBM-20250807-20250810-245",
+    "date": "2025-08-12",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 245,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-07 to 2025-08-10"
+  },
+  {
+    "id": "INV-628111_payment_advice_LiveCounter_IBM-20250807-20250810-22884",
+    "date": "2025-08-12",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 22884,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-07 to 2025-08-10"
+  },
+  {
+    "id": "INV-627714_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20250807-20250810-2176",
+    "date": "2025-08-12",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 2176,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-07 to 2025-08-10"
+  },
+  {
+    "id": "INV-626730_payment_advice_TuckShop_IBM-20250807-20250810-253",
+    "date": "2025-08-12",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 253,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-07 to 2025-08-10"
+  },
+  {
+    "id": "INV-626688_payment_advice_Tuckshop_IBM-20250807-20250810-392",
+    "date": "2025-08-12",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 392,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-07 to 2025-08-10"
+  },
+  {
+    "id": "INV-625881_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20250807-20250810-653",
+    "date": "2025-08-12",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 653,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-07 to 2025-08-10"
+  },
+  {
+    "id": "INV-624574_payment_advice_LiveCounter_IBM-20250804-20250806-878",
+    "date": "2025-08-08",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 878,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-04 to 2025-08-06"
+  },
+  {
+    "id": "INV-624576_payment_advice_LiveCounter_IBM-20250804-20250806-24849",
+    "date": "2025-08-08",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 24849,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-04 to 2025-08-06"
+  },
+  {
+    "id": "INV-625437_payment_advice_LiveCounter_IBM-20250804-20250806-41500",
+    "date": "2025-08-08",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 41500,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-04 to 2025-08-06"
+  },
+  {
+    "id": "INV-624612_payment_advice_TuckShop_IBM-20250804-20250806-608",
+    "date": "2025-08-08",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 608,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-04 to 2025-08-06"
+  },
+  {
+    "id": "INV-624580_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20250804-20250806-2425",
+    "date": "2025-08-08",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 2425,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-04 to 2025-08-06"
+  },
+  {
+    "id": "INV-624575_payment_advice_Tuckshop_IBM-20250804-20250806-943",
+    "date": "2025-08-08",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 943,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-04 to 2025-08-06"
+  },
+  {
+    "id": "INV-623398_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20250804-20250806-2619",
+    "date": "2025-08-08",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 2619,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-04 to 2025-08-06"
+  },
+  {
+    "id": "INV-622447_payment_advice_TuckShop_IBM-20250731-20250803-325",
+    "date": "2025-08-05",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 325,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-31 to 2025-08-03"
+  },
+  {
+    "id": "INV-621835_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20250731-20250803-1635",
+    "date": "2025-08-05",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 1635,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-31 to 2025-08-03"
+  },
+  {
+    "id": "INV-621827_payment_advice_LiveCounter_IBM-20250731-20250803-445",
+    "date": "2025-08-05",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 445,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-31 to 2025-08-03"
+  },
+  {
+    "id": "INV-621832_payment_advice_LiveCounter_IBM-20250731-20250803-14935",
+    "date": "2025-08-05",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 14935,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-31 to 2025-08-03"
+  },
+  {
+    "id": "INV-622766_payment_advice_LiveCounter_IBM-20250731-20250803-20905",
+    "date": "2025-08-05",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 20905,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-31 to 2025-08-03"
+  },
+  {
+    "id": "INV-621831_payment_advice_Tuckshop_IBM-20250731-20250803-302",
+    "date": "2025-08-05",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 302,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-31 to 2025-08-03"
+  },
+  {
+    "id": "INV-621071_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20250731-20250803-1131",
+    "date": "2025-08-05",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 1131,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-31 to 2025-08-03"
+  },
+  {
+    "id": "INV-619849_payment_advice_LiveCounter_IBM-20250728-20250730-1139",
+    "date": "2025-08-01",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 1139,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-28 to 2025-07-30"
+  },
+  {
+    "id": "INV-619854_payment_advice_LiveCounter_IBM-20250728-20250730-25228",
+    "date": "2025-08-01",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 25228,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-28 to 2025-07-30"
+  },
+  {
+    "id": "INV-620919_payment_advice_LiveCounter_IBM-20250728-20250730-38987",
+    "date": "2025-08-01",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 38987,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-28 to 2025-07-30"
+  },
+  {
+    "id": "INV-620049_payment_advice_TuckShop_IBM-20250728-20250730-858",
+    "date": "2025-08-01",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 858,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-28 to 2025-07-30"
+  },
+  {
+    "id": "INV-619856_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20250728-20250730-2501",
+    "date": "2025-08-01",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 2501,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-28 to 2025-07-30"
+  },
+  {
+    "id": "INV-619852_payment_advice_Tuckshop_IBM-20250728-20250730-452",
+    "date": "2025-08-01",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 452,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-28 to 2025-07-30"
+  },
+  {
+    "id": "INV-619851_payment_advice_Tuckshop_IBM-20250728-20250730-49",
+    "date": "2025-08-01",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 49,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-28 to 2025-07-30"
+  },
+  {
+    "id": "INV-619549_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20250728-20250730-1004",
+    "date": "2025-08-01",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 1004,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-28 to 2025-07-30"
+  },
+  {
+    "id": "INV-617656_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20250724-20250727-1591",
+    "date": "2025-07-29",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 1591,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-24 to 2025-07-27"
+  },
+  {
+    "id": "INV-617481_payment_advice_LiveCounter_IBM-20250724-20250727-20859",
+    "date": "2025-07-29",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 20859,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-24 to 2025-07-27"
+  },
+  {
+    "id": "INV-617651_payment_advice_LiveCounter_IBM-20250724-20250727-807",
+    "date": "2025-07-29",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 807,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-24 to 2025-07-27"
+  },
+  {
+    "id": "INV-617654_payment_advice_LiveCounter_IBM-20250724-20250727-15029",
+    "date": "2025-07-29",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 15029,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-24 to 2025-07-27"
+  },
+  {
+    "id": "INV-617652_payment_advice_Tuckshop_IBM-20250724-20250727-49",
+    "date": "2025-07-29",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 49,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-24 to 2025-07-27"
+  },
+  {
+    "id": "INV-617653_payment_advice_Tuckshop_IBM-20250724-20250727-394",
+    "date": "2025-07-29",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 394,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-24 to 2025-07-27"
+  },
+  {
+    "id": "INV-616965_payment_advice_TuckShop_IBM-20250724-20250727-281",
+    "date": "2025-07-29",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 281,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-24 to 2025-07-27"
+  },
+  {
+    "id": "INV-615669_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20250721-20250723-2618",
+    "date": "2025-07-25",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 2618,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-21 to 2025-07-23"
+  },
+  {
+    "id": "INV-615558_payment_advice_LiveCounter_IBM-20250721-20250723-33064",
+    "date": "2025-07-25",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 33064,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-21 to 2025-07-23"
+  },
+  {
+    "id": "INV-615663_payment_advice_LiveCounter_IBM-20250721-20250723-1342",
+    "date": "2025-07-25",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 1342,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-21 to 2025-07-23"
+  },
+  {
+    "id": "INV-615666_payment_advice_LiveCounter_IBM-20250721-20250723-25082",
+    "date": "2025-07-25",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 25082,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-21 to 2025-07-23"
+  },
+  {
+    "id": "INV-615664_payment_advice_Tuckshop_IBM-20250721-20250723-20",
+    "date": "2025-07-25",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 20,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-21 to 2025-07-23"
+  },
+  {
+    "id": "INV-615665_payment_advice_Tuckshop_IBM-20250721-20250723-498",
+    "date": "2025-07-25",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 498,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-21 to 2025-07-23"
+  },
+  {
+    "id": "INV-615451_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20250721-20250723-2500",
+    "date": "2025-07-25",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 2500,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-21 to 2025-07-23"
+  },
+  {
+    "id": "INV-614373_payment_advice_TuckShop_IBM-20250721-20250723-641",
+    "date": "2025-07-25",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 641,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-21 to 2025-07-23"
+  },
+  {
+    "id": "INV-613451_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20250717-20250720-3170",
+    "date": "2025-07-22",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 3170,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-17 to 2025-07-20"
+  },
+  {
+    "id": "INV-613285_payment_advice_LiveCounter_IBM-20250717-20250720-21896",
+    "date": "2025-07-22",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 21896,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-17 to 2025-07-20"
+  },
+  {
+    "id": "INV-613445_payment_advice_LiveCounter_IBM-20250717-20250720-971",
+    "date": "2025-07-22",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 971,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-17 to 2025-07-20"
+  },
+  {
+    "id": "INV-613449_payment_advice_LiveCounter_IBM-20250717-20250720-15815",
+    "date": "2025-07-22",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 15815,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-17 to 2025-07-20"
+  },
+  {
+    "id": "INV-613446_payment_advice_Tuckshop_IBM-20250717-20250720-10",
+    "date": "2025-07-22",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 10,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-17 to 2025-07-20"
+  },
+  {
+    "id": "INV-613447_payment_advice_Tuckshop_IBM-20250717-20250720-418",
+    "date": "2025-07-22",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 418,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-17 to 2025-07-20"
+  },
+  {
+    "id": "INV-613149_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20250717-20250720-1169",
+    "date": "2025-07-22",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 1169,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-17 to 2025-07-20"
+  },
+  {
+    "id": "INV-612604_payment_advice_TuckShop_IBM-20250717-20250720-597",
+    "date": "2025-07-22",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 597,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-17 to 2025-07-20"
+  },
+  {
+    "id": "INV-610990_payment_advice_TuckShop_IBM-20250714-20250716-983",
+    "date": "2025-07-18",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 983,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-14 to 2025-07-16"
+  },
+  {
+    "id": "INV-610516_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20250714-20250716-3896",
+    "date": "2025-07-18",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 3896,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-14 to 2025-07-16"
+  },
+  {
+    "id": "INV-610296_payment_advice_LiveCounter_IBM-20250714-20250716-39540",
+    "date": "2025-07-18",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 39540,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-14 to 2025-07-16"
+  },
+  {
+    "id": "INV-610511_payment_advice_LiveCounter_IBM-20250714-20250716-2158",
+    "date": "2025-07-18",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 2158,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-14 to 2025-07-16"
+  },
+  {
+    "id": "INV-610514_payment_advice_LiveCounter_IBM-20250714-20250716-26203",
+    "date": "2025-07-18",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 26203,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-14 to 2025-07-16"
+  },
+  {
+    "id": "INV-610513_payment_advice_Tuckshop_IBM-20250714-20250716-609",
+    "date": "2025-07-18",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 609,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-14 to 2025-07-16"
+  },
+  {
+    "id": "INV-610099_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20250714-20250716-2464",
+    "date": "2025-07-18",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 2464,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-14 to 2025-07-16"
+  },
+  {
+    "id": "INV-608418_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20250710-20250713-1662",
+    "date": "2025-07-15",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 1662,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-10 to 2025-07-13"
+  },
+  {
+    "id": "INV-608297_payment_advice_LiveCounter_IBM-20250710-20250713-21620",
+    "date": "2025-07-15",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 21620,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-10 to 2025-07-13"
+  },
+  {
+    "id": "INV-608412_payment_advice_LiveCounter_IBM-20250710-20250713-912",
+    "date": "2025-07-15",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 912,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-10 to 2025-07-13"
+  },
+  {
+    "id": "INV-608415_payment_advice_LiveCounter_IBM-20250710-20250713-13183",
+    "date": "2025-07-15",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 13183,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-10 to 2025-07-13"
+  },
+  {
+    "id": "INV-608413_payment_advice_Tuckshop_IBM-20250710-20250713-10",
+    "date": "2025-07-15",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 10,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-10 to 2025-07-13"
+  },
+  {
+    "id": "INV-608414_payment_advice_Tuckshop_IBM-20250710-20250713-379",
+    "date": "2025-07-15",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 379,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-10 to 2025-07-13"
+  },
+  {
+    "id": "INV-608142_payment_advice_TuckShop_IBM-20250710-20250713-419",
+    "date": "2025-07-15",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 419,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-10 to 2025-07-13"
+  },
+  {
+    "id": "INV-607625_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20250710-20250713-1403",
+    "date": "2025-07-15",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 1403,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-10 to 2025-07-13"
+  },
+  {
+    "id": "INV-606400_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20250707-20250709-2334",
+    "date": "2025-07-11",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 2334,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-07 to 2025-07-09"
+  },
+  {
+    "id": "INV-606179_payment_advice_LiveCounter_IBM-20250707-20250709-37294",
+    "date": "2025-07-11",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 37294,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-07 to 2025-07-09"
+  },
+  {
+    "id": "INV-606393_payment_advice_LiveCounter_IBM-20250707-20250709-1308",
+    "date": "2025-07-11",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 1308,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-07 to 2025-07-09"
+  },
+  {
+    "id": "INV-606397_payment_advice_LiveCounter_IBM-20250707-20250709-24739",
+    "date": "2025-07-11",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 24739,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-07 to 2025-07-09"
+  },
+  {
+    "id": "INV-606178_payment_advice_Tuckshop_IBM-20250707-20250709-53",
+    "date": "2025-07-11",
+    "location": "IBM",
+    "stall": "Tuckshop Uppal-2nd Floor",
+    "amount": 53,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-07 to 2025-07-09"
+  },
+  {
+    "id": "INV-606394_payment_advice_Tuckshop_IBM-20250707-20250709-20",
+    "date": "2025-07-11",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 20,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-07 to 2025-07-09"
+  },
+  {
+    "id": "INV-606396_payment_advice_Tuckshop_IBM-20250707-20250709-720",
+    "date": "2025-07-11",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 720,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-07 to 2025-07-09"
+  },
+  {
+    "id": "INV-605995_payment_advice_TuckShop_IBM-20250707-20250709-1043",
+    "date": "2025-07-11",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 1043,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-07 to 2025-07-09"
+  },
+  {
+    "id": "INV-605050_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20250707-20250709-2928",
+    "date": "2025-07-11",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 2928,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-07 to 2025-07-09"
+  },
+  {
+    "id": "INV-602934_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20250703-20250706-1820",
+    "date": "2025-07-08",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 1820,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-03 to 2025-07-06"
+  },
+  {
+    "id": "INV-602896_payment_advice_LiveCounter_IBM-20250703-20250706-399",
+    "date": "2025-07-08",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 399,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-03 to 2025-07-06"
+  },
+  {
+    "id": "INV-602901_payment_advice_LiveCounter_IBM-20250703-20250706-15451",
+    "date": "2025-07-08",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 15451,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-03 to 2025-07-06"
+  },
+  {
+    "id": "INV-602683_payment_advice_LiveCounter_IBM-20250703-20250706-19800",
+    "date": "2025-07-08",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 19800,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-03 to 2025-07-06"
+  },
+  {
+    "id": "INV-602899_payment_advice_Tuckshop_IBM-20250703-20250706-20",
+    "date": "2025-07-08",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 20,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-03 to 2025-07-06"
+  },
+  {
+    "id": "INV-602900_payment_advice_Tuckshop_IBM-20250703-20250706-492",
+    "date": "2025-07-08",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 492,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-03 to 2025-07-06"
+  },
+  {
+    "id": "INV-602681_payment_advice_Tuckshop_IBM-20250703-20250706-20",
+    "date": "2025-07-08",
+    "location": "IBM",
+    "stall": "Tuckshop Uppal-2nd Floor",
+    "amount": 20,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-03 to 2025-07-06"
+  },
+  {
+    "id": "INV-603988_payment_advice_TuckShop_IBM-20250703-20250706-243",
+    "date": "2025-07-08",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 243,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-03 to 2025-07-06"
+  },
+  {
+    "id": "INV-602903_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20250703-20250706-2237",
+    "date": "2025-07-08",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 2237,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-03 to 2025-07-06"
+  },
+  {
+    "id": "INV-601512_payment_advice_TuckShop_IBM-20250630-20250702-842",
+    "date": "2025-07-04",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 842,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-30 to 2025-07-02"
+  },
+  {
+    "id": "INV-600531_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20250630-20250702-1565",
+    "date": "2025-07-04",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 1565,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-30 to 2025-07-02"
+  },
+  {
+    "id": "INV-600684_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20250630-20250702-2582",
+    "date": "2025-07-04",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 2582,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-30 to 2025-07-02"
+  },
+  {
+    "id": "INV-600252_payment_advice_LiveCounter_IBM-20250630-20250702-38415",
+    "date": "2025-07-04",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 38415,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-30 to 2025-07-02"
+  },
+  {
+    "id": "INV-600679_payment_advice_LiveCounter_IBM-20250630-20250702-1032",
+    "date": "2025-07-04",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 1032,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-30 to 2025-07-02"
+  },
+  {
+    "id": "INV-600682_payment_advice_LiveCounter_IBM-20250630-20250702-25025",
+    "date": "2025-07-04",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 25025,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-30 to 2025-07-02"
+  },
+  {
+    "id": "INV-600250_payment_advice_Tuckshop_IBM-20250630-20250702-40",
+    "date": "2025-07-04",
+    "location": "IBM",
+    "stall": "Tuckshop Uppal-2nd Floor",
+    "amount": 40,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-30 to 2025-07-02"
+  },
+  {
+    "id": "INV-600680_payment_advice_Tuckshop_IBM-20250630-20250702-30",
+    "date": "2025-07-04",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 30,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-30 to 2025-07-02"
+  },
+  {
+    "id": "INV-600681_payment_advice_Tuckshop_IBM-20250630-20250702-803",
+    "date": "2025-07-04",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 803,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-30 to 2025-07-02"
+  },
+  {
+    "id": "INV-598577_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20250626-20250629-1675",
+    "date": "2025-07-01",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 1675,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-26 to 2025-06-29"
+  },
+  {
+    "id": "INV-597961_payment_advice_LiveCounter_IBM-20250626-20250629-24749",
+    "date": "2025-07-01",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 24749,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-26 to 2025-06-29"
+  },
+  {
+    "id": "INV-598568_payment_advice_LiveCounter_IBM-20250626-20250629-933",
+    "date": "2025-07-01",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 933,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-26 to 2025-06-29"
+  },
+  {
+    "id": "INV-598573_payment_advice_LiveCounter_IBM-20250626-20250629-11680",
+    "date": "2025-07-01",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 11680,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-26 to 2025-06-29"
+  },
+  {
+    "id": "INV-598570_payment_advice_Tuckshop_IBM-20250626-20250629-10",
+    "date": "2025-07-01",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 10,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-26 to 2025-06-29"
+  },
+  {
+    "id": "INV-598572_payment_advice_Tuckshop_IBM-20250626-20250629-254",
+    "date": "2025-07-01",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 254,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-26 to 2025-06-29"
+  },
+  {
+    "id": "INV-598432_payment_advice_TuckShop_IBM-20250626-20250629-792",
+    "date": "2025-07-01",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 792,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-26 to 2025-06-29"
+  },
+  {
+    "id": "INV-598251_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20250626-20250629-1386",
+    "date": "2025-07-01",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 1386,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-26 to 2025-06-29"
+  },
+  {
+    "id": "INV-596536_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20250623-20250625-12813",
+    "date": "2025-06-27",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 12813,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-23 to 2025-06-25"
+  },
+  {
+    "id": "INV-596013_payment_advice_LiveCounter_IBM-20250623-20250625-35487",
+    "date": "2025-06-27",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 35487,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-23 to 2025-06-25"
+  },
+  {
+    "id": "INV-596531_payment_advice_LiveCounter_IBM-20250623-20250625-1220",
+    "date": "2025-06-27",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 1220,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-23 to 2025-06-25"
+  },
+  {
+    "id": "INV-596534_payment_advice_LiveCounter_IBM-20250623-20250625-30459",
+    "date": "2025-06-27",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 30459,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-23 to 2025-06-25"
+  },
+  {
+    "id": "INV-596011_payment_advice_Tuckshop_IBM-20250623-20250625-145",
+    "date": "2025-06-27",
+    "location": "IBM",
+    "stall": "Tuckshop Uppal-2nd Floor",
+    "amount": 145,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-23 to 2025-06-25"
+  },
+  {
+    "id": "INV-596532_payment_advice_Tuckshop_IBM-20250623-20250625-51",
+    "date": "2025-06-27",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 51,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-23 to 2025-06-25"
+  },
+  {
+    "id": "INV-596533_payment_advice_Tuckshop_IBM-20250623-20250625-688",
+    "date": "2025-06-27",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 688,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-23 to 2025-06-25"
+  },
+  {
+    "id": "INV-596563_payment_advice_TuckShop_IBM-20250623-20250625-944",
+    "date": "2025-06-27",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 944,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-23 to 2025-06-25"
+  },
+  {
+    "id": "INV-596196_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20250623-20250625-1993",
+    "date": "2025-06-27",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 1993,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-23 to 2025-06-25"
+  },
+  {
+    "id": "INV-593694_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20250619-20250622-689",
+    "date": "2025-06-24",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 689,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-19 to 2025-06-22"
+  },
+  {
+    "id": "INV-594062_payment_advice_LiveCounter_IBM-20250619-20250622-696",
+    "date": "2025-06-24",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 696,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-19 to 2025-06-22"
+  },
+  {
+    "id": "INV-594067_payment_advice_LiveCounter_IBM-20250619-20250622-12312",
+    "date": "2025-06-24",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 12312,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-19 to 2025-06-22"
+  },
+  {
+    "id": "INV-594072_payment_advice_LiveCounter_IBM-20250619-20250622-16528",
+    "date": "2025-06-24",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 16528,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-19 to 2025-06-22"
+  },
+  {
+    "id": "INV-594071_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20250619-20250622-2158",
+    "date": "2025-06-24",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 2158,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-19 to 2025-06-22"
+  },
+  {
+    "id": "INV-594064_payment_advice_Tuckshop_IBM-20250619-20250622-49",
+    "date": "2025-06-24",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 49,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-19 to 2025-06-22"
+  },
+  {
+    "id": "INV-594065_payment_advice_Tuckshop_IBM-20250619-20250622-744",
+    "date": "2025-06-24",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 744,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-19 to 2025-06-22"
+  },
+  {
+    "id": "INV-594046_payment_advice_TuckShop_IBM-20250619-20250622-380",
+    "date": "2025-06-24",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 380,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-19 to 2025-06-22"
+  },
+  {
+    "id": "INV-592150_payment_advice_LiveCounter_IBM-20250616-20250618-997",
+    "date": "2025-06-20",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 997,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-16 to 2025-06-18"
+  },
+  {
+    "id": "INV-592154_payment_advice_LiveCounter_IBM-20250616-20250618-23748",
+    "date": "2025-06-20",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 23748,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-16 to 2025-06-18"
+  },
+  {
+    "id": "INV-592159_payment_advice_LiveCounter_IBM-20250616-20250618-30908",
+    "date": "2025-06-20",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 30908,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-16 to 2025-06-18"
+  },
+  {
+    "id": "INV-592153_payment_advice_Tuckshop_IBM-20250616-20250618-402",
+    "date": "2025-06-20",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 402,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-16 to 2025-06-18"
+  },
+  {
+    "id": "INV-592156_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20250616-20250618-3361",
+    "date": "2025-06-20",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 3361,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-16 to 2025-06-18"
+  },
+  {
+    "id": "INV-591445_payment_advice_TheGutGuru_DSM_Shared_Services_India_Private_Limited-20250616-20250618-2261",
+    "date": "2025-06-20",
+    "location": "DSM Shared Services",
+    "stall": "The Gut Guru DSM DSM",
+    "amount": 2261,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-16 to 2025-06-18"
+  },
+  {
+    "id": "INV-591983_payment_advice_TuckShop_IBM-20250616-20250618-1309",
+    "date": "2025-06-20",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 1309,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-16 to 2025-06-18"
+  },
+  {
+    "id": "INV-589818_payment_advice_LiveCounter_IBM-20250612-20250615-19189",
+    "date": "2025-06-17",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 19189,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-12 to 2025-06-15"
+  },
+  {
+    "id": "INV-589898_payment_advice_LiveCounter_IBM-20250612-20250615-248",
+    "date": "2025-06-17",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 248,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-12 to 2025-06-15"
+  },
+  {
+    "id": "INV-589902_payment_advice_LiveCounter_IBM-20250612-20250615-10417",
+    "date": "2025-06-17",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 10417,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-12 to 2025-06-15"
+  },
+  {
+    "id": "INV-589901_payment_advice_Tuckshop_IBM-20250612-20250615-45",
+    "date": "2025-06-17",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 45,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-12 to 2025-06-15"
+  },
+  {
+    "id": "INV-589816_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20250612-20250615-1764",
+    "date": "2025-06-17",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 1764,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-12 to 2025-06-15"
+  },
+  {
+    "id": "INV-589451_payment_advice_TuckShop_IBM-20250612-20250615-395",
+    "date": "2025-06-17",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 395,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-12 to 2025-06-15"
+  },
+  {
+    "id": "INV-583399_payment_advice_LiveCounter_IBM-20250602-20250604-721",
+    "date": "2025-06-06",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 721,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-02 to 2025-06-04"
+  },
+  {
+    "id": "INV-583401_payment_advice_LiveCounter_IBM-20250602-20250604-12057",
+    "date": "2025-06-06",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 12057,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-02 to 2025-06-04"
+  },
+  {
+    "id": "INV-583406_payment_advice_LiveCounter_IBM-20250602-20250604-19277",
+    "date": "2025-06-06",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 19277,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-02 to 2025-06-04"
+  },
+  {
+    "id": "INV-583400_payment_advice_Tuckshop_IBM-20250602-20250604-82",
+    "date": "2025-06-06",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 82,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-02 to 2025-06-04"
+  },
+  {
+    "id": "INV-583403_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20250602-20250604-1715",
+    "date": "2025-06-06",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 1715,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-02 to 2025-06-04"
+  },
+  {
+    "id": "INV-583366_payment_advice_TuckShop_IBM-20250602-20250604-540",
+    "date": "2025-06-06",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 540,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-02 to 2025-06-04"
+  },
+  {
+    "id": "INV-587504_payment_advice_Tuckshop_IBM-20250609-20250611-187",
+    "date": "2025-06-13",
+    "location": "IBM",
+    "stall": "Tuckshop Orion B6",
+    "amount": 187,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-09 to 2025-06-11"
+  },
+  {
+    "id": "INV-587507_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20250609-20250611-2891",
+    "date": "2025-06-13",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 2891,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-09 to 2025-06-11"
+  },
+  {
+    "id": "INV-587485_payment_advice_LiveCounter_IBM-20250609-20250611-28819",
+    "date": "2025-06-13",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 28819,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-09 to 2025-06-11"
+  },
+  {
+    "id": "INV-587501_payment_advice_LiveCounter_IBM-20250609-20250611-899",
+    "date": "2025-06-13",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 899,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-09 to 2025-06-11"
+  },
+  {
+    "id": "INV-587505_payment_advice_LiveCounter_IBM-20250609-20250611-21831",
+    "date": "2025-06-13",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 21831,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-09 to 2025-06-11"
+  },
+  {
+    "id": "INV-587475_payment_advice_TuckShop_IBM-20250609-20250611-609",
+    "date": "2025-06-13",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 609,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-09 to 2025-06-11"
+  },
+  {
+    "id": "INV-585593_payment_advice_TuckShop_IBM-20250605-20250608-522",
+    "date": "2025-06-10",
+    "location": "IBM",
+    "stall": "Tuck Shop Orion B5-4th",
+    "amount": 522,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-05 to 2025-06-08"
+  },
+  {
+    "id": "INV-585624_payment_advice_LiveCounter_IBM-20250605-20250608-584",
+    "date": "2025-06-10",
+    "location": "IBM",
+    "stall": "Live Counter Orion B5-4th",
+    "amount": 584,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-05 to 2025-06-08"
+  },
+  {
+    "id": "INV-585626_payment_advice_LiveCounter_IBM-20250605-20250608-10185",
+    "date": "2025-06-10",
+    "location": "IBM",
+    "stall": "Live Counter Orion 14th",
+    "amount": 10185,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-05 to 2025-06-08"
+  },
+  {
+    "id": "INV-585629_payment_advice_LiveCounter_IBM-20250605-20250608-16149",
+    "date": "2025-06-10",
+    "location": "IBM",
+    "stall": "Live Counter Mindspace 13th",
+    "amount": 16149,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-05 to 2025-06-08"
+  },
+  {
+    "id": "INV-585628_payment_advice_Orion14thfloorCafeteriaTuckshop_IBM-20250605-20250608-1011",
+    "date": "2025-06-10",
+    "location": "IBM",
+    "stall": "Orion 14th floor Cafeteria - Tuckshop",
+    "amount": 1011,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-05 to 2025-06-08"
+  },
+  {
+    "id": "INV-671985_payment_advice_JuiceCounter_IBM-20251013-20251015-4015",
+    "date": "2025-10-17",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 4015,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-13 to 2025-10-15"
+  },
+  {
+    "id": "INV-674717_payment_advice_JuiceCounter_IBM-20251016-20251019-2626",
+    "date": "2025-10-21",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 2626,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-16 to 2025-10-19"
+  },
+  {
+    "id": "INV-676633_payment_advice_JuiceCounter_IBM-20251020-20251022-2382",
+    "date": "2025-10-24",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 2382,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-20 to 2025-10-22"
+  },
+  {
+    "id": "INV-678722_payment_advice_JuiceCounter_IBM-20251023-20251026-1760",
+    "date": "2025-10-28",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 1760,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-23 to 2025-10-26"
+  },
+  {
+    "id": "INV-681130_payment_advice_JuiceCounter_IBM-20251027-20251029-5345",
+    "date": "2025-10-31",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 5345,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-27 to 2025-10-29"
+  },
+  {
+    "id": "INV-683434_payment_advice_JuiceCounter_IBM-20251030-20251102-2403",
+    "date": "2025-11-04",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 2403,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-30 to 2025-11-02"
+  },
+  {
+    "id": "INV-685606_payment_advice_JuiceCounter_IBM-20251103-20251105-4555",
+    "date": "2025-11-07",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 4555,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-03 to 2025-11-05"
+  },
+  {
+    "id": "INV-687963_payment_advice_JuiceCounter_IBM-20251106-20251109-2159",
+    "date": "2025-11-11",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 2159,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-06 to 2025-11-09"
+  },
+  {
+    "id": "INV-691880_payment_advice_JuiceCounter_IBM-20251110-20251112-5188",
+    "date": "2025-11-14",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 5188,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-10 to 2025-11-12"
+  },
+  {
+    "id": "INV-693666_payment_advice_JuiceCounter_IBM-20251113-20251116-2612",
+    "date": "2025-11-18",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 2612,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-13 to 2025-11-16"
+  },
+  {
+    "id": "INV-696219_payment_advice_JuiceCounter_IBM-20251117-20251119-3717",
+    "date": "2025-11-21",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 3717,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-17 to 2025-11-19"
+  },
+  {
+    "id": "INV-698660_payment_advice_JuiceCounter_IBM-20251120-20251123-1203",
+    "date": "2025-11-25",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 1203,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-20 to 2025-11-23"
+  },
+  {
+    "id": "INV-700837_payment_advice_JuiceCounter_IBM-20251124-20251126-3536",
+    "date": "2025-11-28",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 3536,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-24 to 2025-11-26"
+  },
+  {
+    "id": "INV-703402_payment_advice_JuiceCounter_IBM-20251127-20251130-2402",
+    "date": "2025-12-02",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 2402,
+    "status": "Processed",
+    "serviceDateRange": "2025-11-27 to 2025-11-30"
+  },
+  {
+    "id": "INV-705547_payment_advice_JuiceCounter_IBM-20251201-20251203-3013",
+    "date": "2025-12-05",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 3013,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-01 to 2025-12-03"
+  },
+  {
+    "id": "INV-707828_payment_advice_JuiceCounter_IBM-20251204-20251207-1081",
+    "date": "2025-12-09",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 1081,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-04 to 2025-12-07"
+  },
+  {
+    "id": "INV-709731_payment_advice_JuiceCounter_IBM-20251208-20251210-5363",
+    "date": "2025-12-12",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 5363,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-08 to 2025-12-10"
+  },
+  {
+    "id": "INV-712612_payment_advice_JuiceCounter_IBM-20251211-20251214-3362",
+    "date": "2025-12-16",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 3362,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-11 to 2025-12-14"
+  },
+  {
+    "id": "INV-716136_payment_advice_JuiceCounter_IBM-20251215-20251217-5342",
+    "date": "2025-12-19",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 5342,
+    "status": "Processed",
+    "serviceDateRange": "2025-12-15 to 2025-12-17"
+  },
+  {
+    "id": "INV-669893_payment_advice_JuiceCounter_IBM-20251009-20251012-2871",
+    "date": "2025-10-14",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 2871,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-09 to 2025-10-12"
+  },
+  {
+    "id": "INV-667449_payment_advice_JuiceCounter_IBM-20251006-20251008-3366",
+    "date": "2025-10-10",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 3366,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-06 to 2025-10-08"
+  },
+  {
+    "id": "INV-665014_payment_advice_JuiceCounter_IBM-20251002-20251005-959",
+    "date": "2025-10-07",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 959,
+    "status": "Processed",
+    "serviceDateRange": "2025-10-02 to 2025-10-05"
+  },
+  {
+    "id": "INV-663081_payment_advice_JuiceCounter_IBM-20250929-20251001-1666",
+    "date": "2025-10-03",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 1666,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-29 to 2025-10-01"
+  },
+  {
+    "id": "INV-661018_payment_advice_JuiceCounter_IBM-20250925-20250928-3435",
+    "date": "2025-09-30",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 3435,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-25 to 2025-09-28"
+  },
+  {
+    "id": "INV-658347_payment_advice_JuiceCounter_IBM-20250922-20250924-4862",
+    "date": "2025-09-26",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 4862,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-22 to 2025-09-24"
+  },
+  {
+    "id": "INV-656591_payment_advice_JuiceCounter_IBM-20250918-20250921-1910",
+    "date": "2025-09-23",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 1910,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-18 to 2025-09-21"
+  },
+  {
+    "id": "INV-653861_payment_advice_JuiceCounter_IBM-20250915-20250917-4367",
+    "date": "2025-09-19",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 4367,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-15 to 2025-09-17"
+  },
+  {
+    "id": "INV-651528_payment_advice_JuiceCounter_IBM-20250911-20250914-3231",
+    "date": "2025-09-16",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 3231,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-11 to 2025-09-14"
+  },
+  {
+    "id": "INV-649218_payment_advice_JuiceCounter_IBM-20250908-20250910-5062",
+    "date": "2025-09-12",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 5062,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-08 to 2025-09-10"
+  },
+  {
+    "id": "INV-646732_payment_advice_JuiceCounter_IBM-20250904-20250907-3583",
+    "date": "2025-09-09",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 3583,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-04 to 2025-09-07"
+  },
+  {
+    "id": "INV-643981_payment_advice_JuiceCounter_IBM-20250901-20250903-6671",
+    "date": "2025-09-05",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 6671,
+    "status": "Processed",
+    "serviceDateRange": "2025-09-01 to 2025-09-03"
+  },
+  {
+    "id": "INV-641637_payment_advice_JuiceCounter_IBM-20250828-20250831-1773",
+    "date": "2025-09-02",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 1773,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-28 to 2025-08-31"
+  },
+  {
+    "id": "INV-639691_payment_advice_JuiceCounter_IBM-20250825-20250827-2680",
+    "date": "2025-08-29",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 2680,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-25 to 2025-08-27"
+  },
+  {
+    "id": "INV-636498_payment_advice_JuiceCounter_IBM-20250821-20250824-2643",
+    "date": "2025-08-26",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 2643,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-21 to 2025-08-24"
+  },
+  {
+    "id": "INV-634329_payment_advice_JuiceCounter_IBM-20250818-20250820-3342",
+    "date": "2025-08-22",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 3342,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-18 to 2025-08-20"
+  },
+  {
+    "id": "INV-632153_payment_advice_JuiceCounter_IBM-20250814-20250817-693",
+    "date": "2025-08-19",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 693,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-14 to 2025-08-17"
+  },
+  {
+    "id": "INV-630168_payment_advice_JuiceCounter_IBM-20250811-20250813-2943",
+    "date": "2025-08-15",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 2943,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-11 to 2025-08-13"
+  },
+  {
+    "id": "INV-627713_payment_advice_JuiceCounter_IBM-20250807-20250810-1610",
+    "date": "2025-08-12",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 1610,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-07 to 2025-08-10"
+  },
+  {
+    "id": "INV-624577_payment_advice_JuiceCounter_IBM-20250804-20250806-3739",
+    "date": "2025-08-08",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 3739,
+    "status": "Processed",
+    "serviceDateRange": "2025-08-04 to 2025-08-06"
+  },
+  {
+    "id": "INV-621834_payment_advice_JuiceCounter_IBM-20250731-20250803-1890",
+    "date": "2025-08-05",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 1890,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-31 to 2025-08-03"
+  },
+  {
+    "id": "INV-619855_payment_advice_JuiceCounter_IBM-20250728-20250730-4825",
+    "date": "2025-08-01",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 4825,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-28 to 2025-07-30"
+  },
+  {
+    "id": "INV-617655_payment_advice_JuiceCounter_IBM-20250724-20250727-2699",
+    "date": "2025-07-29",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 2699,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-24 to 2025-07-27"
+  },
+  {
+    "id": "INV-615667_payment_advice_JuiceCounter_IBM-20250721-20250723-5139",
+    "date": "2025-07-25",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 5139,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-21 to 2025-07-23"
+  },
+  {
+    "id": "INV-613450_payment_advice_JuiceCounter_IBM-20250717-20250720-2574",
+    "date": "2025-07-22",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 2574,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-17 to 2025-07-20"
+  },
+  {
+    "id": "INV-610515_payment_advice_JuiceCounter_IBM-20250714-20250716-4576",
+    "date": "2025-07-18",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 4576,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-14 to 2025-07-16"
+  },
+  {
+    "id": "INV-608417_payment_advice_JuiceCounter_IBM-20250710-20250713-2938",
+    "date": "2025-07-15",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 2938,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-10 to 2025-07-13"
+  },
+  {
+    "id": "INV-606398_payment_advice_JuiceCounter_IBM-20250707-20250709-4158",
+    "date": "2025-07-11",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 4158,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-07 to 2025-07-09"
+  },
+  {
+    "id": "INV-602902_payment_advice_JuiceCounter_IBM-20250703-20250706-3633",
+    "date": "2025-07-08",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 3633,
+    "status": "Processed",
+    "serviceDateRange": "2025-07-03 to 2025-07-06"
+  },
+  {
+    "id": "INV-600683_payment_advice_JuiceCounter_IBM-20250630-20250702-4773",
+    "date": "2025-07-04",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 4773,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-30 to 2025-07-02"
+  },
+  {
+    "id": "INV-598575_payment_advice_JuiceCounter_IBM-20250626-20250629-2071",
+    "date": "2025-07-01",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 2071,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-26 to 2025-06-29"
+  },
+  {
+    "id": "INV-596535_payment_advice_JuiceCounter_IBM-20250623-20250625-5405",
+    "date": "2025-06-27",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 5405,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-23 to 2025-06-25"
+  },
+  {
+    "id": "INV-594069_payment_advice_JuiceCounter_IBM-20250619-20250622-2742",
+    "date": "2025-06-24",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 2742,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-19 to 2025-06-22"
+  },
+  {
+    "id": "INV-592155_payment_advice_JuiceCounter_IBM-20250616-20250618-4085",
+    "date": "2025-06-20",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 4085,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-16 to 2025-06-18"
+  },
+  {
+    "id": "INV-589903_payment_advice_JuiceCounter_IBM-20250612-20250615-1769",
+    "date": "2025-06-17",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 1769,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-12 to 2025-06-15"
+  },
+  {
+    "id": "INV-583402_payment_advice_JuiceCounter_IBM-20250602-20250604-1519",
+    "date": "2025-06-06",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 1519,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-02 to 2025-06-04"
+  },
+  {
+    "id": "INV-587506_payment_advice_JuiceCounter_IBM-20250609-20250611-3631",
+    "date": "2025-06-13",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 3631,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-09 to 2025-06-11"
+  },
+  {
+    "id": "INV-585627_payment_advice_JuiceCounter_IBM-20250605-20250608-1218",
+    "date": "2025-06-10",
+    "location": "IBM",
+    "stall": "Juice Counter Orion 14th",
+    "amount": 1218,
+    "status": "Processed",
+    "serviceDateRange": "2025-06-05 to 2025-06-08"
+  }
+]
