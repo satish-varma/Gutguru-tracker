@@ -1,7 +1,7 @@
-
 import { NextResponse } from 'next/server';
 import imap from 'imap-simple';
 import { addInvoices, getInvoices } from '@/lib/db';
+import { getSettings } from '@/lib/settings';
 import { Invoice } from '@/types';
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const pdf = require('pdf-parse-new');
@@ -44,38 +44,28 @@ export async function POST(request: Request) {
     }
 
     // --- Improved Search Strategy ---
-    // If it's the FIRST run (empty DB), we might want to fetch more history.
-    // But for daily automation, we fetch "SINCE yesterday".
-
-    const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-
-    // Logic: 
-    // 1. If DB is empty -> Fetch last 30 days (First run setup)
-    // 2. If DB has data -> Fetch last 1 day (Daily Sync)
-    // However, parsing 800+ emails is too heavy for a serverless function timeout (10s-60s).
-    // so we will stick to a reasonable limit or purely date based.
-
-    // Let's check current DB size to decide strategy? 
-    // For now, let's just stick to the requested "Since 1 Day" logic + a safety check for the very first run.
-
-    const existingCount = (await getInvoices()).length;
+    const settings = await getSettings();
+    const searchTerm = settings.emailSearchTerm;
 
     // Check for explicit "full=true" query param to force full sync
     const { searchParams } = new URL(request.url);
     const forceFullSync = searchParams.get('full') === 'true';
 
+    // Calculate lookback date based on settings
+    const lookbackDate = new Date();
+    lookbackDate.setDate(lookbackDate.getDate() - (forceFullSync ? 3650 : settings.syncLookbackDays));
+
+    const existingCount = (await getInvoices()).length;
+
     let searchCriteria = [
-      ['TEXT', 'HungerBox'],
-      ['SINCE', yesterday.toISOString()]
+      ['TEXT', searchTerm],
+      ['SINCE', lookbackDate.toISOString()]
     ];
 
-    if (existingCount === 0 || forceFullSync) {
-      console.log(forceFullSync
-        ? 'Full sync requested. Fetching ALL matching emails...'
-        : 'First run detected. Fetching ALL matching emails...');
+    if (existingCount === 0) {
+      console.log('First run detected. Fetching ALL matching emails...');
       // Remove date filter
-      searchCriteria = [['TEXT', 'HungerBox']];
+      searchCriteria = [['TEXT', searchTerm]];
     }
 
 

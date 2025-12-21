@@ -14,6 +14,7 @@ const MOCK_INVOICES: Invoice[] = [
 ];
 
 import { MultiSelect } from '@/components/MultiSelect';
+import { InvoiceDrawer } from '@/components/InvoiceDrawer';
 
 export default function Home() {
 
@@ -30,6 +31,7 @@ export default function Home() {
 
   const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
   const [selectedStalls, setSelectedStalls] = useState<string[]>([]);
+  const [selectedInvoice, setSelectedInvoice] = useState<Invoice | null>(null);
 
   // Date Filter State
   // Filters & Search
@@ -447,7 +449,11 @@ export default function Home() {
                 </tr>
               ) : (
                 paginatedInvoices.map((inv, index) => (
-                  <tr key={`${inv.id}-${index}`}>
+                  <tr
+                    key={`${inv.id}-${index}`}
+                    onClick={() => setSelectedInvoice(inv)}
+                    style={{ cursor: 'pointer' }}
+                  >
                     <td
                       title={`Invoice ID: ${inv.id}`}
                       style={{ fontSize: '0.85rem', color: '#475569', cursor: 'help' }}
@@ -503,6 +509,13 @@ export default function Home() {
           </div>
         )}
       </div>
+
+      <InvoiceDrawer
+        isOpen={!!selectedInvoice}
+        invoice={selectedInvoice}
+        onClose={() => setSelectedInvoice(null)}
+      />
+
     </main>
   );
 }
