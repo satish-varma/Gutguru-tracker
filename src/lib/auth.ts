@@ -31,7 +31,14 @@ export const authOptions: NextAuthOptions = {
                 const user = users.find((u: any) => u.email === credentials.email);
 
                 if (user && bcrypt.compareSync(credentials.password, user.passwordHash)) {
-                    return { id: user.id, name: user.name, email: user.email, role: user.role };
+                    return {
+                        id: user.id,
+                        name: user.name,
+                        email: user.email,
+                        role: user.role,
+                        organizationId: user.organizationId,
+                        permissions: user.permissions
+                    };
                 }
                 return null;
             }
@@ -42,6 +49,8 @@ export const authOptions: NextAuthOptions = {
             if (user) {
                 token.id = user.id;
                 token.role = user.role;
+                token.organizationId = user.organizationId;
+                token.permissions = user.permissions;
             }
             return token;
         },
@@ -49,6 +58,8 @@ export const authOptions: NextAuthOptions = {
             if (session.user) {
                 session.user.id = token.id;
                 session.user.role = token.role;
+                session.user.organizationId = token.organizationId;
+                session.user.permissions = token.permissions;
             }
             return session;
         }

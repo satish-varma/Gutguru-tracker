@@ -15,20 +15,20 @@ const DEFAULT_SETTINGS: AppSettings = {
     emailPassword: '',
 };
 
-function getUserSettingsPath(userId: string) {
-    return path.join(process.cwd(), 'data', userId, 'settings.json');
+function getOrgSettingsPath(orgId: string) {
+    return path.join(process.cwd(), 'data', orgId, 'settings.json');
 }
 
-export async function getSettings(userId: string): Promise<AppSettings> {
+export async function getSettings(orgId: string): Promise<AppSettings> {
     try {
-        const data = await fs.readFile(getUserSettingsPath(userId), 'utf-8');
+        const data = await fs.readFile(getOrgSettingsPath(orgId), 'utf-8');
         return { ...DEFAULT_SETTINGS, ...JSON.parse(data) };
     } catch (error) {
         return DEFAULT_SETTINGS;
     }
 }
 
-export async function saveSettings(userId: string, settings: AppSettings): Promise<void> {
+export async function saveSettings(orgId: string, settings: AppSettings): Promise<void> {
     const newSettings = { ...DEFAULT_SETTINGS, ...settings };
-    await fs.writeFile(getUserSettingsPath(userId), JSON.stringify(newSettings, null, 2));
+    await fs.writeFile(getOrgSettingsPath(orgId), JSON.stringify(newSettings, null, 2));
 }

@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, FileText, BarChart3, Settings, PieChart, LogOut, Shield } from 'lucide-react';
+import { LayoutDashboard, FileText, BarChart3, Settings, PieChart, LogOut, Shield, Users } from 'lucide-react';
 import { useSession, signOut } from 'next-auth/react';
 
 const MENU_ITEMS = [
@@ -18,6 +18,8 @@ export function Sidebar() {
 
   // @ts-ignore
   const isAdmin = session?.user?.role === 'admin';
+  // @ts-ignore
+  const isManager = session?.user?.role === 'manager';
 
   return (
     <aside className="sidebar">
@@ -42,6 +44,16 @@ export function Sidebar() {
             </Link>
           );
         })}
+
+        {isManager && (
+          <Link
+            href="/team"
+            className={`nav-item ${pathname === '/team' ? 'active' : ''}`}
+          >
+            <Users size={18} />
+            <span>Team</span>
+          </Link>
+        )}
 
         {isAdmin && (
           <Link

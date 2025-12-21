@@ -14,10 +14,10 @@ const pdf = require('pdf-parse-new');
 export async function GET() {
   const session = await getServerSession(authOptions);
   // @ts-ignore
-  if (!session || !session.user || !session.user.id) return NextResponse.json({}, { status: 401 });
+  if (!session || !session.user || !session.user.organizationId) return NextResponse.json({}, { status: 401 });
 
   // @ts-ignore
-  const invoices = await getInvoices(session.user.id);
+  const invoices = await getInvoices(session.user.organizationId);
   return NextResponse.json({ success: true, data: invoices });
 }
 
@@ -25,12 +25,17 @@ export async function POST(request: Request) {
 
   const session = await getServerSession(authOptions);
   // @ts-ignore
-  if (!session || !session.user || !session.user.id) {
+  if (!session || !session.user || !session.user.organizationId) {
     return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
   }
 
   // @ts-ignore
-  const settings = await getSettings(session.user.id);
+  if (session.user.role !== 'admin' && session.user.role !== 'manager') {
+    return NextResponse.json({ success: false, error: 'Forbidden: Managers only' }, { status: 403 });
+  }
+
+  // @ts-ignore
+  const settings = await getSettings(session.user.organizationId);
 
   // Determine credential source: User Settings OR Environment Fallback (for admin only?)
   // For now, prioritize User Settings, fallback to ENV for everything else
@@ -89,7 +94,7 @@ export async function POST(request: Request) {
     lookbackDate.setDate(lookbackDate.getDate() - (forceFullSync ? 3650 : settings.syncLookbackDays));
 
     // @ts-ignore
-    const existingCount = (await getInvoices(session.user.id)).length;
+    const existingCount = (await getInvoices(session.user.organizationId)).length;
 
     let searchCriteria = [
       ['TEXT', searchTerm],
@@ -290,7 +295,7 @@ export async function POST(request: Request) {
 
     // Deduplicate and save
     // @ts-ignore
-    const addedInvoices = await addInvoices(session.user.id, potentialInvoices);
+    const addedInvoices = await addInvoices(session.user.organizationId, potentialInvoices);
 
     return NextResponse.json({
       success: true,

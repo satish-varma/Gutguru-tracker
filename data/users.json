@@ -2,22 +2,25 @@
   {
     "id": "admin_user",
     "name": "Admin User",
-    "email": "admin@example.com",
-    "passwordHash": "$2a$10$w1.qXqv.u1.qXqv.u1.qXqv.u1.qXqv.u1.qXqv.u1.qXqv.u1.qX",
-    "role": "admin"
+    "email": "thegutguru.in@gmail.com",
+    "passwordHash": "$2b$10$xBnZm4YXa6VydQ87I4f.yuhG/r5bWxZCXlp4cBP5iluUUyLXVdM5W",
+    "role": "admin",
+    "organizationId": "admin_org"
   },
   {
     "id": "1766298182449",
     "name": "Test User",
     "email": "test@example.com",
     "passwordHash": "$2b$10$eleQthMKx0yy0gbtATn4OONCFLBurDcFWY6z/lJZMht8zlTjEro.i",
-    "role": "user"
+    "role": "manager",
+    "organizationId": "1766298182449"
   },
   {
     "id": "1766298537963",
     "name": "Test User",
     "email": "sa@gmail.com",
     "passwordHash": "$2b$10$f3pq0g7EkIj/emHJnv9GYeKAywuKGqXs47XM7VtBV2CP3mEgS/GQq",
-    "role": "user"
+    "role": "manager",
+    "organizationId": "1766298537963"
   }
 ]
