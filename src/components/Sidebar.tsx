@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, FileText, BarChart3, Settings, PieChart, LogOut } from 'lucide-react';
+import { LayoutDashboard, FileText, BarChart3, Settings, PieChart, LogOut, Shield } from 'lucide-react';
 import { useSession, signOut } from 'next-auth/react';
 
 const MENU_ITEMS = [
@@ -15,6 +15,9 @@ const MENU_ITEMS = [
 export function Sidebar() {
   const pathname = usePathname();
   const { data: session } = useSession();
+
+  // @ts-ignore
+  const isAdmin = session?.user?.role === 'admin';
 
   return (
     <aside className="sidebar">
@@ -39,6 +42,16 @@ export function Sidebar() {
             </Link>
           );
         })}
+
+        {isAdmin && (
+          <Link
+            href="/admin"
+            className={`nav-item ${pathname === '/admin' ? 'active' : ''}`}
+          >
+            <Shield size={18} />
+            <span>Admin</span>
+          </Link>
+        )}
       </nav>
 
       <div className="sidebar-footer">
