@@ -6,6 +6,8 @@ import { Save, RefreshCw, Settings as SettingsIcon } from 'lucide-react';
 export default function SettingsPage() {
     const [searchTerm, setSearchTerm] = useState('HungerBox');
     const [lookbackDays, setLookbackDays] = useState(30);
+    const [emailUser, setEmailUser] = useState('');
+    const [emailPassword, setEmailPassword] = useState('');
     const [isLoading, setIsLoading] = useState(true);
     const [isSaving, setIsSaving] = useState(false);
     const [statusMsg, setStatusMsg] = useState('');
@@ -17,6 +19,8 @@ export default function SettingsPage() {
                 const data = await res.json();
                 setSearchTerm(data.emailSearchTerm);
                 setLookbackDays(data.syncLookbackDays);
+                setEmailUser(data.emailUser || '');
+                setEmailPassword(data.emailPassword || '');
             } catch (e) {
                 console.error('Failed to load settings', e);
             } finally {
@@ -37,7 +41,9 @@ export default function SettingsPage() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     emailSearchTerm: searchTerm,
-                    syncLookbackDays: Number(lookbackDays) // Ensure it's a number
+                    syncLookbackDays: Number(lookbackDays),
+                    emailUser,
+                    emailPassword
                 }),
             });
 
@@ -91,6 +97,7 @@ export default function SettingsPage() {
                             </p>
                         </div>
 
+
                         {/* Field 2: Lookback Window */}
                         <div className="form-group">
                             <label>Sync Lookback Window (Days)</label>
@@ -111,6 +118,44 @@ export default function SettingsPage() {
                             </p>
                         </div>
 
+                    </div>
+                </div>
+
+                {/* Email Credentials Section */}
+                <div className="glass-panel" style={{ padding: '2rem', marginBottom: '2rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
+                        <div style={{ padding: '0.5rem', background: '#ecfdf5', borderRadius: '8px', color: '#059669' }}>
+                            <SettingsIcon size={20} />
+                        </div>
+                        <h2 style={{ fontSize: '1.25rem', margin: 0 }}>IMAP Credentials</h2>
+                    </div>
+
+                    <div style={{ display: 'grid', gap: '1.5rem' }}>
+                        <div className="form-group">
+                            <label>Email Address</label>
+                            <input
+                                type="email"
+                                value={emailUser}
+                                onChange={(e) => setEmailUser(e.target.value)}
+                                placeholder="name@company.com"
+                                className="full-width-input"
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label>App Password</label>
+                            <input
+                                type="password"
+                                value={emailPassword}
+                                onChange={(e) => setEmailPassword(e.target.value)}
+                                placeholder="Enter your App Password (not login password)"
+                                className="full-width-input"
+                            />
+                            <p className="help-text">
+                                For Gmail, enable 2FA and generate an App Password.
+                                <br />This is stored locally in your private settings.
+                            </p>
+                        </div>
                     </div>
                 </div>
 

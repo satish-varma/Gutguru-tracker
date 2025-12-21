@@ -4,11 +4,15 @@ import path from 'path';
 export interface AppSettings {
     emailSearchTerm: string;
     syncLookbackDays: number;
+    emailUser?: string;
+    emailPassword?: string;
 }
 
 const DEFAULT_SETTINGS: AppSettings = {
     emailSearchTerm: 'HungerBox',
     syncLookbackDays: 30,
+    emailUser: '',
+    emailPassword: '',
 };
 
 function getUserSettingsPath(userId: string) {

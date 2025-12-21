@@ -22,16 +22,32 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+
   const session = await getServerSession(authOptions);
   // @ts-ignore
   if (!session || !session.user || !session.user.id) {
     return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
   }
 
+  // @ts-ignore
+  const settings = await getSettings(session.user.id);
+
+  // Determine credential source: User Settings OR Environment Fallback (for admin only?)
+  // For now, prioritize User Settings, fallback to ENV for everything else
+  const emailUser = settings.emailUser || process.env.EMAIL_USER;
+  const emailPass = settings.emailPassword || process.env.EMAIL_PASSWORD;
+
+  if (!emailUser || !emailPass) {
+    return NextResponse.json(
+      { success: false, error: 'Missing email credentials. Please add them in Settings.' },
+      { status: 400 }
+    );
+  }
+
   const config = {
     imap: {
-      user: process.env.EMAIL_USER as string,
-      password: process.env.EMAIL_PASSWORD as string,
+      user: emailUser,
+      password: emailPass,
       host: 'imap.gmail.com',
       port: 993,
       tls: true,
@@ -59,9 +75,9 @@ export async function POST(request: Request) {
       await connection.openBox('INBOX');
     }
 
+
     // --- Improved Search Strategy ---
-    // @ts-ignore
-    const settings = await getSettings(session.user.id);
+    // Settings already fetched above
     const searchTerm = settings.emailSearchTerm;
 
     // Check for explicit "full=true" query param to force full sync

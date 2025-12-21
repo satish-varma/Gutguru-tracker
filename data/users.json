@@ -12,5 +12,12 @@
     "email": "test@example.com",
     "passwordHash": "$2b$10$eleQthMKx0yy0gbtATn4OONCFLBurDcFWY6z/lJZMht8zlTjEro.i",
     "role": "user"
+  },
+  {
+    "id": "1766298537963",
+    "name": "Test User",
+    "email": "sa@gmail.com",
+    "passwordHash": "$2b$10$f3pq0g7EkIj/emHJnv9GYeKAywuKGqXs47XM7VtBV2CP3mEgS/GQq",
+    "role": "user"
   }
 ]
