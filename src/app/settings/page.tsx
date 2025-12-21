@@ -1,10 +1,13 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Save, RefreshCw, Settings as SettingsIcon } from 'lucide-react';
+import { Save, RefreshCw, Settings as SettingsIcon, AlertTriangle, Trash2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 export default function SettingsPage() {
+    const router = useRouter();
     const [searchTerm, setSearchTerm] = useState('HungerBox');
+
     const [lookbackDays, setLookbackDays] = useState(30);
     const [emailUser, setEmailUser] = useState('');
     const [emailPassword, setEmailPassword] = useState('');
@@ -57,6 +60,23 @@ export default function SettingsPage() {
             setStatusMsg('Network error.');
         } finally {
             setIsSaving(false);
+        }
+    };
+
+    const handleResetData = async () => {
+        if (confirm('ARE YOU SURE? This will delete ALL your synced invoices irreversibly. You will need to re-sync to get them back.')) {
+            try {
+                const res = await fetch('/api/invoices', { method: 'DELETE' });
+                if (res.ok) {
+                    alert('All data has been wiped.');
+                    router.push('/');
+                    router.refresh();
+                } else {
+                    alert('Failed to reset data.');
+                }
+            } catch (error) {
+                alert('Network error during reset.');
+            }
         }
     };
 
@@ -156,6 +176,41 @@ export default function SettingsPage() {
                                 <br />This is stored locally in your private settings.
                             </p>
                         </div>
+                    </div>
+                </div>
+
+                {/* Danger Zone */}
+                <div className="glass-panel" style={{ padding: '2rem', marginBottom: '2rem', border: '1px solid #fee2e2' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
+                        <div style={{ padding: '0.5rem', background: '#fee2e2', borderRadius: '8px', color: '#ef4444' }}>
+                            <AlertTriangle size={20} />
+                        </div>
+                        <h2 style={{ fontSize: '1.25rem', margin: 0, color: '#b91c1c' }}>Danger Zone</h2>
+                    </div>
+
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div>
+                            <h3 style={{ fontSize: '1rem', fontWeight: 600, margin: '0 0 0.5rem 0' }}>Reset All Data</h3>
+                            <p style={{ color: '#64748b', fontSize: '0.875rem', margin: 0 }}>
+                                This will permanently delete all your synced invoices. You cannot undo this action.
+                            </p>
+                        </div>
+                        <button
+                            type="button"
+                            onClick={handleResetData}
+                            className="btn"
+                            style={{
+                                background: '#fff1f2',
+                                color: '#e11d48',
+                                border: '1px solid #fda4af',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '0.5rem'
+                            }}
+                        >
+                            <Trash2 size={16} />
+                            Reset Data
+                        </button>
                     </div>
                 </div>
 
