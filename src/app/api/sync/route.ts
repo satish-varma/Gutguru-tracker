@@ -3,15 +3,31 @@ import imap from 'imap-simple';
 import { addInvoices, getInvoices } from '@/lib/db';
 import { getSettings } from '@/lib/settings';
 import { Invoice } from '@/types';
+import fs from 'fs';
+import path from 'path';
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/lib/auth";
+
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const pdf = require('pdf-parse-new');
 
 export async function GET() {
-  const invoices = await getInvoices();
+  const session = await getServerSession(authOptions);
+  // @ts-ignore
+  if (!session || !session.user || !session.user.id) return NextResponse.json({}, { status: 401 });
+
+  // @ts-ignore
+  const invoices = await getInvoices(session.user.id);
   return NextResponse.json({ success: true, data: invoices });
 }
 
 export async function POST(request: Request) {
+  const session = await getServerSession(authOptions);
+  // @ts-ignore
+  if (!session || !session.user || !session.user.id) {
+    return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+  }
+
   const config = {
     imap: {
       user: process.env.EMAIL_USER as string,
@@ -44,7 +60,8 @@ export async function POST(request: Request) {
     }
 
     // --- Improved Search Strategy ---
-    const settings = await getSettings();
+    // @ts-ignore
+    const settings = await getSettings(session.user.id);
     const searchTerm = settings.emailSearchTerm;
 
     // Check for explicit "full=true" query param to force full sync
@@ -55,7 +72,8 @@ export async function POST(request: Request) {
     const lookbackDate = new Date();
     lookbackDate.setDate(lookbackDate.getDate() - (forceFullSync ? 3650 : settings.syncLookbackDays));
 
-    const existingCount = (await getInvoices()).length;
+    // @ts-ignore
+    const existingCount = (await getInvoices(session.user.id)).length;
 
     let searchCriteria = [
       ['TEXT', searchTerm],
@@ -225,6 +243,19 @@ export async function POST(request: Request) {
         if (amount > 0) {
           const uniqueId = `INV-${fileName.split('.')[0]}-${amount}`;
 
+          // --- Save PDF locally for download ---
+          const uploadDir = path.join(process.cwd(), 'public', 'invoices');
+          if (!fs.existsSync(uploadDir)) {
+            fs.mkdirSync(uploadDir, { recursive: true });
+          }
+
+          const filePath = path.join(uploadDir, `${uniqueId}.pdf`);
+          try {
+            fs.writeFileSync(filePath, partData);
+          } catch (err) {
+            console.error('Failed to save PDF file:', err);
+          }
+
           potentialInvoices.push({
             id: uniqueId,
             date: date,
@@ -232,7 +263,8 @@ export async function POST(request: Request) {
             stall: stall,
             amount: amount,
             status: 'Processed',
-            serviceDateRange: serviceDateRange
+            serviceDateRange: serviceDateRange,
+            pdfUrl: `/invoices/${uniqueId}.pdf`
           });
         }
       }
@@ -241,7 +273,8 @@ export async function POST(request: Request) {
     connection.end();
 
     // Deduplicate and save
-    const addedInvoices = await addInvoices(potentialInvoices);
+    // @ts-ignore
+    const addedInvoices = await addInvoices(session.user.id, potentialInvoices);
 
     return NextResponse.json({
       success: true,

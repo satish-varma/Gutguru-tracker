@@ -1,8 +1,6 @@
 import fs from 'fs/promises';
 import path from 'path';
 
-const SETTINGS_PATH = path.join(process.cwd(), 'data', 'settings.json');
-
 export interface AppSettings {
     emailSearchTerm: string;
     syncLookbackDays: number;
@@ -13,18 +11,20 @@ const DEFAULT_SETTINGS: AppSettings = {
     syncLookbackDays: 30,
 };
 
-export async function getSettings(): Promise<AppSettings> {
+function getUserSettingsPath(userId: string) {
+    return path.join(process.cwd(), 'data', userId, 'settings.json');
+}
+
+export async function getSettings(userId: string): Promise<AppSettings> {
     try {
-        const data = await fs.readFile(SETTINGS_PATH, 'utf-8');
+        const data = await fs.readFile(getUserSettingsPath(userId), 'utf-8');
         return { ...DEFAULT_SETTINGS, ...JSON.parse(data) };
     } catch (error) {
-        // If file doesn't exist, return defaults
         return DEFAULT_SETTINGS;
     }
 }
 
-export async function saveSettings(settings: AppSettings): Promise<void> {
-    // Ensure we keep defaults for any missing keys
+export async function saveSettings(userId: string, settings: AppSettings): Promise<void> {
     const newSettings = { ...DEFAULT_SETTINGS, ...settings };
-    await fs.writeFile(SETTINGS_PATH, JSON.stringify(newSettings, null, 2));
+    await fs.writeFile(getUserSettingsPath(userId), JSON.stringify(newSettings, null, 2));
 }

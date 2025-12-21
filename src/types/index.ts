@@ -6,4 +6,5 @@ export interface Invoice {
     amount: number;
     status: 'Processed' | 'Pending';
     serviceDateRange?: string;
+    pdfUrl?: string;
 }

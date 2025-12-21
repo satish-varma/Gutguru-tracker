@@ -2,54 +2,63 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, FileText, BarChart3, Settings, PieChart } from 'lucide-react';
+import { LayoutDashboard, FileText, BarChart3, Settings, PieChart, LogOut } from 'lucide-react';
+import { useSession, signOut } from 'next-auth/react';
 
 const MENU_ITEMS = [
-    { name: 'Overview', icon: LayoutDashboard, path: '/' },
-    { name: 'Invoices', icon: FileText, path: '/invoices' }, // Placeholder for dedicated list view
-    { name: 'Analytics', icon: BarChart3, path: '/analytics' }, // Placeholder for deeper stats
-    { name: 'Settings', icon: Settings, path: '/settings' },
+  { name: 'Overview', icon: LayoutDashboard, path: '/' },
+  { name: 'Invoices', icon: FileText, path: '/invoices' },
+  { name: 'Analytics', icon: BarChart3, path: '/analytics' },
+  { name: 'Settings', icon: Settings, path: '/settings' },
 ];
 
 export function Sidebar() {
-    const pathname = usePathname();
+  const pathname = usePathname();
+  const { data: session } = useSession();
 
-    return (
-        <aside className="sidebar">
-            <div className="sidebar-header">
-                <div className="logo-icon">
-                    <PieChart size={20} color="white" />
-                </div>
-                <span className="logo-text">HungerBox</span>
+  return (
+    <aside className="sidebar">
+      <div className="sidebar-header">
+        <div className="logo-icon">
+          <PieChart size={20} color="white" />
+        </div>
+        <span className="logo-text">HungerBox</span>
+      </div>
+
+      <nav className="sidebar-nav">
+        {MENU_ITEMS.map((item) => {
+          const isActive = pathname === item.path;
+          return (
+            <Link
+              key={item.path}
+              href={item.path}
+              className={`nav-item ${isActive ? 'active' : ''}`}
+            >
+              <item.icon size={18} />
+              <span>{item.name}</span>
+            </Link>
+          );
+        })}
+      </nav>
+
+      <div className="sidebar-footer">
+        <div className="user-profile">
+          <div className="avatar">
+            {session?.user?.name ? session.user.name.substring(0, 2).toUpperCase() : 'U'}
+          </div>
+          <div className="user-info">
+            <span className="name">{session?.user?.name || 'User'}</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span className="role">{session?.user?.id === 'admin_user' ? 'Admin' : 'User'}</span>
+              <button onClick={() => signOut()} className="sign-out-btn" title="Sign Out">
+                <LogOut size={12} />
+              </button>
             </div>
+          </div>
+        </div>
+      </div>
 
-            <nav className="sidebar-nav">
-                {MENU_ITEMS.map((item) => {
-                    const isActive = pathname === item.path;
-                    return (
-                        <Link
-                            key={item.path}
-                            href={item.path}
-                            className={`nav-item ${isActive ? 'active' : ''}`}
-                        >
-                            <item.icon size={18} />
-                            <span>{item.name}</span>
-                        </Link>
-                    );
-                })}
-            </nav>
-
-            <div className="sidebar-footer">
-                <div className="user-profile">
-                    <div className="avatar">SV</div>
-                    <div className="user-info">
-                        <span className="name">Satish Varma</span>
-                        <span className="role">Admin</span>
-                    </div>
-                </div>
-            </div>
-
-            <style jsx>{`
+      <style jsx>{`
         .sidebar {
           width: 240px;
           height: 100vh;
@@ -147,6 +156,7 @@ export function Sidebar() {
         .user-info {
           display: flex;
           flex-direction: column;
+          flex: 1;
         }
 
         .name {
@@ -156,10 +166,25 @@ export function Sidebar() {
         }
 
         .role {
-          font-size: 0.75rem;
-          color: #64748b;
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+        
+        .sign-out-btn {
+            background: none;
+            border: none;
+            padding: 0;
+            margin: 0;
+            color: #ef4444;
+            cursor: pointer;
+            opacity: 0.7;
+            display: flex;
+            align-items: center;
+        }
+        .sign-out-btn:hover {
+           opacity: 1;
         }
       `}</style>
-        </aside>
-    );
+    </aside>
+  );
 }

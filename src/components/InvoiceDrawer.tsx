@@ -5,103 +5,117 @@ import { Invoice } from '@/types';
 import { useEffect, useState } from 'react';
 
 interface InvoiceDrawerProps {
-    invoice: Invoice | null;
-    onClose: () => void;
-    isOpen: boolean;
+  invoice: Invoice | null;
+  onClose: () => void;
+  isOpen: boolean;
 }
 
 export function InvoiceDrawer({ invoice, onClose, isOpen }: InvoiceDrawerProps) {
-    const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
-    useEffect(() => {
-        if (isOpen) {
-            setIsVisible(true);
-            document.body.style.overflow = 'hidden';
-        } else {
-            setTimeout(() => setIsVisible(false), 300); // Wait for animation
-            document.body.style.overflow = 'unset';
-        }
-        return () => {
-            document.body.style.overflow = 'unset';
-        };
-    }, [isOpen]);
+  useEffect(() => {
+    if (isOpen) {
+      setIsVisible(true);
+      document.body.style.overflow = 'hidden';
+    } else {
+      setTimeout(() => setIsVisible(false), 300); // Wait for animation
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
 
-    if (!isVisible && !isOpen) return null;
+  if (!isVisible && !isOpen) return null;
 
-    return (
-        <>
-            {/* Backdrop */}
-            <div
-                className={`drawer-backdrop ${isOpen ? 'open' : ''}`}
-                onClick={onClose}
-            />
+  return (
+    <>
+      {/* Backdrop */}
+      <div
+        className={`drawer-backdrop ${isOpen ? 'open' : ''}`}
+        onClick={onClose}
+      />
 
-            {/* Drawer Panel */}
-            <div className={`drawer-panel ${isOpen ? 'open' : ''}`}>
-                <div className="drawer-header">
-                    <div>
-                        <h2 className="drawer-title">Invoice Details</h2>
-                        <p className="drawer-subtitle">ID: {invoice?.id || '...'}</p>
-                    </div>
-                    <button onClick={onClose} className="close-btn">
-                        <X size={20} />
-                    </button>
-                </div>
+      {/* Drawer Panel */}
+      <div className={`drawer-panel ${isOpen ? 'open' : ''}`}>
+        <div className="drawer-header">
+          <div>
+            <h2 className="drawer-title">Invoice Details</h2>
+            <p className="drawer-subtitle">ID: {invoice?.id || '...'}</p>
+          </div>
+          <button onClick={onClose} className="close-btn">
+            <X size={20} />
+          </button>
+        </div>
 
-                {invoice ? (
-                    <div className="drawer-content">
-                        {/* Status Banner */}
-                        <div className={`status-banner ${invoice.status.toLowerCase()}`}>
-                            <span className="status-label">{invoice.status}</span>
-                            <span className="status-date">Detected on {new Date().toLocaleDateString()}</span>
-                        </div>
-
-                        {/* Key Value Grid */}
-                        <div className="info-grid">
-                            <div className="info-item">
-                                <label>Amount</label>
-                                <div className="value large">₹{invoice.amount.toLocaleString()}</div>
-                            </div>
-                            <div className="info-item">
-                                <label>Invoice Date</label>
-                                <div className="value">{invoice.date}</div>
-                            </div>
-                            <div className="info-item">
-                                <label>Service Period</label>
-                                <div className="value">{invoice.serviceDateRange || 'N/A'}</div>
-                            </div>
-                        </div>
-
-                        <div className="divider" />
-
-                        {/* Location Details */}
-                        <h3 className="section-title">Location & Vendor</h3>
-                        <div className="info-card">
-                            <div className="info-row">
-                                <span className="label">Location</span>
-                                <span className="value">{invoice.location}</span>
-                            </div>
-                            <div className="info-row">
-                                <span className="label">Stall Name</span>
-                                <span className="value bold">{invoice.stall}</span>
-                            </div>
-                        </div>
-
-                        <div className="divider" />
-
-                        {/* Actions */}
-                        <div className="actions">
-                            <button className="btn btn-primary full-width">Download PDF (Coming Soon)</button>
-                            <button className="btn btn-outline full-width">Mark as Paid</button>
-                        </div>
-
-                    </div>
-                ) : (
-                    <div className="drawer-loading">Loading...</div>
-                )}
+        {invoice ? (
+          <div className="drawer-content">
+            {/* Status Banner */}
+            <div className={`status-banner ${invoice.status.toLowerCase()}`}>
+              <span className="status-label">{invoice.status}</span>
+              <span className="status-date">Detected on {new Date().toLocaleDateString()}</span>
             </div>
 
-            <style jsx>{`
+            {/* Key Value Grid */}
+            <div className="info-grid">
+              <div className="info-item">
+                <label>Amount</label>
+                <div className="value large">₹{invoice.amount.toLocaleString()}</div>
+              </div>
+              <div className="info-item">
+                <label>Invoice Date</label>
+                <div className="value">{invoice.date}</div>
+              </div>
+              <div className="info-item">
+                <label>Service Period</label>
+                <div className="value">{invoice.serviceDateRange || 'N/A'}</div>
+              </div>
+            </div>
+
+            <div className="divider" />
+
+            {/* Location Details */}
+            <h3 className="section-title">Location & Vendor</h3>
+            <div className="info-card">
+              <div className="info-row">
+                <span className="label">Location</span>
+                <span className="value">{invoice.location}</span>
+              </div>
+              <div className="info-row">
+                <span className="label">Stall Name</span>
+                <span className="value bold">{invoice.stall}</span>
+              </div>
+            </div>
+
+            <div className="divider" />
+
+            {/* Actions */}
+            <div className="actions">
+              {invoice.pdfUrl ? (
+                <a
+                  href={invoice.pdfUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-primary full-width"
+                  style={{ textDecoration: 'none' }}
+                >
+                  Download PDF
+                </a>
+              ) : (
+                <button className="btn btn-primary full-width" disabled>
+                  PDF Not Available
+                </button>
+              )}
+              <button className="btn btn-outline full-width">Mark as Paid</button>
+            </div>
+
+          </div>
+        ) : (
+          <div className="drawer-loading">Loading...</div>
+        )}
+      </div>
+
+      <style jsx>{`
         .drawer-backdrop {
           position: fixed;
           top: 0;
@@ -316,6 +330,6 @@ export function InvoiceDrawer({ invoice, onClose, isOpen }: InvoiceDrawerProps) 
           padding: 0.75rem;
         }
       `}</style>
-        </>
-    );
+    </>
+  );
 }

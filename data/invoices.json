@@ -6,7 +6,8 @@
     "stall": "Orion 14th floor Cafeteria - Tuckshop",
     "amount": 3376,
     "status": "Processed",
-    "serviceDateRange": "2025-10-13 to 2025-10-15"
+    "serviceDateRange": "2025-10-13 to 2025-10-15",
+    "pdfUrl": "/invoices/test.pdf"
   },
   {
     "id": "INV-672279_payment_advice_LiveCounter_IBM-20251013-20251015-47309",

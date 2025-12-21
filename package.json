@@ -9,11 +9,13 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "dotenv": "^17.2.3",
     "imap-simple": "^5.1.0",
     "lucide-react": "^0.562.0",
     "mailparser": "^3.9.1",
     "next": "16.1.0",
+    "next-auth": "^4.24.13",
     "pdf-parse-new": "^2.0.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
