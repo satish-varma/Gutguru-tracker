@@ -47,11 +47,10 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background:
-    radial-gradient(circle at 15% 50%, rgba(79, 70, 229, 0.05), transparent 25%),
-    radial-gradient(circle at 85% 30%, rgba(59, 130, 246, 0.05), transparent 25%);
+  background: linear-gradient(135deg, #c084fc 0%, #6366f1 50%, #3b82f6 100%);
   pointer-events: none;
   z-index: -1;
+  opacity: 0.15;
 }
 
 /* Typography */
@@ -132,6 +131,33 @@ h2 {
   opacity: 0.5;
   cursor: not-allowed;
   transform: none;
+}
+
+.btn-premium {
+  background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+  color: white !important;
+  border: none;
+  /* Size is now controlled by utility classes */
+  border-radius: var(--radius-md);
+  /* Matched to Sync Now button */
+  font-weight: 600;
+  box-shadow: 0 2px 4px -1px rgba(79, 70, 229, 0.2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  line-height: 1.2;
+}
+
+.btn-premium:hover {
+  background: linear-gradient(135deg, #1d4ed8 0%, #4338ca 100%);
+  transform: translateY(-0.5px);
+  box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.3);
+}
+
+.btn-premium:active {
+  transform: scale(0.97);
 }
 
 .grid-cols-3 {
@@ -249,4 +275,253 @@ tbody tr:hover td {
 
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(148, 163, 184, 0.5);
+}
+
+/* ==========================================
+   MOBILE RESPONSIVE STYLES
+   ========================================== */
+
+/* Tablet breakpoint */
+@media (max-width: 1024px) {
+  .container {
+    padding: 1.5rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .grid-cols-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stat-value {
+    font-size: 1.75rem;
+  }
+}
+
+/* Mobile breakpoint */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .glass-panel {
+    padding: 1rem !important;
+    border-radius: 0.5rem;
+  }
+
+  .grid-cols-3,
+  .grid-cols-2 {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .stat-card {
+    padding: 1rem;
+  }
+
+  .stat-value {
+    font-size: 1.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+  }
+
+  /* Tables - Compact on mobile */
+  th,
+  td {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  /* Hide less important columns on mobile */
+  .hide-mobile {
+    display: none !important;
+  }
+
+  /* Buttons - Larger touch targets */
+  .btn {
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    min-height: 44px;
+  }
+
+  /* Forms - Full width inputs */
+  select,
+  input {
+    width: 100% !important;
+    min-height: 44px !important;
+  }
+
+  /* Filter layout - Stack vertically */
+  .filter-row {
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+  }
+
+  .filter-row>* {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  /* Header adjustments */
+  header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 1rem !important;
+  }
+
+  header .flex {
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  /* Modal - Full screen on mobile */
+  .modal-overlay {
+    padding: 0.5rem;
+  }
+
+  .modal-content {
+    max-height: 90vh;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0;
+    border-radius: 0.75rem;
+  }
+
+  /* Pagination - Compact */
+  .pagination {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+
+  .pagination button {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* Small mobile breakpoint */
+@media (max-width: 480px) {
+  .container {
+    padding: 0.75rem;
+  }
+
+  h1 {
+    font-size: 1.25rem;
+  }
+
+  .btn {
+    font-size: 0.8rem;
+    padding: 0.6rem 0.8rem;
+  }
+
+  .btn-premium {
+    font-size: 0.8rem;
+    padding: 0.6rem 0.8rem;
+  }
+
+  /* Stack action buttons */
+  .action-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .action-buttons button {
+    width: 100%;
+  }
+
+  /* Saved filters - Scroll horizontally */
+  .saved-filters-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 0.5rem;
+  }
+
+  .saved-filters-scroll::-webkit-scrollbar {
+    height: 4px;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+
+  /* Larger tap targets */
+  .btn,
+  button,
+  select,
+  input,
+  a {
+    min-height: 44px;
+  }
+
+  /* Remove hover effects that don't work on touch */
+  .glass-panel:hover {
+    transform: none;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  tbody tr:hover td {
+    background: transparent;
+  }
+
+  /* Add active states instead */
+  .btn:active {
+    transform: scale(0.98);
+    opacity: 0.9;
+  }
+
+  tr:active td {
+    background: rgba(241, 245, 249, 0.5);
+  }
+}
+
+/* Landscape mobile */
+@media (max-width: 896px) and (orientation: landscape) {
+  .modal-content {
+    max-height: 85vh;
+  }
+}
+
+/* Print styles */
+@media print {
+  .glass-panel {
+    background: white;
+    box-shadow: none;
+    border: 1px solid #e2e8f0;
+  }
+
+  .btn,
+  button:not(.print-visible),
+  .pagination,
+  .filter-row {
+    display: none !important;
+  }
+
+  table {
+    font-size: 10pt;
+  }
+
+  th,
+  td {
+    padding: 0.5rem;
+  }
 }

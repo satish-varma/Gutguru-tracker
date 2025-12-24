@@ -40,7 +40,7 @@ export default function SignIn() {
         <div className="auth-container">
             <div className="auth-card">
                 <h1>Sign In</h1>
-                <p>HungerBox Invoice Tracker</p>
+                <p>TheGutGuru Invoice Tracker</p>
 
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
@@ -71,7 +71,7 @@ export default function SignIn() {
                 </form>
 
                 <p className="footer-text">
-                    Don't have an account? <a href="/auth/signup">Sign Up</a>
+                    For account access, please contact your Manager.
                 </p>
             </div>
 

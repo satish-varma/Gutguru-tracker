@@ -73,7 +73,7 @@ export default function AnalyticsPage() {
         <div className="container" style={{ paddingBottom: '4rem' }}>
             <header className="mb-8">
                 <h1>Analytics Dashboard</h1>
-                <p style={{ color: '#64748b' }}>Deep dive into your HungerBox spending trends.</p>
+                <p style={{ color: '#64748b' }}>Deep dive into your TheGutGuru spending trends.</p>
             </header>
 
             {/* KPI Cards */}
@@ -115,7 +115,7 @@ export default function AnalyticsPage() {
                                 <YAxis axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 12 }} tickFormatter={(val) => `₹${val / 1000}k`} />
                                 <Tooltip
                                     contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)' }}
-                                    formatter={(value: number) => [`₹${value.toLocaleString()}`, 'Spent']}
+                                    formatter={(value: any) => [`₹${Number(value).toLocaleString()}`, 'Spent']}
                                 />
                                 <Area type="monotone" dataKey="total" stroke="#4f46e5" strokeWidth={3} fillOpacity={1} fill="url(#colorTotal)" />
                             </AreaChart>
@@ -142,7 +142,7 @@ export default function AnalyticsPage() {
                                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                     ))}
                                 </Pie>
-                                <Tooltip formatter={(value: number) => `₹${value.toLocaleString()}`} />
+                                <Tooltip formatter={(value: any) => `₹${Number(value).toLocaleString()}`} />
                             </PieChart>
                         </ResponsiveContainer>
                         <div className="legend">
@@ -165,7 +165,7 @@ export default function AnalyticsPage() {
                                 <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#e2e8f0" />
                                 <XAxis type="number" hide />
                                 <YAxis dataKey="name" type="category" width={100} tick={{ fill: '#64748b', fontSize: 11 }} />
-                                <Tooltip cursor={{ fill: 'transparent' }} formatter={(value: number) => `₹${value.toLocaleString()}`} />
+                                <Tooltip cursor={{ fill: 'transparent' }} formatter={(value: any) => `₹${Number(value).toLocaleString()}`} />
                                 <Bar dataKey="amount" fill="#10b981" radius={[0, 4, 4, 0]} barSize={20} />
                             </BarChart>
                         </ResponsiveContainer>

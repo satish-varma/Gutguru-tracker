@@ -22,5 +22,66 @@
     "passwordHash": "$2b$10$f3pq0g7EkIj/emHJnv9GYeKAywuKGqXs47XM7VtBV2CP3mEgS/GQq",
     "role": "manager",
     "organizationId": "1766298537963"
+  },
+  {
+    "id": "6db336b3-0175-4528-b3b0-285c8392f830",
+    "name": "test1",
+    "email": "test1@gmail.com",
+    "passwordHash": "$2b$10$Km1ZKAZWX1UO7fjN84kfF.LV8gqUgG7QA4LLxKWExSN9/Lc0VyDwq",
+    "role": "user",
+    "organizationId": "1766298537963",
+    "permissions": {
+      "locations": [
+        "IBM"
+      ],
+      "stalls": [
+        "Live Counter Mindspace 13th",
+        "Live Counter Orion 14th",
+        "Live Counter Orion B5-4th",
+        "Orion 14th floor Cafeteria - Tuckshop",
+        "Tuckshop Orion B6",
+        "Tuck Shop Orion B5-4th"
+      ],
+      "validFrom": "2025-10-16"
+    },
+    "createdBy": "sa@gmail.com"
+  },
+  {
+    "id": "1766340781555",
+    "name": "Satish Varma",
+    "email": "satish@hungerbox.com",
+    "passwordHash": "$2b$10$esotsF41Syyy.kUW1k0ePu18syKNxnOkVypVFZ3Z4gzBKcT0DLZ5u",
+    "role": "user"
+  },
+  {
+    "id": "1766418057272",
+    "name": "Satish Varma",
+    "email": "satish_new@hungerbox.com",
+    "passwordHash": "$2b$10$Z/x7semHn1sJS.YJQh5uKuIthEWEARE933Hqlp27Y/.5gNjehI2Em",
+    "role": "user"
+  },
+  {
+    "id": "998aeefc-c0d1-4671-92bd-0f929fbb43ac",
+    "name": "Madhu",
+    "email": "madhu@gutguru.in",
+    "passwordHash": "$2b$10$P8FhZfQN6aca1/OMjuBiUOtUoC0B4aIqmjkDpm5KOJ4kWLDFMM0Dq",
+    "role": "user",
+    "organizationId": "1766298537963",
+    "permissions": {
+      "locations": [
+        "IBM"
+      ],
+      "stalls": [
+        "Live Counter Mindspace 13th floor",
+        "Live Counter Orion 14th floor",
+        "Live Counter Orion B5-4th Floor",
+        "Orion 14th floor Cafeteria - Tuckshop",
+        "Tuck Shop Orion B5-4th Floor",
+        "Tuckshop Orion B6 10th",
+        "Tuckshop Orion B6 11th"
+      ],
+      "validFrom": "2025-10-16"
+    },
+    "createdBy": "sa@gmail.com"
   }
 ]

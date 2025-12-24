@@ -1,20 +1,8 @@
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import fs from "fs/promises";
-import path from "path";
 import bcrypt from "bcryptjs";
-
-const USERS_FILE = path.join(process.cwd(), "data", "users.json");
-
-// Helper to get users
-async function getUsers() {
-    try {
-        const data = await fs.readFile(USERS_FILE, "utf-8");
-        return JSON.parse(data);
-    } catch {
-        return [];
-    }
-}
+import { getUsers } from "@/lib/db";
+import { User } from "@/types";
 
 export const authOptions: NextAuthOptions = {
     providers: [
@@ -28,7 +16,7 @@ export const authOptions: NextAuthOptions = {
                 if (!credentials?.email || !credentials?.password) return null;
 
                 const users = await getUsers();
-                const user = users.find((u: any) => u.email === credentials.email);
+                const user = users.find((u: User) => u.email === credentials.email);
 
                 if (user && bcrypt.compareSync(credentials.password, user.passwordHash)) {
                     return {

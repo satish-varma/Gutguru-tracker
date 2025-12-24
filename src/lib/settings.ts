@@ -9,7 +9,7 @@ export interface AppSettings {
 }
 
 const DEFAULT_SETTINGS: AppSettings = {
-    emailSearchTerm: 'HungerBox',
+    emailSearchTerm: 'TheGutGuru',
     syncLookbackDays: 30,
     emailUser: '',
     emailPassword: '',

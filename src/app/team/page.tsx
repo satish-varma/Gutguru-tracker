@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { Users, UserPlus, Edit2, Trash2, Shield, Calendar, MapPin, Store } from 'lucide-react';
 import { format } from 'date-fns';
+import { MultiSelect } from '@/components/MultiSelect';
 
 export default function TeamPage() {
     const { data: session, status } = useSession();
@@ -27,13 +28,22 @@ export default function TeamPage() {
     });
 
     // Reference Data for Selects
+    const [referenceData, setReferenceData] = useState<any[]>([]);
     const [availableLocations, setAvailableLocations] = useState<string[]>([]);
-    const [availableStalls, setAvailableStalls] = useState<string[]>([]);
+    // Derived state for stalls will be calculated based on selected locations
+    const filteredStalls = referenceData.length > 0
+        ? Array.from(new Set(
+            referenceData
+                .filter((item: any) =>
+                    formData.permissions.locations.length === 0 ||
+                    formData.permissions.locations.includes(item.location)
+                )
+                .map((item: any) => item.stall)
+        )).sort() as string[]
+        : [];
 
     useEffect(() => {
-        // @ts-ignore
         if (status === 'authenticated') {
-            // @ts-ignore
             if (session?.user?.role !== 'manager') {
                 router.push('/');
                 return;
@@ -47,9 +57,10 @@ export default function TeamPage() {
         try {
             const res = await fetch('/api/team/users');
             const data = await res.json();
-            if (data.success) setTeam(data.data);
+            if (data.success) setTeam(data.users || []);
         } catch (error) {
             console.error('Failed to fetch team', error);
+            setTeam([]);
         } finally {
             setIsLoading(false);
         }
@@ -60,11 +71,10 @@ export default function TeamPage() {
             const res = await fetch('/api/invoices');
             const result = await res.json();
             if (result.success && Array.isArray(result.data)) {
+                setReferenceData(result.data);
                 // Extract unique values
                 const locs = Array.from(new Set(result.data.map((i: any) => i.location))).sort() as string[];
-                const stalls = Array.from(new Set(result.data.map((i: any) => i.stall))).sort() as string[];
                 setAvailableLocations(locs);
-                setAvailableStalls(stalls);
             }
         } catch (e) {
             console.error('Failed to fetch ref data', e);
@@ -228,125 +238,109 @@ export default function TeamPage() {
                     position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50
                 }}>
-                    <div className="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto m-4">
-                        <form onSubmit={handleSubmit} className="p-6">
-                            <h2 className="text-xl font-bold mb-6">
-                                {editingUser ? 'Edit Member Permissions' : 'Add New Member'}
-                            </h2>
+                    <div className="bg-white rounded-xl shadow-2xl overflow-y-auto m-4" style={{ width: '100%', maxWidth: '600px', maxHeight: '90vh' }}>
+                        <form onSubmit={handleSubmit} className="modal-content" style={{ padding: '1.5rem' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+                                <h2 className="text-xl font-bold" style={{ margin: 0 }}>
+                                    {editingUser ? 'Edit Member Permissions' : 'Add New Member'}
+                                </h2>
+                                <button type="button" onClick={closeModal} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.5rem', lineHeight: 1 }}>&times;</button>
+                            </div>
 
-                            <div className="grid grid-cols-2 gap-4 mb-6">
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1.5rem' }}>
                                 <div>
-                                    <label className="block text-sm font-medium mb-1">Full Name</label>
+                                    <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 500, marginBottom: '0.25rem' }}>Full Name</label>
                                     <input
                                         required
-                                        className="w-full p-2 border rounded"
+                                        className="form-input"
+                                        style={{ width: '100%', padding: '0.5rem', border: '1px solid #e2e8f0', borderRadius: '0.375rem' }}
                                         value={formData.name}
                                         onChange={e => setFormData({ ...formData, name: e.target.value })}
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium mb-1">Email Address</label>
+                                    <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 500, marginBottom: '0.25rem' }}>Email Address</label>
                                     <input
                                         required
                                         type="email"
                                         disabled={!!editingUser}
-                                        className="w-full p-2 border rounded disabled:bg-slate-50"
+                                        className="form-input"
+                                        style={{ width: '100%', padding: '0.5rem', border: '1px solid #e2e8f0', borderRadius: '0.375rem', background: editingUser ? '#f8fafc' : 'white' }}
                                         value={formData.email}
                                         onChange={e => setFormData({ ...formData, email: e.target.value })}
                                     />
                                 </div>
-                                <div className="col-span-2">
-                                    <label className="block text-sm font-medium mb-1">
+                                <div style={{ gridColumn: 'span 2' }}>
+                                    <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 500, marginBottom: '0.25rem' }}>
                                         {editingUser ? 'New Password (leave blank to keep current)' : 'Password'}
                                     </label>
                                     <input
                                         type="password"
                                         required={!editingUser}
-                                        className="w-full p-2 border rounded"
+                                        className="form-input"
+                                        style={{ width: '100%', padding: '0.5rem', border: '1px solid #e2e8f0', borderRadius: '0.375rem' }}
                                         value={formData.password}
                                         onChange={e => setFormData({ ...formData, password: e.target.value })}
                                     />
                                 </div>
                             </div>
 
-                            <div className="border-t pt-6 mb-6">
-                                <h3 className="font-semibold mb-4 flex items-center gap-2">
+                            <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: '1.5rem', marginBottom: '1.5rem' }}>
+                                <h3 className="font-semibold" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem', fontSize: '1rem' }}>
                                     <Shield size={18} /> Access Control
                                 </h3>
 
-                                <div className="space-y-4">
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                                     <div>
-                                        <label className="block text-sm font-medium mb-2">Allowed Locations</label>
-                                        <div className="flex flex-wrap gap-2 p-3 border rounded bg-slate-50 max-h-32 overflow-y-auto">
-                                            {availableLocations.map(loc => (
-                                                <button
-                                                    key={loc}
-                                                    type="button"
-                                                    onClick={() => setFormData({
-                                                        ...formData,
-                                                        permissions: {
-                                                            ...formData.permissions,
-                                                            locations: toggleSelection(formData.permissions.locations, loc)
-                                                        }
-                                                    })}
-                                                    className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${formData.permissions.locations.includes(loc)
-                                                            ? 'bg-blue-600 text-white'
-                                                            : 'bg-white border text-slate-600 hover:border-blue-400'
-                                                        }`}
-                                                >
-                                                    {loc}
-                                                </button>
-                                            ))}
-                                            {availableLocations.length === 0 && <span className="text-slate-400 text-sm">No locations found via Sync yet.</span>}
-                                        </div>
-                                        <p className="text-xs text-slate-500 mt-1">Select specific locations. If none selected, ALL are allowed.</p>
+                                        <MultiSelect
+                                            label="Allowed Locations"
+                                            options={availableLocations}
+                                            value={formData.permissions.locations}
+                                            onChange={(vals) => setFormData({
+                                                ...formData,
+                                                permissions: {
+                                                    ...formData.permissions,
+                                                    locations: vals
+                                                }
+                                            })}
+                                        />
+                                        <p style={{ fontSize: '0.75rem', color: '#64748b', marginTop: '0.25rem' }}>Select specific locations. If none selected (All), ALL are allowed.</p>
                                     </div>
 
                                     <div>
-                                        <label className="block text-sm font-medium mb-2">Allowed Stalls</label>
-                                        <div className="flex flex-wrap gap-2 p-3 border rounded bg-slate-50 max-h-32 overflow-y-auto">
-                                            {availableStalls.map(stall => (
-                                                <button
-                                                    key={stall}
-                                                    type="button"
-                                                    onClick={() => setFormData({
-                                                        ...formData,
-                                                        permissions: {
-                                                            ...formData.permissions,
-                                                            stalls: toggleSelection(formData.permissions.stalls, stall)
-                                                        }
-                                                    })}
-                                                    className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${formData.permissions.stalls.includes(stall)
-                                                            ? 'bg-purple-600 text-white'
-                                                            : 'bg-white border text-slate-600 hover:border-purple-400'
-                                                        }`}
-                                                >
-                                                    {stall}
-                                                </button>
-                                            ))}
-                                            {availableStalls.length === 0 && <span className="text-slate-400 text-sm">No stalls found via Sync yet.</span>}
-                                        </div>
-                                        <p className="text-xs text-slate-500 mt-1">Select specific stalls. If none selected, ALL are allowed.</p>
+                                        <MultiSelect
+                                            label="Allowed Stalls"
+                                            options={filteredStalls}
+                                            value={formData.permissions.stalls}
+                                            onChange={(vals) => setFormData({
+                                                ...formData,
+                                                permissions: {
+                                                    ...formData.permissions,
+                                                    stalls: vals
+                                                }
+                                            })}
+                                        />
+                                        <p style={{ fontSize: '0.75rem', color: '#64748b', marginTop: '0.25rem' }}>Select specific stalls. If none selected (All), ALL are allowed.</p>
                                     </div>
 
                                     <div>
-                                        <label className="block text-sm font-medium mb-1">Data Visibility Start Date</label>
+                                        <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 500, marginBottom: '0.25rem' }}>Data Visibility Start Date</label>
                                         <input
                                             type="date"
-                                            className="p-2 border rounded"
+                                            style={{ padding: '0.5rem', border: '1px solid #e2e8f0', borderRadius: '0.375rem' }}
                                             value={formData.permissions.validFrom}
                                             onChange={e => setFormData({
                                                 ...formData,
                                                 permissions: { ...formData.permissions, validFrom: e.target.value }
                                             })}
                                         />
-                                        <p className="text-xs text-slate-500 mt-1">User can only see data from this date onwards.</p>
+                                        <p style={{ fontSize: '0.75rem', color: '#64748b', marginTop: '0.25rem' }}>User can only see data from this date onwards.</p>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="flex justify-end gap-2 pt-4 border-t">
-                                <button type="button" onClick={closeModal} className="btn border border-slate-200">Cancel</button>
+                            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5rem', borderTop: '1px solid #e2e8f0', paddingTop: '1rem' }}>
+                                <button type="button" onClick={closeModal} className="btn" style={{ background: 'white', border: '1px solid #e2e8f0', color: '#64748b' }}>Cancel</button>
                                 <button type="submit" className="btn btn-primary">Save Member</button>
                             </div>
                         </form>

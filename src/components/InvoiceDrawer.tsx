@@ -1,6 +1,7 @@
 'use client';
 
-import { X } from 'lucide-react';
+import { X, Eye, Download, CreditCard } from 'lucide-react';
+import { useSession } from "next-auth/react";
 import { Invoice } from '@/types';
 import { useEffect, useState } from 'react';
 
@@ -11,6 +12,7 @@ interface InvoiceDrawerProps {
 }
 
 export function InvoiceDrawer({ invoice, onClose, isOpen }: InvoiceDrawerProps) {
+  const { data: session } = useSession();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -91,29 +93,51 @@ export function InvoiceDrawer({ invoice, onClose, isOpen }: InvoiceDrawerProps) 
 
             {/* Actions */}
             <div className="actions">
-              {invoice.pdfUrl ? (
-                <a
-                  href={invoice.pdfUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-primary full-width"
-                  style={{ textDecoration: 'none' }}
+              <div style={{ display: 'flex', gap: '0.75rem' }}>
+                <button
+                  className="btn btn-outline"
+                  style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
+                  onClick={() => {
+                    const pdfUrl = invoice.pdfUrl || `/documents/${invoice.id}.pdf`;
+                    window.open(pdfUrl, '_blank');
+                  }}
                 >
-                  Download PDF
-                </a>
-              ) : (
-                <button className="btn btn-primary full-width" disabled>
-                  PDF Not Available
+                  <Eye size={16} />
+                  Preview
+                </button>
+                <button
+                  className="btn btn-primary"
+                  style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
+                  onClick={() => {
+                    // Use static file path directly
+                    const pdfUrl = invoice.pdfUrl || `/documents/${invoice.id}.pdf`;
+                    // Trigger download
+                    const link = document.createElement('a');
+                    link.href = pdfUrl;
+                    link.download = `Invoice-${invoice.id.split('_')[0]}.pdf`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    // Also open in new tab for viewing
+                    window.open(pdfUrl, '_blank');
+                  }}
+                >
+                  <Download size={16} />
+                  Download
+                </button>
+              </div>
+              {session?.user?.role !== 'user' && (
+                <button className="btn-premium w-full py-2.5 text-sm px-4">
+                  Mark as Paid
                 </button>
               )}
-              <button className="btn btn-outline full-width">Mark as Paid</button>
             </div>
 
           </div>
         ) : (
           <div className="drawer-loading">Loading...</div>
         )}
-      </div>
+      </div >
 
       <style jsx>{`
         .drawer-backdrop {

@@ -1,0 +1,226 @@
+.sidebar {
+    width: 260px;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-right: 1px solid rgba(255, 255, 255, 0.3);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 50;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar.collapsed {
+    width: 80px;
+}
+
+.sidebarHeader {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    padding: 0 1.5rem;
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.logoText {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-left: 0.75rem;
+    white-space: nowrap;
+}
+
+.collapseBtn {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #64748b;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.sidebar:hover .collapseBtn {
+    opacity: 1;
+}
+
+.sidebar.collapsed .collapseBtn {
+    right: auto;
+    left: 50%;
+    transform: translate(-50%, 20px);
+}
+
+.sidebarNav {
+    flex: 1;
+    padding: 0 1rem 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.navItem {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    color: #475569;
+    text-decoration: none;
+    transition: all 0.2s;
+    height: 48px;
+}
+
+.navItem:hover {
+    background: rgba(255, 255, 255, 0.25);
+    color: #0f172a;
+}
+
+.navItem.active {
+    color: #000;
+    font-weight: 600;
+}
+
+.sidebar.collapsed .navItem {
+    justify-content: center;
+    padding: 0;
+    width: 48px;
+    margin: 0 auto;
+}
+
+.settingsContainer {
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    margin-top: auto;
+}
+
+.settingsItem {
+    background: #3b82f6;
+    color: white !important;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.settingsItem:hover {
+    background: #2563eb;
+}
+
+.iconContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+}
+
+
+.userProfile {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.avatar {
+    width: 36px;
+    height: 36px;
+    background: #6366f1;
+    color: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+.userInfo {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+}
+
+.userName {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1e293b;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.userRole {
+    font-size: 0.75rem;
+    color: #64748b;
+}
+
+.logoutBtn {
+    background: transparent;
+    border: none;
+    color: #ef4444;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.logoutBtn:hover {
+    background: #fee2e2;
+}
+
+/* Collapsed Profile */
+.collapsedProfile {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+    width: 100%;
+}
+
+.logoutBtnCollapsed {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.avatarSmall {
+    width: 32px;
+    height: 32px;
+    background: #6366f1;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.8rem;
+    transition: all 0.2s;
+}
+
+.avatarSmall:hover {
+    box-shadow: 0 0 0 2px #c7d2fe;
+}
+
+.linkText {
+    margin-left: 1rem;
+    font-weight: 500;
+}

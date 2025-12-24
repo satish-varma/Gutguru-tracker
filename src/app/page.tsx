@@ -30,13 +30,6 @@ export default function Home() {
     }
   }, [status, router]);
 
-  const MAIN_LOCATIONS = [
-    'Broadridge',
-    'CGI',
-    'IBM',
-    'DSM'
-  ];
-
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isSyncing, setIsSyncing] = useState(false);
@@ -153,6 +146,7 @@ export default function Home() {
 
   // Calculate unique years from data for the dropdown
   const uniqueYears = Array.from(new Set(invoices.map(inv => new Date(inv.date).getFullYear()))).sort((a, b) => b - a);
+  const uniqueLocations = Array.from(new Set(invoices.map(inv => inv.location))).sort();
   // Ensure we at least have current year if no data
   if (uniqueYears.length === 0) uniqueYears.push(new Date().getFullYear());
 
@@ -255,7 +249,7 @@ export default function Home() {
     <main className="container">
       <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
         <div>
-          <h1>HungerBox Tracker</h1>
+          <h1>TheGutGuru Tracker</h1>
           <p style={{ color: '#94a3b8' }}>Payment Advice & Invoice Analytics</p>
         </div>
         <div style={{ display: 'flex', gap: '0.5rem' }}>
@@ -266,15 +260,6 @@ export default function Home() {
           >
             <Download size={16} />
             Export CSV
-          </button>
-          <button
-            className="btn glass-panel"
-            onClick={() => handleSync(true)}
-            disabled={isSyncing}
-            title="Fetch entire history from email"
-            style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.5rem 1rem' }}
-          >
-            Full Sync
           </button>
           <button
             className="btn btn-primary"
@@ -340,7 +325,7 @@ export default function Home() {
             {/* Multi-Select Locations */}
             <MultiSelect
               label="Location"
-              options={MAIN_LOCATIONS}
+              options={uniqueLocations}
               value={selectedLocations}
               onChange={(vals) => {
                 setSelectedLocations(vals);

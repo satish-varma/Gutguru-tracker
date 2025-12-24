@@ -2,45 +2,57 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, FileText, BarChart3, Settings, PieChart, LogOut, Shield, Users } from 'lucide-react';
+import { LayoutDashboard, FileText, BarChart3, Settings, PieChart, Users, Shield, ChevronLeft, ChevronRight, LogOut } from 'lucide-react';
 import { useSession, signOut } from 'next-auth/react';
+import styles from './Sidebar.module.css';
 
 const MENU_ITEMS = [
   { name: 'Overview', icon: LayoutDashboard, path: '/' },
   { name: 'Invoices', icon: FileText, path: '/invoices' },
   { name: 'Analytics', icon: BarChart3, path: '/analytics' },
-  { name: 'Settings', icon: Settings, path: '/settings' },
 ];
 
-export function Sidebar() {
+export interface SidebarProps {
+  isCollapsed: boolean;
+  toggleCollapse: () => void;
+}
+
+export function Sidebar({ isCollapsed, toggleCollapse }: SidebarProps) {
   const pathname = usePathname();
   const { data: session } = useSession();
 
-  // @ts-ignore
   const isAdmin = session?.user?.role === 'admin';
-  // @ts-ignore
   const isManager = session?.user?.role === 'manager';
 
+  const showSettings = isManager || isAdmin;
+
   return (
-    <aside className="sidebar">
-      <div className="sidebar-header">
-        <div className="logo-icon">
-          <PieChart size={20} color="white" />
+    <aside className={`${styles.sidebar} ${isCollapsed ? styles.collapsed : ''}`}>
+      <div className={styles.sidebarHeader}>
+        <div className={styles.iconContainer}>
+          <PieChart size={28} color="#000" />
         </div>
-        <span className="logo-text">HungerBox</span>
+        {!isCollapsed && <span className={styles.logoText}>TheGutGuru</span>}
+
+        <button className={styles.collapseBtn} onClick={toggleCollapse}>
+          {isCollapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
+        </button>
       </div>
 
-      <nav className="sidebar-nav">
+      <nav className={styles.sidebarNav}>
         {MENU_ITEMS.map((item) => {
           const isActive = pathname === item.path;
           return (
             <Link
               key={item.path}
               href={item.path}
-              className={`nav-item ${isActive ? 'active' : ''}`}
+              className={`${styles.navItem} ${isActive ? styles.active : ''}`}
+              title={isCollapsed ? item.name : ''}
             >
-              <item.icon size={18} />
-              <span>{item.name}</span>
+              <div className={styles.iconContainer}>
+                <item.icon size={20} strokeWidth={1.5} />
+              </div>
+              {!isCollapsed && <span className={styles.linkText}>{item.name}</span>}
             </Link>
           );
         })}
@@ -48,168 +60,73 @@ export function Sidebar() {
         {isManager && (
           <Link
             href="/team"
-            className={`nav-item ${pathname === '/team' ? 'active' : ''}`}
+            className={`${styles.navItem} ${pathname === '/team' ? styles.active : ''}`}
+            title={isCollapsed ? 'Team' : ''}
           >
-            <Users size={18} />
-            <span>Team</span>
+            <div className={styles.iconContainer}>
+              <Users size={20} strokeWidth={1.5} />
+            </div>
+            {!isCollapsed && <span className={styles.linkText}>Team</span>}
           </Link>
         )}
 
         {isAdmin && (
           <Link
             href="/admin"
-            className={`nav-item ${pathname === '/admin' ? 'active' : ''}`}
+            className={`${styles.navItem} ${pathname === '/admin' ? styles.active : ''}`}
+            title={isCollapsed ? 'Admin' : ''}
           >
-            <Shield size={18} />
-            <span>Admin</span>
+            <div className={styles.iconContainer}>
+              <Shield size={20} strokeWidth={1.5} />
+            </div>
+            {!isCollapsed && <span className={styles.linkText}>Admin</span>}
           </Link>
         )}
-      </nav>
 
-      <div className="sidebar-footer">
-        <div className="user-profile">
-          <div className="avatar">
-            {session?.user?.name ? session.user.name.substring(0, 2).toUpperCase() : 'U'}
-          </div>
-          <div className="user-info">
-            <span className="name">{session?.user?.name || 'User'}</span>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span className="role">{session?.user?.id === 'admin_user' ? 'Admin' : 'User'}</span>
-              <button onClick={() => signOut()} className="sign-out-btn" title="Sign Out">
-                <LogOut size={12} />
+        {/* Spacer */}
+        <div style={{ flex: 1 }}></div>
+
+        {/* User Profile Section */}
+        {session?.user && (
+          <div className={isCollapsed ? styles.collapsedProfile : styles.userProfile}>
+            {isCollapsed ? (
+              <button onClick={() => signOut()} className={styles.logoutBtnCollapsed} title="Sign Out">
+                <div className={styles.avatarSmall}>
+                  {session.user.name ? session.user.name.charAt(0).toUpperCase() : 'U'}
+                </div>
               </button>
-            </div>
+            ) : (
+              <>
+                <div className={styles.avatar}>
+                  {session.user.name ? session.user.name.charAt(0).toUpperCase() : 'U'}
+                </div>
+                <div className={styles.userInfo}>
+                  <span className={styles.userName}>{session.user.name}</span>
+                  <span className={styles.userRole}>{session.user.role || 'User'}</span>
+                </div>
+                <button onClick={() => signOut()} className={styles.logoutBtn} title="Sign Out">
+                  <LogOut size={18} />
+                </button>
+              </>
+            )}
           </div>
-        </div>
-      </div>
+        )}
 
-      <style jsx>{`
-        .sidebar {
-          width: 240px;
-          height: 100vh;
-          background: #0f172a; /* Slate 900 */
-          color: #94a3b8; /* Slate 400 */
-          display: flex;
-          flex-direction: column;
-          border-right: 1px solid #1e293b;
-          position: fixed;
-          left: 0;
-          top: 0;
-          z-index: 50;
-        }
-
-        .sidebar-header {
-          padding: 1.5rem;
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
-          border-bottom: 1px solid #1e293b;
-        }
-
-        .logo-icon {
-          width: 32px;
-          height: 32px;
-          background: var(--primary);
-          border-radius: 8px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .logo-text {
-          color: white;
-          font-weight: 600;
-          font-size: 1.1rem;
-          letter-spacing: -0.01em;
-        }
-
-        .sidebar-nav {
-          padding: 1.5rem 1rem;
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          gap: 0.5rem;
-        }
-
-        .nav-item {
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
-          padding: 0.75rem 1rem;
-          border-radius: 0.5rem;
-          color: #94a3b8;
-          text-decoration: none;
-          font-size: 0.875rem;
-          font-weight: 500;
-          transition: all 0.2s ease;
-        }
-
-        .nav-item:hover {
-          background: rgba(255, 255, 255, 0.05);
-          color: #e2e8f0;
-        }
-
-        .nav-item.active {
-          background: var(--primary);
-          color: white;
-        }
-
-        .sidebar-footer {
-          padding: 1.5rem;
-          border-top: 1px solid #1e293b;
-        }
-
-        .user-profile {
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
-        }
-
-        .avatar {
-          width: 36px;
-          height: 36px;
-          border-radius: 50%;
-          background: #334155;
-          color: white;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 0.8rem;
-          font-weight: 600;
-        }
-
-        .user-info {
-          display: flex;
-          flex-direction: column;
-          flex: 1;
-        }
-
-        .name {
-          color: #e2e8f0;
-          font-size: 0.875rem;
-          font-weight: 500;
-        }
-
-        .role {
-            font-size: 0.75rem;
-            color: #64748b;
-        }
-        
-        .sign-out-btn {
-            background: none;
-            border: none;
-            padding: 0;
-            margin: 0;
-            color: #ef4444;
-            cursor: pointer;
-            opacity: 0.7;
-            display: flex;
-            align-items: center;
-        }
-        .sign-out-btn:hover {
-           opacity: 1;
-        }
-      `}</style>
+        {showSettings && (
+          <div className={styles.settingsContainer}>
+            <Link
+              href="/settings"
+              className={`${styles.navItem} ${styles.settingsItem} ${pathname === '/settings' ? styles.active : ''}`}
+              title={isCollapsed ? 'Settings' : ''}
+            >
+              <div className={styles.iconContainer}>
+                <Settings size={20} strokeWidth={1.5} />
+              </div>
+              {!isCollapsed && <span className={styles.linkText}>Settings</span>}
+            </Link>
+          </div>
+        )}
+      </nav>
     </aside>
   );
 }

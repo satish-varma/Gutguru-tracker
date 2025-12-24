@@ -1,12 +1,28 @@
 
 import fs from 'fs/promises';
 import path from 'path';
-import { Invoice } from '@/types';
+import { Invoice, User } from '@/types';
 
 // Helper to get organization-specific path
 function getOrgDbPath(orgId: string) {
-    if (!orgId) throw new Error("Organization ID is required for database access");
-    return path.join(process.cwd(), 'data', orgId, 'invoices.json');
+    // Currently pointing to the root invoices.json as that's where the data is populated.
+    // In a real multi-tenant app, this should be path.join(process.cwd(), 'data', orgId, 'invoices.json');
+    return path.join(process.cwd(), 'data', 'invoices.json');
+}
+
+const USERS_FILE = path.join(process.cwd(), 'data', 'users.json');
+
+export async function getUsers(): Promise<User[]> {
+    try {
+        const data = await fs.readFile(USERS_FILE, 'utf-8');
+        return JSON.parse(data);
+    } catch {
+        return [];
+    }
+}
+
+export async function saveUsers(users: User[]): Promise<void> {
+    await fs.writeFile(USERS_FILE, JSON.stringify(users, null, 2));
 }
 
 export async function getInvoices(orgId: string): Promise<Invoice[]> {
@@ -44,4 +60,3 @@ export async function addInvoices(orgId: string, newInvoices: Invoice[]): Promis
 
     return added;
 }
-

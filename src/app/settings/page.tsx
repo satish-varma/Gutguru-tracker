@@ -3,17 +3,31 @@
 import { useState, useEffect } from 'react';
 import { Save, RefreshCw, Settings as SettingsIcon, AlertTriangle, Trash2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 export default function SettingsPage() {
+    const { data: session, status } = useSession();
     const router = useRouter();
-    const [searchTerm, setSearchTerm] = useState('HungerBox');
 
+    useEffect(() => {
+        // @ts-ignore
+        if (status === 'authenticated' && session?.user?.role !== 'manager' && session?.user?.role !== 'admin') {
+            router.push('/');
+        }
+    }, [status, session, router]);
+
+    const [searchTerm, setSearchTerm] = useState('TheGutGuru');
     const [lookbackDays, setLookbackDays] = useState(30);
     const [emailUser, setEmailUser] = useState('');
     const [emailPassword, setEmailPassword] = useState('');
     const [isLoading, setIsLoading] = useState(true);
     const [isSaving, setIsSaving] = useState(false);
+    const [isSyncing, setIsSyncing] = useState(false);
     const [statusMsg, setStatusMsg] = useState('');
+
+    // Modal State
+    const [showResetModal, setShowResetModal] = useState(false);
+    const [isResetting, setIsResetting] = useState(false);
 
     useEffect(() => {
         async function fetchSettings() {
@@ -63,20 +77,49 @@ export default function SettingsPage() {
         }
     };
 
-    const handleResetData = async () => {
-        if (confirm('ARE YOU SURE? This will delete ALL your synced invoices irreversibly. You will need to re-sync to get them back.')) {
-            try {
-                const res = await fetch('/api/invoices', { method: 'DELETE' });
-                if (res.ok) {
-                    alert('All data has been wiped.');
-                    router.push('/');
-                    router.refresh();
-                } else {
-                    alert('Failed to reset data.');
-                }
-            } catch (error) {
-                alert('Network error during reset.');
+    const handleSync = async (fullSync = false) => {
+        setIsSyncing(true);
+        setStatusMsg('');
+        try {
+            const url = fullSync ? '/api/sync?full=true' : '/api/sync';
+            const response = await fetch(url, { method: 'POST' });
+            const result = await response.json();
+
+            if (result.success) {
+                setStatusMsg(result.count > 0 ? `Synced ${result.count} new invoices!` : 'Sync completed. No new invoices.');
+            } else {
+                setStatusMsg('Error: ' + (result.error || 'Sync failed'));
             }
+        } catch (error) {
+            console.error(error);
+            setStatusMsg('Sync failed due to network error.');
+        } finally {
+            setIsSyncing(false);
+            setTimeout(() => setStatusMsg(''), 5000);
+        }
+    };
+
+    const performReset = async () => {
+        setIsResetting(true);
+        try {
+            const res = await fetch('/api/invoices', { method: 'DELETE' });
+            const result = await res.json();
+
+            if (res.ok) {
+                // Success
+                setShowResetModal(false);
+                alert(result.message || 'All data has been wiped.');
+                router.push('/');
+                router.refresh();
+            } else {
+                alert(`Failed to reset data: ${result.error || 'Unknown error'}`);
+                setShowResetModal(false);
+            }
+        } catch (error) {
+            alert('Network error during reset.');
+            setShowResetModal(false);
+        } finally {
+            setIsResetting(false);
         }
     };
 
@@ -90,8 +133,7 @@ export default function SettingsPage() {
             </header>
 
             <form onSubmit={handleSave}>
-
-                {/* Sync Configuration Section */}
+                {/* Sync Config Section */}
                 <div className="glass-panel" style={{ padding: '2rem', marginBottom: '2rem' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
                         <div style={{ padding: '0.5rem', background: '#e0e7ff', borderRadius: '8px', color: '#4f46e5' }}>
@@ -101,15 +143,13 @@ export default function SettingsPage() {
                     </div>
 
                     <div style={{ display: 'grid', gap: '1.5rem' }}>
-
-                        {/* Field 1: Search Term */}
                         <div className="form-group">
                             <label>Email Subject Search Term</label>
                             <input
                                 type="text"
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                placeholder="e.g. HungerBox"
+                                placeholder="e.g. TheGutGuru"
                                 className="full-width-input"
                             />
                             <p className="help-text">
@@ -117,8 +157,6 @@ export default function SettingsPage() {
                             </p>
                         </div>
 
-
-                        {/* Field 2: Lookback Window */}
                         <div className="form-group">
                             <label>Sync Lookback Window (Days)</label>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
@@ -134,10 +172,30 @@ export default function SettingsPage() {
                             </div>
                             <p className="help-text">
                                 When "Full Sync" is triggered, the system will check emails from this many days ago.
-                                <br /><strong>Note:</strong> Larger windows may increase sync time significantly.
                             </p>
                         </div>
 
+                        <div style={{ paddingTop: '1rem', borderTop: '1px solid #e2e8f0' }}>
+                            <button
+                                type="button"
+                                onClick={() => handleSync(true)}
+                                disabled={isSyncing}
+                                className="btn"
+                                style={{
+                                    background: '#eff6ff',
+                                    color: '#2563eb',
+                                    border: '1px solid #bfdbfe',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '0.5rem',
+                                    width: '100%',
+                                    justifyContent: 'center'
+                                }}
+                            >
+                                <RefreshCw size={16} className={isSyncing ? "animate-spin" : ""} />
+                                {isSyncing ? 'Running Full Sync...' : 'Trigger Full Sync Now'}
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -168,54 +226,15 @@ export default function SettingsPage() {
                                 type="password"
                                 value={emailPassword}
                                 onChange={(e) => setEmailPassword(e.target.value)}
-                                placeholder="Enter your App Password (not login password)"
+                                placeholder="Enter your App Password"
                                 className="full-width-input"
                             />
-                            <p className="help-text">
-                                For Gmail, enable 2FA and generate an App Password.
-                                <br />This is stored locally in your private settings.
-                            </p>
                         </div>
-                    </div>
-                </div>
-
-                {/* Danger Zone */}
-                <div className="glass-panel" style={{ padding: '2rem', marginBottom: '2rem', border: '1px solid #fee2e2' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
-                        <div style={{ padding: '0.5rem', background: '#fee2e2', borderRadius: '8px', color: '#ef4444' }}>
-                            <AlertTriangle size={20} />
-                        </div>
-                        <h2 style={{ fontSize: '1.25rem', margin: 0, color: '#b91c1c' }}>Danger Zone</h2>
-                    </div>
-
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <div>
-                            <h3 style={{ fontSize: '1rem', fontWeight: 600, margin: '0 0 0.5rem 0' }}>Reset All Data</h3>
-                            <p style={{ color: '#64748b', fontSize: '0.875rem', margin: 0 }}>
-                                This will permanently delete all your synced invoices. You cannot undo this action.
-                            </p>
-                        </div>
-                        <button
-                            type="button"
-                            onClick={handleResetData}
-                            className="btn"
-                            style={{
-                                background: '#fff1f2',
-                                color: '#e11d48',
-                                border: '1px solid #fda4af',
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '0.5rem'
-                            }}
-                        >
-                            <Trash2 size={16} />
-                            Reset Data
-                        </button>
                     </div>
                 </div>
 
                 {/* Actions */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '3rem' }}>
                     <button
                         type="submit"
                         className="btn btn-primary"
@@ -229,10 +248,9 @@ export default function SettingsPage() {
                             </>
                         )}
                     </button>
-
                     {statusMsg && (
                         <span style={{
-                            color: statusMsg.includes('Error') ? '#ef4444' : '#10b981',
+                            color: statusMsg.includes('Error') || statusMsg.includes('Failed') ? '#ef4444' : '#10b981',
                             fontWeight: 500,
                             fontSize: '0.9rem',
                             animation: 'fadeIn 0.3s ease'
@@ -241,42 +259,82 @@ export default function SettingsPage() {
                         </span>
                     )}
                 </div>
-
             </form>
+
+            {/* Danger Zone */}
+            <div className="glass-panel" style={{ padding: '2rem', marginBottom: '2rem', border: '1px solid #fee2e2' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
+                    <div style={{ padding: '0.5rem', background: '#fee2e2', borderRadius: '8px', color: '#ef4444' }}>
+                        <AlertTriangle size={20} />
+                    </div>
+                    <h2 style={{ fontSize: '1.25rem', margin: 0, color: '#b91c1c' }}>Danger Zone</h2>
+                </div>
+
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div>
+                        <h3 style={{ fontSize: '1rem', fontWeight: 600, margin: '0 0 0.5rem 0' }}>Reset All Data</h3>
+                        <p style={{ color: '#64748b', fontSize: '0.875rem', margin: 0 }}>
+                            This will permanently delete all your synced invoices. Cannot be undone.
+                        </p>
+                    </div>
+                    <button
+                        type="button"
+                        onClick={() => setShowResetModal(true)}
+                        className="btn"
+                        style={{
+                            background: '#fff1f2',
+                            color: '#e11d48',
+                            border: '1px solid #fda4af',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.5rem'
+                        }}
+                    >
+                        <Trash2 size={16} />
+                        Reset Data
+                    </button>
+                </div>
+            </div>
+
+            {/* Custom Modal */}
+            {showResetModal && (
+                <div style={{
+                    position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100
+                }}>
+                    <div className="bg-white rounded-xl shadow-2xl p-6" style={{ maxWidth: '400px', width: '90%' }}>
+                        <h3 className="text-lg font-bold text-red-600 mb-2">Confirm Data Reset</h3>
+                        <p className="text-gray-600 mb-6">
+                            Are you sure you want to delete ALL synced invoices? This action cannot be undone. You will need to perform a full sync to recover data.
+                        </p>
+                        <div className="flex justify-end gap-3">
+                            <button
+                                onClick={() => setShowResetModal(false)}
+                                className="btn"
+                                style={{ border: '1px solid #e2e8f0' }}
+                                disabled={isResetting}
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                onClick={performReset}
+                                className="btn bg-red-600 text-white hover:bg-red-700"
+                                disabled={isResetting}
+                            >
+                                {isResetting ? 'Resetting...' : 'Yes, Delete Everything'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             <style jsx>{`
         .mb-8 { margin-bottom: 2rem; }
-        
-        .form-group {
-          display: flex;
-          flex-direction: column;
-          gap: 0.5rem;
-        }
-
-        label {
-          font-size: 0.875rem;
-          font-weight: 600;
-          color: #334155;
-        }
-
-        .help-text {
-          font-size: 0.8rem;
-          color: #94a3b8;
-          line-height: 1.4;
-        }
-
-        .full-width-input {
-          width: 100%;
-        }
-
-        .number-input {
-          width: 120px;
-        }
-
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(5px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
+        .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        label { font-size: 0.875rem; font-weight: 600; color: #334155; }
+        .help-text { font-size: 0.8rem; color: #94a3b8; line-height: 1.4; }
+        .full-width-input { width: 100%; }
+        .number-input { width: 120px; }
       `}</style>
         </div>
     );

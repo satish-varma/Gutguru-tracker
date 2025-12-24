@@ -61,6 +61,9 @@ export async function DELETE() {
     }
 
     // @ts-ignore
+    console.log(`[Stats] User ${session.user.email} resetting all data for org ${session.user.organizationId}`);
+    // @ts-ignore
     await saveInvoices(session.user.organizationId, []); // Clear data
+    console.log('[Stats] Data cleared successfully');
     return NextResponse.json({ success: true, message: 'All invoices deleted' });
 }

@@ -4,7 +4,7 @@ export interface Invoice {
     location: string;
     stall: string;
     amount: number;
-    status: 'Processed' | 'Pending';
+    status: 'Processed' | 'Pending' | 'Paid';
     serviceDateRange?: string;
     pdfUrl?: string;
 }

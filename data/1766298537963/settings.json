@@ -1,4 +1,6 @@
 {
   "emailSearchTerm": "HungerBox",
-  "syncLookbackDays": 30
+  "syncLookbackDays": 365,
+  "emailUser": "thegutguru.in@gmail.com",
+  "emailPassword": "dsmv kpzw lnou apdb"
 }
