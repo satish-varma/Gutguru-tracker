@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
-import { getUsers, createUser, updateUserRole, deleteUser, getUserByEmail } from "@/lib/turso";
+import { getUsers, createUser, updateUserRole, deleteUser, getUserByEmail, updateUserPassword } from "@/lib/turso";
 import bcrypt from "bcryptjs";
 
 export async function GET() {
@@ -92,8 +92,10 @@ export async function PUT(request: Request) {
             await updateUserRole(userId, newRole, orgId);
         }
 
-        // Note: Password update would need a separate function in turso.ts
-        // For now, role update is supported
+        if (newPassword && newPassword.trim().length > 0) {
+            const hashedPassword = bcrypt.hashSync(newPassword, 10);
+            await updateUserPassword(userId, hashedPassword, orgId);
+        }
 
         return NextResponse.json({ success: true, message: 'User updated successfully' });
     } catch (error) {

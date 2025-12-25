@@ -233,6 +233,13 @@ export async function deleteUser(id: string, orgId: string) {
     });
 }
 
+export async function updateUserPassword(id: string, hashedPassword: string, orgId: string) {
+    await turso.execute({
+        sql: 'UPDATE users SET password = ? WHERE id = ? AND org_id = ?',
+        args: [hashedPassword, id, orgId],
+    });
+}
+
 // Settings operations
 export async function getSettings(orgId: string) {
     const result = await turso.execute({
