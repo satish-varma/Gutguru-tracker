@@ -159,7 +159,6 @@ export default function AdminDashboard() {
 
     if (status === 'loading' || isLoading) return <div className="p-8">Loading Admin Panel...</div>;
 
-    // @ts-ignore
     if (session?.user?.role !== 'admin') return null; // Double check protection
 
     return (

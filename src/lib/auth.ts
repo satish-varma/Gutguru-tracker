@@ -38,6 +38,7 @@ export const authOptions: NextAuthOptions = {
                         email: user.email,
                         role: user.role,
                         organizationId: user.orgId,
+                        permissions: user.permissions,
                     };
                 }
                 return null;

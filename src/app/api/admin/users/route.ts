@@ -7,14 +7,13 @@ import bcrypt from "bcryptjs";
 export async function GET() {
     const session = await getServerSession(authOptions);
 
-    // @ts-ignore
     if (!session || !session.user || session.user.role !== 'admin') {
         return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 403 });
     }
 
     try {
-        // @ts-ignore
-        const users = await getUsers(session.user.organizationId);
+        const orgId = session.user.organizationId as string;
+        const users = await getUsers(orgId);
         const safeUsers = users.map((u: any) => ({
             id: u.id,
             name: u.name,
@@ -33,13 +32,13 @@ export async function GET() {
 export async function POST(request: Request) {
     const session = await getServerSession(authOptions);
 
-    // @ts-ignore
     if (!session || !session.user || session.user.role !== 'admin') {
         return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 403 });
     }
 
     try {
         const { email, password, name, role } = await request.json();
+        const orgId = session.user.organizationId as string;
 
         if (!email || !password) {
             return NextResponse.json({ success: false, error: 'Email and password required' }, { status: 400 });
@@ -59,8 +58,7 @@ export async function POST(request: Request) {
             password: hashedPassword,
             name: name || email.split('@')[0],
             role: role || 'user',
-            // @ts-ignore
-            orgId: session.user.organizationId,
+            orgId: orgId,
         });
 
         return NextResponse.json({ success: true, message: 'User created successfully' });
@@ -73,20 +71,17 @@ export async function POST(request: Request) {
 export async function PUT(request: Request) {
     const session = await getServerSession(authOptions);
 
-    // @ts-ignore
     if (!session || !session.user || session.user.role !== 'admin') {
         return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 403 });
     }
 
     try {
         const { userId, newRole, newPassword } = await request.json();
+        const orgId = session.user.organizationId as string;
 
         if (!userId) {
             return NextResponse.json({ success: false, error: 'User ID required' }, { status: 400 });
         }
-
-        // @ts-ignore
-        const orgId = session.user.organizationId;
 
         if (newRole) {
             await updateUserRole(userId, newRole, orgId);
@@ -107,7 +102,6 @@ export async function PUT(request: Request) {
 export async function DELETE(request: Request) {
     const session = await getServerSession(authOptions);
 
-    // @ts-ignore
     if (!session || !session.user || session.user.role !== 'admin') {
         return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 403 });
     }
@@ -120,8 +114,7 @@ export async function DELETE(request: Request) {
             return NextResponse.json({ success: false, error: 'User ID required' }, { status: 400 });
         }
 
-        // @ts-ignore
-        await deleteUser(userId, session.user.organizationId);
+        await deleteUser(userId, session.user.organizationId as string);
 
         return NextResponse.json({ success: true, message: 'User deleted successfully' });
     } catch (error) {

@@ -6,14 +6,12 @@ import { getUsers, createUser, updateUserRole, deleteUser, getUserByEmail, updat
 
 export async function GET() {
     const session = await getServerSession(authOptions);
-    // @ts-ignore
     if (!session || !session.user || session.user.role !== 'manager') {
         return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 403 });
     }
 
     try {
-        // @ts-ignore
-        const orgId = session.user.organizationId;
+        const orgId = session.user.organizationId as string;
         const users = await getUsers(orgId);
 
         // Filter users belonging to this Manager's Organization (only 'user' role)
@@ -28,13 +26,13 @@ export async function GET() {
 
 export async function POST(request: Request) {
     const session = await getServerSession(authOptions);
-    // @ts-ignore
     if (!session || !session.user || session.user.role !== 'manager') {
         return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 403 });
     }
 
     try {
         const { name, email, password, permissions } = await request.json();
+        const orgId = session.user.organizationId as string;
 
         if (!name || !email || !password) {
             return NextResponse.json({ success: false, error: 'Missing required fields' }, { status: 400 });
@@ -45,9 +43,6 @@ export async function POST(request: Request) {
         if (existingUser) {
             return NextResponse.json({ success: false, error: 'Email already exists' }, { status: 400 });
         }
-
-        // @ts-ignore
-        const orgId = session.user.organizationId;
 
         await createUser({
             id: Date.now().toString(),
@@ -69,15 +64,13 @@ export async function POST(request: Request) {
 
 export async function PUT(request: Request) {
     const session = await getServerSession(authOptions);
-    // @ts-ignore
     if (!session || !session.user || session.user.role !== 'manager') {
         return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 403 });
     }
 
     try {
         const { userId, role, permissions, password, name } = await request.json();
-        // @ts-ignore
-        const orgId = session.user.organizationId;
+        const orgId = session.user.organizationId as string;
 
         if (!userId) {
             return NextResponse.json({ success: false, error: 'User ID required' }, { status: 400 });
@@ -110,7 +103,6 @@ export async function PUT(request: Request) {
 
 export async function DELETE(request: Request) {
     const session = await getServerSession(authOptions);
-    // @ts-ignore
     if (!session || !session.user || session.user.role !== 'manager') {
         return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 403 });
     }
@@ -118,8 +110,7 @@ export async function DELETE(request: Request) {
     try {
         const { searchParams } = new URL(request.url);
         const userId = searchParams.get('userId');
-        // @ts-ignore
-        const orgId = session.user.organizationId;
+        const orgId = session.user.organizationId as string;
 
         if (!userId) {
             return NextResponse.json({ success: false, error: 'User ID required' }, { status: 400 });
