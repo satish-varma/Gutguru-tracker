@@ -188,14 +188,27 @@ export async function performSync(organizationId: string, options: {
                         continue;
                     }
 
-                    // Save PDF
-                    const uploadDir = path.join(process.cwd(), 'public', 'documents');
-                    if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
-
-                    const filePath = path.join(uploadDir, `${uniqueId}.pdf`);
+                    // Try to save PDF (may fail on serverless environments like Vercel)
+                    let pdfPath: string | null = null;
                     try {
+                        // Use /tmp on serverless, public/documents on local
+                        const isServerless = process.env.VERCEL === '1' || !process.cwd().includes('hungerbox');
+                        const uploadDir = isServerless
+                            ? '/tmp/documents'
+                            : path.join(process.cwd(), 'public', 'documents');
+
+                        if (!fs.existsSync(uploadDir)) {
+                            fs.mkdirSync(uploadDir, { recursive: true });
+                        }
+
+                        const filePath = path.join(uploadDir, `${uniqueId}.pdf`);
                         fs.writeFileSync(filePath, partData);
-                    } catch (err) { console.error('Failed to save', err); }
+                        pdfPath = isServerless ? null : `/documents/${uniqueId}.pdf`;
+                        console.log(`[Sync] PDF saved: ${filePath}`);
+                    } catch (err) {
+                        console.warn('[Sync] Could not save PDF (expected on serverless):', err);
+                        // Continue without PDF - invoice data is still valuable
+                    }
 
                     // Save to Turso database
                     await createInvoice({
@@ -206,7 +219,7 @@ export async function performSync(organizationId: string, options: {
                         stall,
                         amount,
                         status: 'Processed',
-                        pdfPath: `/documents/${uniqueId}.pdf`,
+                        pdfPath: pdfPath || undefined,
                         syncedAt: new Date().toISOString(),
                         orgId: organizationId,
                     });
