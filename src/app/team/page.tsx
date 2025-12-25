@@ -43,7 +43,9 @@ export default function TeamPage() {
         : [];
 
     useEffect(() => {
-        if (status === 'authenticated') {
+        if (status === 'unauthenticated') {
+            router.push('/auth/signin');
+        } else if (status === 'authenticated') {
             if (session?.user?.role !== 'manager') {
                 router.push('/');
                 return;

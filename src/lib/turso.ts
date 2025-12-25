@@ -194,7 +194,7 @@ export async function getUserByEmail(email: string) {
 
 export async function getUsers(orgId: string) {
     const result = await turso.execute({
-        sql: 'SELECT id, email, name, role, created_at FROM users WHERE org_id = ? ORDER BY created_at DESC',
+        sql: 'SELECT id, email, name, role, permissions, created_at FROM users WHERE org_id = ? ORDER BY created_at DESC',
         args: [orgId],
     });
     return result.rows.map(row => ({
@@ -249,6 +249,13 @@ export async function updateUserPassword(id: string, hashedPassword: string, org
     await turso.execute({
         sql: 'UPDATE users SET password = ? WHERE id = ? AND org_id = ?',
         args: [hashedPassword, id, orgId],
+    });
+}
+
+export async function updateUserName(id: string, name: string, orgId: string) {
+    await turso.execute({
+        sql: 'UPDATE users SET name = ? WHERE id = ? AND org_id = ?',
+        args: [name, id, orgId],
     });
 }
 

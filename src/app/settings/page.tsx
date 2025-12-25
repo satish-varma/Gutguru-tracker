@@ -10,8 +10,9 @@ export default function SettingsPage() {
     const router = useRouter();
 
     useEffect(() => {
-        // @ts-ignore
-        if (status === 'authenticated' && session?.user?.role !== 'manager' && session?.user?.role !== 'admin') {
+        if (status === 'unauthenticated') {
+            router.push('/auth/signin');
+        } else if (status === 'authenticated' && session?.user?.role !== 'manager' && session?.user?.role !== 'admin') {
             router.push('/');
         }
     }, [status, session, router]);

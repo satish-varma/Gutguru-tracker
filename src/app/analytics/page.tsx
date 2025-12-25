@@ -7,29 +7,42 @@ import {
     PieChart, Pie, Cell, LineChart, Line, AreaChart, Area
 } from 'recharts';
 
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+
 // Color Palette for Charts
 const COLORS = ['#4f46e5', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899'];
 
 export default function AnalyticsPage() {
+    const { data: session, status } = useSession();
+    const router = useRouter();
     const [invoices, setInvoices] = useState<Invoice[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        async function fetchData() {
-            try {
-                const res = await fetch('/api/invoices');
-                const json = await res.json();
-                if (json.success) {
-                    setInvoices(json.data);
-                }
-            } catch (e) {
-                console.error("Failed to load analytics data", e);
-            } finally {
-                setIsLoading(false);
-            }
+        if (status === 'unauthenticated') {
+            router.push('/auth/signin');
         }
-        fetchData();
-    }, []);
+    }, [status, router]);
+
+    useEffect(() => {
+        if (status === 'authenticated') {
+            async function fetchData() {
+                try {
+                    const res = await fetch('/api/invoices');
+                    const json = await res.json();
+                    if (json.success) {
+                        setInvoices(json.data);
+                    }
+                } catch (e) {
+                    console.error("Failed to load analytics data", e);
+                } finally {
+                    setIsLoading(false);
+                }
+            }
+            fetchData();
+        }
+    }, [status]);
 
     if (isLoading) return <div className="p-8">Loading Analytics...</div>;
 

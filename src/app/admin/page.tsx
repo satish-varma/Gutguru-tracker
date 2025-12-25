@@ -26,8 +26,9 @@ export default function AdminDashboard() {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
-        // @ts-ignore
-        if (status === 'authenticated' && session?.user?.role !== 'admin') {
+        if (status === 'unauthenticated') {
+            router.push('/auth/signin');
+        } else if (status === 'authenticated' && session?.user?.role !== 'admin') {
             router.push('/'); // Redirect non-admins
         } else if (status === 'authenticated') {
             fetchUsers();

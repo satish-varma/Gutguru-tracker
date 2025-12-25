@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import bcrypt from "bcryptjs";
-import { getUsers, createUser, updateUserRole, deleteUser, getUserByEmail, updateUserPermissions } from '@/lib/turso';
+import { getUsers, createUser, updateUserRole, deleteUser, getUserByEmail, updateUserPermissions, updateUserPassword, updateUserName } from '@/lib/turso';
 
 export async function GET() {
     const session = await getServerSession(authOptions);
@@ -91,10 +91,13 @@ export async function PUT(request: Request) {
             await updateUserPermissions(userId, permissions, orgId);
         }
 
-        // Note: name and password update could be added here if needed by frontend
+        if (name) {
+            await updateUserName(userId, name, orgId);
+        }
+
         if (password && password.trim().length > 0) {
-            // we need updateUserPassword import if we want to support this
-            // for now let's focus on permissions which is the likely cause of the crash
+            const hashedPassword = bcrypt.hashSync(password, 10);
+            await updateUserPassword(userId, hashedPassword, orgId);
         }
 
         return NextResponse.json({ success: true, message: 'User updated successfully' });
@@ -113,7 +116,8 @@ export async function DELETE(request: Request) {
     }
 
     try {
-        const { userId } = await request.json();
+        const { searchParams } = new URL(request.url);
+        const userId = searchParams.get('userId');
         // @ts-ignore
         const orgId = session.user.organizationId;
 
