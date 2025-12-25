@@ -1,5 +1,6 @@
 import imap from 'imap-simple';
 import { getInvoices, createInvoice, getSettings } from '@/lib/turso';
+import { uploadToR2, getInvoicePdfKey, isR2Configured } from '@/lib/r2';
 import { Invoice } from '@/types';
 import fs from 'fs';
 import path from 'path';
@@ -188,26 +189,38 @@ export async function performSync(organizationId: string, options: {
                         continue;
                     }
 
-                    // Try to save PDF (may fail on serverless environments like Vercel)
+                    // Try to upload PDF to R2 or save locally
                     let pdfPath: string | null = null;
-                    try {
-                        // Use /tmp on serverless, public/documents on local
-                        const isServerless = process.env.VERCEL === '1' || !process.cwd().includes('hungerbox');
-                        const uploadDir = isServerless
-                            ? '/tmp/documents'
-                            : path.join(process.cwd(), 'public', 'documents');
 
-                        if (!fs.existsSync(uploadDir)) {
-                            fs.mkdirSync(uploadDir, { recursive: true });
+                    // First, try Cloudflare R2 (works on serverless)
+                    if (isR2Configured()) {
+                        try {
+                            const r2Key = getInvoicePdfKey(uniqueId);
+                            await uploadToR2(r2Key, partData);
+                            pdfPath = `r2://${r2Key}`; // Special prefix to indicate R2 storage
+                            console.log(`[Sync] PDF uploaded to R2: ${r2Key}`);
+                        } catch (err) {
+                            console.error('[Sync] Failed to upload PDF to R2:', err);
                         }
+                    }
 
-                        const filePath = path.join(uploadDir, `${uniqueId}.pdf`);
-                        fs.writeFileSync(filePath, partData);
-                        pdfPath = isServerless ? null : `/documents/${uniqueId}.pdf`;
-                        console.log(`[Sync] PDF saved: ${filePath}`);
-                    } catch (err) {
-                        console.warn('[Sync] Could not save PDF (expected on serverless):', err);
-                        // Continue without PDF - invoice data is still valuable
+                    // Fallback to local storage if R2 not configured
+                    if (!pdfPath) {
+                        try {
+                            const isServerless = process.env.VERCEL === '1';
+                            if (!isServerless) {
+                                const uploadDir = path.join(process.cwd(), 'public', 'documents');
+                                if (!fs.existsSync(uploadDir)) {
+                                    fs.mkdirSync(uploadDir, { recursive: true });
+                                }
+                                const filePath = path.join(uploadDir, `${uniqueId}.pdf`);
+                                fs.writeFileSync(filePath, partData);
+                                pdfPath = `/documents/${uniqueId}.pdf`;
+                                console.log(`[Sync] PDF saved locally: ${filePath}`);
+                            }
+                        } catch (err) {
+                            console.warn('[Sync] Could not save PDF locally:', err);
+                        }
                     }
 
                     // Save to Turso database
