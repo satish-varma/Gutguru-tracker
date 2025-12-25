@@ -1,9 +1,10 @@
-# HungerBox Tracker
+# TheGutGuru Tracker
 
-A comprehensive invoice management and analytics platform for tracking food service payments from HungerBox. Built with Next.js 16, this application automates invoice collection from emails, provides powerful analytics, and streamlines payment tracking.
+A comprehensive invoice management and analytics platform for tracking food service payments from TheGutGuru. Built with Next.js 16, this application automates invoice collection from emails, provides powerful analytics, and streamlines payment tracking.
 
-![HungerBox Tracker](https://img.shields.io/badge/Next.js-16.1.0-black?style=flat-square&logo=next.js)
+![TheGutGuru Tracker](https://img.shields.io/badge/Next.js-16.1.0-black?style=flat-square&logo=next.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue?style=flat-square&logo=typescript)
+![Turso](https://img.shields.io/badge/Turso-SQLite-green?style=flat-square)
 ![License](https://img.shields.io/badge/License-Private-red?style=flat-square)
 
 ---
@@ -13,7 +14,9 @@ A comprehensive invoice management and analytics platform for tracking food serv
 - [Features](#-features)
 - [Technology Stack](#-technology-stack)
 - [Installation](#-installation)
+- [Database Setup (Turso)](#-database-setup-turso)
 - [Configuration](#-configuration)
+- [Deployment](#-deployment)
 - [Usage Guide](#-usage-guide)
 - [User Roles & Permissions](#-user-roles--permissions)
 - [API Reference](#-api-reference)
@@ -43,13 +46,15 @@ Complete invoice lifecycle management with powerful filtering and actions.
 | **Invoice List** | Paginated table view of all invoices (15 per page) |
 | **Multi-Select** | Checkbox selection for bulk operations |
 | **Advanced Filtering** | Filter by location, stall, date range, and status |
+| **Saved Filters** | Save and reuse frequently used filter combinations |
 | **Search** | Full-text search across all invoice fields |
 | **Invoice Details** | Slide-out drawer with complete invoice information |
 | **Status Management** | Mark invoices as Paid/Processed/Pending |
 | **PDF Preview** | View invoice PDFs directly in browser |
 | **PDF Download** | Download individual or multiple invoices |
-| **Bulk Download** | Select multiple invoices and download all at once |
+| **Bulk Download** | Select multiple invoices and download as ZIP |
 | **CSV Export** | Export filtered invoices to CSV format |
+| **Mobile Responsive** | Optimized for phones and tablets |
 
 ### 3. Email Sync
 Automated invoice collection from email.
@@ -129,10 +134,11 @@ Administrative controls (Admin role only).
 | **Mailparser** | Email parsing and attachment extraction |
 | **pdf2json** | PDF text extraction |
 
-### Data Storage
+### Database
 | Technology | Purpose |
 |------------|---------|
-| **JSON Files** | Lightweight file-based data storage |
+| **Turso (LibSQL)** | Cloud SQLite database with 9GB free storage |
+| **@libsql/client** | Turso database client |
 | **File System** | PDF document storage |
 
 ---
@@ -143,13 +149,14 @@ Administrative controls (Admin role only).
 - Node.js 18.x or higher
 - npm or yarn
 - Access to an IMAP-enabled email account
+- Turso account (free at [turso.tech](https://turso.tech))
 
 ### Steps
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
-   cd hungerbox_tracker
+   git clone https://github.com/satish-varma/Gutguru-tracker.git
+   cd Gutguru-tracker
    ```
 
 2. **Install dependencies**
@@ -174,6 +181,118 @@ Administrative controls (Admin role only).
 
 ---
 
+## 🗄 Database Setup (Turso)
+
+This application uses **Turso** for cloud SQLite database with 9GB free storage.
+
+### Current Database Details
+
+```
+Database: thegutguru-tracker
+URL: libsql://thegutguru-tracker-satish-varma.aws-ap-south-1.turso.io
+Region: Mumbai (aws-ap-south-1)
+Account: satish-varma
+Storage: 9GB FREE
+```
+
+### Setting Up a New Turso Database
+
+1. **Install Turso CLI**
+   ```bash
+   curl -sSfL https://get.tur.so/install.sh | bash
+   source ~/.profile
+   ```
+
+2. **Login to Turso**
+   ```bash
+   turso auth login
+   ```
+
+3. **Create a new database**
+   ```bash
+   turso db create thegutguru-tracker -w
+   ```
+
+4. **Get the database URL**
+   ```bash
+   turso db show thegutguru-tracker --url
+   ```
+
+5. **Create an auth token**
+   ```bash
+   turso db tokens create thegutguru-tracker
+   ```
+
+6. **Add to your `.env.local`**
+   ```env
+   TURSO_DATABASE_URL=libsql://your-database-url.turso.io
+   TURSO_AUTH_TOKEN=your-auth-token
+   ```
+
+### Database Schema
+
+The database is automatically initialized with the following tables:
+
+```sql
+-- Invoices table
+CREATE TABLE invoices (
+    id TEXT PRIMARY KEY,
+    date TEXT NOT NULL,
+    service_date_range TEXT,
+    location TEXT NOT NULL,
+    stall TEXT NOT NULL,
+    amount REAL NOT NULL,
+    status TEXT DEFAULT 'Pending',
+    pdf_path TEXT,
+    synced_at TEXT NOT NULL,
+    org_id TEXT NOT NULL
+);
+
+-- Users table
+CREATE TABLE users (
+    id TEXT PRIMARY KEY,
+    email TEXT UNIQUE NOT NULL,
+    password TEXT NOT NULL,
+    name TEXT,
+    role TEXT DEFAULT 'user',
+    org_id TEXT NOT NULL,
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Settings table
+CREATE TABLE settings (
+    org_id TEXT PRIMARY KEY,
+    email_search_term TEXT DEFAULT 'TheGutGuru',
+    sync_lookback_days INTEGER DEFAULT 30,
+    email_user TEXT,
+    email_password TEXT
+);
+```
+
+### Useful Turso Commands
+
+```bash
+# Check login status
+turso auth whoami
+
+# List all databases
+turso db list
+
+# Open SQL shell
+turso db shell thegutguru-tracker
+
+# Get database info
+turso db show thegutguru-tracker
+
+# Create a new auth token
+turso db tokens create thegutguru-tracker
+
+# Delete database (careful!)
+turso db destroy thegutguru-tracker
+```
+
+---
+
 ## ⚙️ Configuration
 
 ### Environment Variables
@@ -185,9 +304,19 @@ Create a `.env.local` file with the following variables:
 NEXTAUTH_SECRET=your-secure-random-string
 NEXTAUTH_URL=http://localhost:3000
 
+# Turso Database
+TURSO_DATABASE_URL=libsql://thegutguru-tracker-satish-varma.aws-ap-south-1.turso.io
+TURSO_AUTH_TOKEN=your-turso-auth-token
+
 # Email Sync (Optional - can be set in Settings UI)
 EMAIL_USER=your-email@example.com
 EMAIL_PASSWORD=your-app-password
+```
+
+### Generating NEXTAUTH_SECRET
+
+```bash
+openssl rand -base64 32
 ```
 
 ### Email Setup for Sync
@@ -205,13 +334,57 @@ The application uses IMAP to connect to your email. For Gmail:
 
 ---
 
+## 🚀 Deployment
+
+### Deploy to Vercel
+
+1. **Push code to GitHub**
+   ```bash
+   git add -A
+   git commit -m "Ready for deployment"
+   git push origin main
+   ```
+
+2. **Import to Vercel**
+   - Go to [vercel.com](https://vercel.com)
+   - Click "Import Project"
+   - Select your GitHub repository
+
+3. **Configure Environment Variables** in Vercel Dashboard:
+   | Variable | Value |
+   |----------|-------|
+   | `NEXTAUTH_SECRET` | Generate with `openssl rand -base64 32` |
+   | `NEXTAUTH_URL` | `https://your-app.vercel.app` |
+   | `TURSO_DATABASE_URL` | Your Turso database URL |
+   | `TURSO_AUTH_TOKEN` | Your Turso auth token |
+   | `EMAIL_USER` | (Optional) Your email |
+   | `EMAIL_PASSWORD` | (Optional) Your app password |
+
+4. **Deploy!**
+
+### Production Checklist
+
+- [ ] Change default admin password after first login
+- [ ] Configure email credentials in Settings
+- [ ] Set proper NEXTAUTH_URL for your domain
+- [ ] Enable HTTPS (automatic on Vercel)
+
+---
+
 ## 📖 Usage Guide
+
+### Default Login Credentials
+
+| Field | Value |
+|-------|-------|
+| Email | `admin@thegutguru.com` |
+| Password | `admin123` |
+
+⚠️ **Change the password immediately after first login!**
 
 ### First-Time Setup
 
-1. **Login** with default credentials:
-   - Email: `admin@example.com`
-   - Password: `admin123`
+1. **Login** with default credentials above
 
 2. **Configure Email** in Settings:
    - Navigate to Settings
@@ -230,13 +403,6 @@ The application uses IMAP to connect to your email. For Gmail:
 3. **Process Payments** by marking invoices as Paid
 4. **Download Invoices** for record-keeping
 5. **Export Data** for accounting/reconciliation
-
-### Keyboard Shortcuts
-
-| Shortcut | Action |
-|----------|--------|
-| `Cmd/Ctrl + K` | Focus search |
-| `Esc` | Close drawer/modal |
 
 ---
 
@@ -269,13 +435,16 @@ All API routes (except `/api/auth/*`) require authentication via NextAuth sessio
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | `GET` | `/api/invoices` | List all invoices |
+| `PUT` | `/api/invoices/[id]` | Update invoice status |
 | `PATCH` | `/api/invoices/[id]` | Update invoice status |
 | `DELETE` | `/api/invoices` | Delete all invoices |
 
 #### Sync
 | Method | Endpoint | Description |
 |--------|----------|-------------|
+| `GET` | `/api/sync` | Get sync status |
 | `POST` | `/api/sync` | Trigger email sync |
+| `POST` | `/api/sync?full=true` | Trigger full sync (all history) |
 
 #### Settings
 | Method | Endpoint | Description |
@@ -287,6 +456,9 @@ All API routes (except `/api/auth/*`) require authentication via NextAuth sessio
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | `GET` | `/api/team/users` | List team users |
+| `POST` | `/api/team/users` | Create team user |
+| `PUT` | `/api/team/users` | Update team user |
+| `DELETE` | `/api/team/users` | Delete team user |
 | `GET` | `/api/admin/users` | List all users (Admin) |
 | `POST` | `/api/admin/users` | Create user (Admin) |
 | `PUT` | `/api/admin/users` | Update user (Admin) |
@@ -302,11 +474,8 @@ All API routes (except `/api/auth/*`) require authentication via NextAuth sessio
 ## 📁 File Structure
 
 ```
-hungerbox_tracker/
-├── data/                       # Data storage
-│   ├── invoices.json          # Invoice records
-│   ├── users.json             # User accounts
-│   └── settings.json          # App settings
+Gutguru-tracker/
+├── data/                       # Legacy data storage (deprecated)
 ├── public/
 │   └── documents/             # Stored PDF invoices
 ├── src/
@@ -335,12 +504,15 @@ hungerbox_tracker/
 │   │   └── MultiSelect.tsx    # Multi-select dropdown
 │   ├── lib/                   # Utility libraries
 │   │   ├── auth.ts            # NextAuth configuration
-│   │   ├── db.ts              # Database operations
+│   │   ├── turso.ts           # Turso database operations
 │   │   ├── sync.ts            # Email sync logic
-│   │   └── settings.ts        # Settings management
+│   │   └── settings.ts        # Settings management (legacy)
 │   └── types/                 # TypeScript definitions
 │       └── index.ts           # Type definitions
-├── .env.local                 # Environment variables
+├── .env.example               # Environment template
+├── .env.local                 # Local environment (not committed)
+├── AI_PROMPT.md               # AI development prompt
+├── TODO.md                    # Feature roadmap
 ├── package.json               # Dependencies
 └── README.md                  # This file
 ```
@@ -354,14 +526,32 @@ hungerbox_tracker/
 3. **Role-Based Access**: API routes check user roles before operations
 4. **Input Validation**: Server-side validation on all inputs
 5. **Environment Variables**: Sensitive data stored in env files (not committed)
+6. **Database Security**: Turso auth tokens required for database access
 
 ---
 
-## 🐛 Known Issues & Limitations
+## 🐛 Troubleshooting
 
-1. **File-Based Storage**: Uses JSON files instead of a proper database; suitable for small-medium deployments
-2. **Single Organization**: Currently optimized for single-organization use
-3. **Email Provider**: Tested primarily with Gmail; other providers may need configuration adjustments
+### Common Issues
+
+1. **Database table not found**
+   - The database initializes automatically on first request
+   - Restart the dev server if tables aren't created
+
+2. **Email sync fails**
+   - Verify IMAP credentials in Settings
+   - For Gmail, use App Passwords (not regular password)
+   - Check if "Less secure app access" is needed
+
+3. **Login not working**
+   - Clear browser cookies
+   - Check NEXTAUTH_SECRET is set
+   - Verify NEXTAUTH_URL matches your URL
+
+4. **Turso connection timeout**
+   - Check your internet connection
+   - Verify TURSO_DATABASE_URL is correct
+   - Try regenerating the auth token
 
 ---
 
@@ -375,6 +565,8 @@ This is a private application. All rights reserved.
 
 For issues or feature requests, please contact the development team.
 
+**Repository**: [https://github.com/satish-varma/Gutguru-tracker](https://github.com/satish-varma/Gutguru-tracker)
+
 ---
 
-*Last Updated: December 24, 2025*
+*Last Updated: December 25, 2025*
