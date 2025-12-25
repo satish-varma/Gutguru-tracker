@@ -2,6 +2,15 @@
     "functions": {
         "src/app/api/sync/route.ts": {
             "maxDuration": 60
+        },
+        "src/app/api/cron/sync/route.ts": {
+            "maxDuration": 60
         }
-    }
+    },
+    "crons": [
+        {
+            "path": "/api/cron/sync",
+            "schedule": "0 1 * * *"
+        }
+    ]
 }
