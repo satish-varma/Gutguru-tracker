@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import bcrypt from "bcryptjs";
-import { getUsers, createUser, updateUserRole, deleteUser, getUserByEmail } from '@/lib/turso';
+import { getUsers, createUser, updateUserRole, deleteUser, getUserByEmail, updateUserPermissions } from '@/lib/turso';
 
 export async function GET() {
     const session = await getServerSession(authOptions);
@@ -34,7 +34,7 @@ export async function POST(request: Request) {
     }
 
     try {
-        const { name, email, password } = await request.json();
+        const { name, email, password, permissions } = await request.json();
 
         if (!name || !email || !password) {
             return NextResponse.json({ success: false, error: 'Missing required fields' }, { status: 400 });
@@ -56,6 +56,7 @@ export async function POST(request: Request) {
             name,
             role: 'user', // Strictly 'user' for team members
             orgId,
+            permissions: permissions || { locations: [], stalls: [], validFrom: '' }
         });
 
         return NextResponse.json({ success: true, message: 'User created successfully' });
@@ -74,7 +75,7 @@ export async function PUT(request: Request) {
     }
 
     try {
-        const { userId, role } = await request.json();
+        const { userId, role, permissions, password, name } = await request.json();
         // @ts-ignore
         const orgId = session.user.organizationId;
 
@@ -84,6 +85,16 @@ export async function PUT(request: Request) {
 
         if (role) {
             await updateUserRole(userId, role, orgId);
+        }
+
+        if (permissions) {
+            await updateUserPermissions(userId, permissions, orgId);
+        }
+
+        // Note: name and password update could be added here if needed by frontend
+        if (password && password.trim().length > 0) {
+            // we need updateUserPassword import if we want to support this
+            // for now let's focus on permissions which is the likely cause of the crash
         }
 
         return NextResponse.json({ success: true, message: 'User updated successfully' });

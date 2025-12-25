@@ -40,6 +40,7 @@ export async function initializeDatabase() {
                 name TEXT,
                 role TEXT DEFAULT 'user',
                 org_id TEXT NOT NULL,
+                permissions TEXT,
                 created_at TEXT DEFAULT CURRENT_TIMESTAMP
             )
         `);
@@ -72,6 +73,13 @@ export async function initializeDatabase() {
         await turso.execute(`
             CREATE INDEX IF NOT EXISTS idx_users_org_id ON users(org_id)
         `);
+
+        // Add permissions column if it doesn't exist
+        try {
+            await turso.execute('ALTER TABLE users ADD COLUMN permissions TEXT');
+        } catch (e) {
+            // Column already exists or error
+        }
 
         console.log('[Turso] Database initialized successfully');
     } catch (error) {
@@ -179,6 +187,7 @@ export async function getUserByEmail(email: string) {
         name: row.name as string,
         role: row.role as string,
         orgId: row.org_id as string,
+        permissions: row.permissions ? JSON.parse(row.permissions as string) : null,
         createdAt: row.created_at as string,
     };
 }
@@ -193,6 +202,7 @@ export async function getUsers(orgId: string) {
         email: row.email as string,
         name: row.name as string,
         role: row.role as string,
+        permissions: row.permissions ? JSON.parse(row.permissions as string) : null,
         createdAt: row.created_at as string,
     }));
 }
@@ -204,10 +214,11 @@ export async function createUser(user: {
     name?: string;
     role?: string;
     orgId: string;
+    permissions?: any;
 }) {
     await turso.execute({
-        sql: `INSERT INTO users (id, email, password, name, role, org_id)
-              VALUES (?, ?, ?, ?, ?, ?)`,
+        sql: `INSERT INTO users (id, email, password, name, role, org_id, permissions)
+              VALUES (?, ?, ?, ?, ?, ?, ?)`,
         args: [
             user.id,
             user.email,
@@ -215,6 +226,7 @@ export async function createUser(user: {
             user.name || null,
             user.role || 'user',
             user.orgId,
+            user.permissions ? JSON.stringify(user.permissions) : null,
         ],
     });
 }
@@ -237,6 +249,13 @@ export async function updateUserPassword(id: string, hashedPassword: string, org
     await turso.execute({
         sql: 'UPDATE users SET password = ? WHERE id = ? AND org_id = ?',
         args: [hashedPassword, id, orgId],
+    });
+}
+
+export async function updateUserPermissions(id: string, permissions: any, orgId: string) {
+    await turso.execute({
+        sql: 'UPDATE users SET permissions = ? WHERE id = ? AND org_id = ?',
+        args: [JSON.stringify(permissions), id, orgId],
     });
 }
 

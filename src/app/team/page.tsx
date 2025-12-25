@@ -189,13 +189,13 @@ export default function TeamPage() {
                                     <div className="flex flex-col gap-1">
                                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.85rem' }}>
                                             <MapPin size={14} className="text-slate-400" />
-                                            {user.permissions.locations?.length > 0
+                                            {user.permissions?.locations?.length > 0
                                                 ? user.permissions.locations.includes('*') ? 'All Locations' : `${user.permissions.locations.length} Locations`
                                                 : 'All Locations'}
                                         </div>
                                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.85rem' }}>
                                             <Store size={14} className="text-slate-400" />
-                                            {user.permissions.stalls?.length > 0
+                                            {user.permissions?.stalls?.length > 0
                                                 ? user.permissions.stalls.includes('*') ? 'All Stalls' : `${user.permissions.stalls.length} Stalls`
                                                 : 'All Stalls'}
                                         </div>
@@ -204,7 +204,7 @@ export default function TeamPage() {
                                 <td className="p-4">
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.85rem' }}>
                                         <Calendar size={14} className="text-slate-400" />
-                                        {user.permissions.validFrom
+                                        {user.permissions?.validFrom
                                             ? `From ${format(new Date(user.permissions.validFrom), 'MMM d, yyyy')}`
                                             : 'Full History'}
                                     </div>
