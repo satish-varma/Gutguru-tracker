@@ -58,6 +58,8 @@ export async function performSync(organizationId: string, options: {
         const lookbackDate = new Date();
         lookbackDate.setDate(lookbackDate.getDate() - (options.forceFullSync ? 3650 : settings.syncLookbackDays));
 
+        console.log(`[Sync:${organizationId}] Search Term: "${searchTerm}", Since: ${lookbackDate.toISOString()}`);
+
         const existingInvoices = await getInvoices(organizationId);
         const existingIds = new Set(existingInvoices.map(inv => inv.id));
 
@@ -66,8 +68,8 @@ export async function performSync(organizationId: string, options: {
             ['SINCE', lookbackDate]
         ];
 
-        if (existingInvoices.length === 0) {
-            console.log(`[Sync:${organizationId}] First run detected. Fetching ALL matching emails...`);
+        if (existingInvoices.length === 0 || options.forceFullSync) {
+            console.log(`[Sync:${organizationId}] Full sync or first run. Fetching ALL matching emails...`);
             searchCriteria = [['TEXT', searchTerm]];
         }
 
@@ -77,14 +79,14 @@ export async function performSync(organizationId: string, options: {
             markSeen: false,
         };
 
-        console.log(`[Sync:${organizationId}] Searching emails...`);
+        console.log(`[Sync:${organizationId}] Searching emails with criteria:`, JSON.stringify(searchCriteria));
         const allMessages = await connection.search(searchCriteria, fetchOptions);
         if (options.signal?.aborted) throw new Error('Aborted');
 
         // Limit messages to process (Vercel has 60s timeout)
-        const MAX_MESSAGES = process.env.VERCEL === '1' ? 5 : 100;
+        const MAX_MESSAGES = process.env.VERCEL === '1' ? 8 : 100;
         const messages = allMessages.slice(0, MAX_MESSAGES);
-        console.log(`[Sync:${organizationId}] Found ${allMessages.length} messages, processing ${messages.length}.`);
+        console.log(`[Sync:${organizationId}] Found ${allMessages.length} total messages, processing ${messages.length}.`);
 
         const addedInvoices: Invoice[] = [];
 
@@ -98,9 +100,14 @@ export async function performSync(organizationId: string, options: {
             const parts = imap.getParts(message.attributes.struct!);
             const attachments = parts.filter(
                 (part) =>
-                    part.disposition &&
-                    part.disposition.type.toUpperCase() === 'ATTACHMENT'
+                    (part.disposition && part.disposition.type.toUpperCase() === 'ATTACHMENT') ||
+                    (part.params && part.params.name && part.params.name.toLowerCase().endsWith('.pdf'))
             );
+
+            if (attachments.length === 0) {
+                console.log(`[Sync] Message ${message.attributes.uid} has no PDF attachments.`);
+                continue;
+            }
 
             for (const attachment of attachments) {
                 if (options.signal?.aborted) break;
@@ -129,9 +136,10 @@ export async function performSync(organizationId: string, options: {
                     continue;
                 }
 
-                // Parsing Logic
-                const amountMatch = text.match(/Net Payable Amount[\s:]*([\\d,]+\.?\d*)/i);
+                // Improved Regex for amount
+                const amountMatch = text.match(/Net\s+Payable\s+Amount[\s:]*([0-9,]+\.?\d*)/i);
                 const amount = amountMatch ? parseFloat(amountMatch[1].replace(/,/g, '')) : 0;
+                console.log(`[Sync] Extracted Amount from ${fileName}: ${amount}`);
 
                 const dateMatch = text.match(/Raised On\s*:\s*(\d{4}-\d{2}-\d{2})/i);
                 const date = dateMatch ? dateMatch[1] : new Date().toISOString().split('T')[0];
