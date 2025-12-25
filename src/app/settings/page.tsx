@@ -21,6 +21,7 @@ export default function SettingsPage() {
     const [lookbackDays, setLookbackDays] = useState(30);
     const [emailUser, setEmailUser] = useState('');
     const [emailPassword, setEmailPassword] = useState('');
+    const [syncInterval, setSyncInterval] = useState(6);
     const [isLoading, setIsLoading] = useState(true);
     const [isSaving, setIsSaving] = useState(false);
     const [isSyncing, setIsSyncing] = useState(false);
@@ -39,6 +40,7 @@ export default function SettingsPage() {
                 setLookbackDays(data.syncLookbackDays);
                 setEmailUser(data.emailUser || '');
                 setEmailPassword(data.emailPassword || '');
+                setSyncInterval(data.syncIntervalHours || 6);
             } catch (e) {
                 console.error('Failed to load settings', e);
             } finally {
@@ -61,7 +63,8 @@ export default function SettingsPage() {
                     emailSearchTerm: searchTerm,
                     syncLookbackDays: Number(lookbackDays),
                     emailUser,
-                    emailPassword
+                    emailPassword,
+                    syncIntervalHours: Number(syncInterval)
                 }),
             });
 
@@ -175,6 +178,29 @@ export default function SettingsPage() {
                                 When "Full Sync" is triggered, the system will check emails from this many days ago.
                             </p>
                         </div>
+
+                        {session?.user?.role === 'admin' && (
+                            <div className="form-group">
+                                <label>Auto-Sync Interval (Hours)</label>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                                    <select
+                                        value={syncInterval}
+                                        onChange={(e) => setSyncInterval(Number(e.target.value))}
+                                        className="full-width-input"
+                                        style={{ maxWidth: '200px' }}
+                                    >
+                                        <option value={1}>Every 1 Hour</option>
+                                        <option value={3}>Every 3 Hours</option>
+                                        <option value={6}>Every 6 Hours (Recommended)</option>
+                                        <option value={12}>Every 12 Hours</option>
+                                        <option value={24}>Every 24 Hours</option>
+                                    </select>
+                                </div>
+                                <p className="help-text">
+                                    Determines how frequently the system checks for new invoices. Note: System-wide changes take effect on next deployment.
+                                </p>
+                            </div>
+                        )}
 
                         <div style={{ paddingTop: '1rem', borderTop: '1px solid #e2e8f0' }}>
                             <button

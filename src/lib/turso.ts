@@ -74,12 +74,14 @@ export async function initializeDatabase() {
             CREATE INDEX IF NOT EXISTS idx_users_org_id ON users(org_id)
         `);
 
-        // Add permissions column if it doesn't exist
+        // Add permissions and sync_interval_hours column if they don't exist
         try {
             await turso.execute('ALTER TABLE users ADD COLUMN permissions TEXT');
-        } catch (e) {
-            // Column already exists or error
-        }
+        } catch (e) { }
+
+        try {
+            await turso.execute('ALTER TABLE settings ADD COLUMN sync_interval_hours INTEGER DEFAULT 6');
+        } catch (e) { }
 
         console.log('[Turso] Database initialized successfully');
     } catch (error) {
@@ -276,8 +278,8 @@ export async function getSettings(orgId: string) {
     const defaults = {
         emailSearchTerm: 'TheGutGuru',
         syncLookbackDays: 30,
-        emailUser: '',
         emailPassword: '',
+        syncIntervalHours: 6,
     };
 
     if (result.rows.length === 0) return defaults;
@@ -288,6 +290,7 @@ export async function getSettings(orgId: string) {
         syncLookbackDays: (row.sync_lookback_days as number) || defaults.syncLookbackDays,
         emailUser: (row.email_user as string) || defaults.emailUser,
         emailPassword: (row.email_password as string) || defaults.emailPassword,
+        syncIntervalHours: (row.sync_interval_hours as number) || defaults.syncIntervalHours,
     };
 }
 
@@ -296,17 +299,19 @@ export async function saveSettings(orgId: string, settings: {
     syncLookbackDays?: number;
     emailUser?: string;
     emailPassword?: string;
+    syncIntervalHours?: number;
 }) {
     await turso.execute({
         sql: `INSERT OR REPLACE INTO settings 
-              (org_id, email_search_term, sync_lookback_days, email_user, email_password, updated_at)
-              VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)`,
+              (org_id, email_search_term, sync_lookback_days, email_user, email_password, sync_interval_hours, updated_at)
+              VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)`,
         args: [
             orgId,
             settings.emailSearchTerm || 'TheGutGuru',
             settings.syncLookbackDays || 30,
             settings.emailUser || '',
             settings.emailPassword || '',
+            settings.syncIntervalHours || 6,
         ],
     });
 }
