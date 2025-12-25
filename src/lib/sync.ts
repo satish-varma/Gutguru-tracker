@@ -21,6 +21,8 @@ export async function performSync(organizationId: string, options: {
         throw new Error('Missing email credentials.');
     }
 
+    console.log(`[Sync] Connecting with email: ${emailUser.substring(0, 5)}...`);
+
     const config = {
         imap: {
             user: emailUser,
@@ -28,7 +30,8 @@ export async function performSync(organizationId: string, options: {
             host: 'imap.gmail.com',
             port: 993,
             tls: true,
-            authTimeout: 10000,
+            authTimeout: 8000,       // 8 second auth timeout
+            connTimeout: 10000,      // 10 second connection timeout
             tlsOptions: { rejectUnauthorized: false },
         },
     };
@@ -75,9 +78,13 @@ export async function performSync(organizationId: string, options: {
         };
 
         console.log(`[Sync:${organizationId}] Searching emails...`);
-        const messages = await connection.search(searchCriteria, fetchOptions);
+        const allMessages = await connection.search(searchCriteria, fetchOptions);
         if (options.signal?.aborted) throw new Error('Aborted');
-        console.log(`[Sync:${organizationId}] Found ${messages.length} messages.`);
+
+        // Limit messages to process (Vercel has 60s timeout)
+        const MAX_MESSAGES = process.env.VERCEL === '1' ? 15 : 100;
+        const messages = allMessages.slice(0, MAX_MESSAGES);
+        console.log(`[Sync:${organizationId}] Found ${allMessages.length} messages, processing ${messages.length}.`);
 
         const addedInvoices: Invoice[] = [];
 
