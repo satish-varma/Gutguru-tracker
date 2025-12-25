@@ -179,7 +179,7 @@ export default function SettingsPage() {
                             </p>
                         </div>
 
-                        {(session?.user?.role === 'admin' || session?.user?.role === 'manager') && (
+                        {['admin', 'manager'].includes(session?.user?.role?.toLowerCase() || '') && (
                             <div className="form-group">
                                 <label>Auto-Sync Interval (Hours)</label>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
