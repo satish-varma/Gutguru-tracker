@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getInvoices, saveInvoices } from '@/lib/db';
+import { getInvoices, deleteAllInvoices } from '@/lib/turso';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 
@@ -23,28 +23,33 @@ export async function GET(request: Request) {
         targetOrgId = requestedOrgId;
     }
 
-    // @ts-ignore
-    let invoices = await getInvoices(targetOrgId);
-
-    // Filter for regular 'user' role
-    // @ts-ignore
-    if (session.user.role === 'user') {
+    try {
         // @ts-ignore
-        const perms = session.user.permissions || {};
-        const { locations, stalls, validFrom } = perms;
+        let invoices = await getInvoices(targetOrgId);
 
-        if (validFrom) {
-            invoices = invoices.filter((inv) => new Date(inv.date) >= new Date(validFrom));
+        // Filter for regular 'user' role
+        // @ts-ignore
+        if (session.user.role === 'user') {
+            // @ts-ignore
+            const perms = session.user.permissions || {};
+            const { locations, stalls, validFrom } = perms;
+
+            if (validFrom) {
+                invoices = invoices.filter((inv) => new Date(inv.date) >= new Date(validFrom));
+            }
+            if (locations && locations.length > 0 && !locations.includes('*')) {
+                invoices = invoices.filter((inv) => locations.includes(inv.location));
+            }
+            if (stalls && stalls.length > 0 && !stalls.includes('*')) {
+                invoices = invoices.filter((inv) => stalls.includes(inv.stall));
+            }
         }
-        if (locations && locations.length > 0 && !locations.includes('*')) {
-            invoices = invoices.filter((inv) => locations.includes(inv.location));
-        }
-        if (stalls && stalls.length > 0 && !stalls.includes('*')) {
-            invoices = invoices.filter((inv) => stalls.includes(inv.stall));
-        }
+
+        return NextResponse.json({ success: true, data: invoices });
+    } catch (error) {
+        console.error('[API] Failed to get invoices:', error);
+        return NextResponse.json({ success: false, error: 'Failed to fetch invoices' }, { status: 500 });
     }
-
-    return NextResponse.json({ success: true, data: invoices });
 }
 
 export async function DELETE() {
@@ -60,10 +65,15 @@ export async function DELETE() {
         return NextResponse.json({ success: false, error: 'Forbidden: Managers only' }, { status: 403 });
     }
 
-    // @ts-ignore
-    console.log(`[Stats] User ${session.user.email} resetting all data for org ${session.user.organizationId}`);
-    // @ts-ignore
-    await saveInvoices(session.user.organizationId, []); // Clear data
-    console.log('[Stats] Data cleared successfully');
-    return NextResponse.json({ success: true, message: 'All invoices deleted' });
+    try {
+        // @ts-ignore
+        console.log(`[Stats] User ${session.user.email} resetting all data for org ${session.user.organizationId}`);
+        // @ts-ignore
+        await deleteAllInvoices(session.user.organizationId);
+        console.log('[Stats] Data cleared successfully');
+        return NextResponse.json({ success: true, message: 'All invoices deleted' });
+    } catch (error) {
+        console.error('[API] Failed to delete invoices:', error);
+        return NextResponse.json({ success: false, error: 'Failed to delete invoices' }, { status: 500 });
+    }
 }

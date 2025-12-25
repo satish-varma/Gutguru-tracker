@@ -1,10 +1,8 @@
-
 import { NextResponse } from 'next/server';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import bcrypt from "bcryptjs";
-import { User } from '@/types';
-import { getUsers, saveUsers } from '@/lib/db';
+import { getUsers, createUser, updateUserRole, deleteUser, getUserByEmail } from '@/lib/turso';
 
 export async function GET() {
     const session = await getServerSession(authOptions);
@@ -13,16 +11,19 @@ export async function GET() {
         return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 403 });
     }
 
-    // @ts-ignore
-    const orgId = session.user.organizationId;
-    const users = await getUsers();
+    try {
+        // @ts-ignore
+        const orgId = session.user.organizationId;
+        const users = await getUsers(orgId);
 
-    // Filter users belonging to this Manager's Organization
-    // Also exclude the Manager themselves? Usually yes or no.
-    // Let's return all users in the org.
-    const orgUsers = users.filter((u: User) => u.organizationId === orgId && u.role === 'user');
+        // Filter users belonging to this Manager's Organization (only 'user' role)
+        const orgUsers = users.filter((u: any) => u.role === 'user');
 
-    return NextResponse.json({ success: true, users: orgUsers });
+        return NextResponse.json({ success: true, users: orgUsers });
+    } catch (error) {
+        console.error('[API] Failed to get team users:', error);
+        return NextResponse.json({ success: false, error: 'Failed to get users' }, { status: 500 });
+    }
 }
 
 export async function POST(request: Request) {
@@ -33,37 +34,34 @@ export async function POST(request: Request) {
     }
 
     try {
-        const { name, email, password, permissions } = await request.json();
+        const { name, email, password } = await request.json();
 
         if (!name || !email || !password) {
             return NextResponse.json({ success: false, error: 'Missing required fields' }, { status: 400 });
         }
 
-        const users = await getUsers();
-        if (users.find((u: User) => u.email === email)) {
+        // Check if user already exists
+        const existingUser = await getUserByEmail(email);
+        if (existingUser) {
             return NextResponse.json({ success: false, error: 'Email already exists' }, { status: 400 });
         }
 
         // @ts-ignore
         const orgId = session.user.organizationId;
 
-        const newUser: User = {
-            id: crypto.randomUUID(),
-            name,
+        await createUser({
+            id: Date.now().toString(),
             email,
-            passwordHash: bcrypt.hashSync(password, 10),
-            role: 'user', // Strictly 'user'
-            organizationId: orgId, // Bind to Manager's Org
-            permissions: permissions || {}, // { locations: [], stalls: [], validFrom: '' }
-            createdBy: session.user.email || 'system'
-        };
+            password: bcrypt.hashSync(password, 10),
+            name,
+            role: 'user', // Strictly 'user' for team members
+            orgId,
+        });
 
-        users.push(newUser);
-        await saveUsers(users);
-
-        return NextResponse.json({ success: true, message: 'User created successfully', user: newUser });
+        return NextResponse.json({ success: true, message: 'User created successfully' });
 
     } catch (error) {
+        console.error('[API] Failed to create team user:', error);
         return NextResponse.json({ success: false, error: 'Internal Server Error' }, { status: 500 });
     }
 }
@@ -76,30 +74,22 @@ export async function PUT(request: Request) {
     }
 
     try {
-        const { userId, permissions, password } = await request.json();
+        const { userId, role } = await request.json();
         // @ts-ignore
         const orgId = session.user.organizationId;
 
-        const users = await getUsers();
-        const userIndex = users.findIndex((u: User) => u.id === userId && u.organizationId === orgId);
-
-        if (userIndex === -1) {
-            return NextResponse.json({ success: false, error: 'User not found in your organization' }, { status: 404 });
+        if (!userId) {
+            return NextResponse.json({ success: false, error: 'User ID required' }, { status: 400 });
         }
 
-        if (permissions) {
-            users[userIndex].permissions = permissions;
+        if (role) {
+            await updateUserRole(userId, role, orgId);
         }
-
-        if (password && password.trim().length > 0) {
-            users[userIndex].passwordHash = bcrypt.hashSync(password, 10);
-        }
-
-        await saveUsers(users);
 
         return NextResponse.json({ success: true, message: 'User updated successfully' });
 
     } catch (error) {
+        console.error('[API] Failed to update team user:', error);
         return NextResponse.json({ success: false, error: 'Internal Server Error' }, { status: 500 });
     }
 }
@@ -116,21 +106,16 @@ export async function DELETE(request: Request) {
         // @ts-ignore
         const orgId = session.user.organizationId;
 
-        const users = await getUsers();
-        const initialLength = users.length;
-
-        // Remove only if it belongs to org and is 'user' role (safety)
-        const newUsers = users.filter((u: User) => !(u.id === userId && u.organizationId === orgId));
-
-        if (newUsers.length === initialLength) {
-            return NextResponse.json({ success: false, error: 'User not found or cannot be deleted' }, { status: 404 });
+        if (!userId) {
+            return NextResponse.json({ success: false, error: 'User ID required' }, { status: 400 });
         }
 
-        await saveUsers(newUsers);
+        await deleteUser(userId, orgId);
 
         return NextResponse.json({ success: true, message: 'User deleted successfully' });
 
     } catch (error) {
+        console.error('[API] Failed to delete team user:', error);
         return NextResponse.json({ success: false, error: 'Internal Server Error' }, { status: 500 });
     }
 }

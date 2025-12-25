@@ -1,6 +1,5 @@
 import imap from 'imap-simple';
-import { addInvoices, getInvoices } from '@/lib/db';
-import { getSettings } from '@/lib/settings';
+import { getInvoices, createInvoice, getSettings } from '@/lib/turso';
 import { Invoice } from '@/types';
 import fs from 'fs';
 import path from 'path';
@@ -55,14 +54,15 @@ export async function performSync(organizationId: string, options: {
         const lookbackDate = new Date();
         lookbackDate.setDate(lookbackDate.getDate() - (options.forceFullSync ? 3650 : settings.syncLookbackDays));
 
-        const existingCount = (await getInvoices(organizationId)).length;
+        const existingInvoices = await getInvoices(organizationId);
+        const existingIds = new Set(existingInvoices.map(inv => inv.id));
 
         let searchCriteria = [
             ['TEXT', searchTerm],
             ['SINCE', lookbackDate]
         ];
 
-        if (existingCount === 0) {
+        if (existingInvoices.length === 0) {
             console.log(`[Sync:${organizationId}] First run detected. Fetching ALL matching emails...`);
             searchCriteria = [['TEXT', searchTerm]];
         }
@@ -77,11 +77,10 @@ export async function performSync(organizationId: string, options: {
         const messages = await connection.search(searchCriteria, fetchOptions);
         if (options.signal?.aborted) throw new Error('Aborted');
         console.log(`[Sync:${organizationId}] Found ${messages.length} messages.`);
-        const potentialInvoices: Invoice[] = [];
 
-        const recentMessages = messages;
+        const addedInvoices: Invoice[] = [];
 
-        for (const message of recentMessages) {
+        for (const message of messages) {
             if (options.signal?.aborted) {
                 console.log(`[Sync:${organizationId}] Sync aborted`);
                 break;
@@ -123,7 +122,7 @@ export async function performSync(organizationId: string, options: {
                 }
 
                 // Parsing Logic
-                const amountMatch = text.match(/Net Payable Amount[\s:]*([\d,]+\.?\d*)/i);
+                const amountMatch = text.match(/Net Payable Amount[\s:]*([\\d,]+\.?\d*)/i);
                 const amount = amountMatch ? parseFloat(amountMatch[1].replace(/,/g, '')) : 0;
 
                 const dateMatch = text.match(/Raised On\s*:\s*(\d{4}-\d{2}-\d{2})/i);
@@ -141,7 +140,7 @@ export async function performSync(organizationId: string, options: {
                     if (altLocation) rawLocation = altLocation[1].trim();
                 }
 
-                const annexureMatch = text.match(/(\d{4}-\d{2}-\d{2})\s+\w+\s+(Live\s*Counter|Tuck\s*Shop|Tuckshop)\s+(.+?)(?=\s+\d+(\.\d+)?\s+\d)/i);
+                const annexureMatch = text.match(/(\d{4}-\d{2}-\d{2})\s+\w+\s+(Live\s*Counter|Tuck\s*Shop|Tuckshop)\s+(.+?)(?=\s+\d+(\.\\d+)?\s+\d)/i);
                 if (annexureMatch) {
                     const vendorName = annexureMatch[2].replace(/\s+/g, ' ').trim();
                     const fullLoc = annexureMatch[3].trim();
@@ -184,6 +183,11 @@ export async function performSync(organizationId: string, options: {
                 if (amount > 0) {
                     const uniqueId = `INV-${fileName.split('.')[0]}-${amount}`;
 
+                    // Skip if already exists
+                    if (existingIds.has(uniqueId)) {
+                        continue;
+                    }
+
                     // Save PDF
                     const uploadDir = path.join(process.cwd(), 'public', 'documents');
                     if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
@@ -193,7 +197,21 @@ export async function performSync(organizationId: string, options: {
                         fs.writeFileSync(filePath, partData);
                     } catch (err) { console.error('Failed to save', err); }
 
-                    potentialInvoices.push({
+                    // Save to Turso database
+                    await createInvoice({
+                        id: uniqueId,
+                        date,
+                        serviceDateRange,
+                        location,
+                        stall,
+                        amount,
+                        status: 'Processed',
+                        pdfPath: `/documents/${uniqueId}.pdf`,
+                        syncedAt: new Date().toISOString(),
+                        orgId: organizationId,
+                    });
+
+                    addedInvoices.push({
                         id: uniqueId,
                         date,
                         location,
@@ -203,13 +221,14 @@ export async function performSync(organizationId: string, options: {
                         serviceDateRange,
                         pdfUrl: `/documents/${uniqueId}.pdf`
                     });
+
+                    existingIds.add(uniqueId);
                 }
             }
         }
 
         if (connection) connection.end();
 
-        const addedInvoices = await addInvoices(organizationId, potentialInvoices);
         return {
             success: true,
             count: addedInvoices.length,

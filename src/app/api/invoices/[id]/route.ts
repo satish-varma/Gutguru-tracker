@@ -1,6 +1,5 @@
-
 import { NextResponse } from 'next/server';
-import { getInvoices, saveInvoices } from '@/lib/db';
+import { getInvoiceById, updateInvoiceStatus } from '@/lib/turso';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 
@@ -22,11 +21,11 @@ export async function PUT(
 
         // @ts-ignore
         const orgId = session.user.organizationId;
-        const invoices = await getInvoices(orgId);
 
-        const index = invoices.findIndex((inv: any) => inv.id === id);
+        // Check if invoice exists
+        const invoice = await getInvoiceById(id, orgId);
 
-        if (index === -1) {
+        if (!invoice) {
             return NextResponse.json({
                 success: false,
                 error: 'Invoice not found',
@@ -35,11 +34,9 @@ export async function PUT(
         }
 
         // Update status
-        invoices[index].status = status;
+        await updateInvoiceStatus(id, status, orgId);
 
-        await saveInvoices(orgId, invoices);
-
-        return NextResponse.json({ success: true, data: invoices[index] });
+        return NextResponse.json({ success: true, data: { ...invoice, status } });
     } catch (e) {
         console.error(e);
         return NextResponse.json({ success: false, error: 'Internal Error', details: String(e) }, { status: 500 });
@@ -65,11 +62,11 @@ export async function PATCH(
 
         // @ts-ignore
         const orgId = session.user.organizationId;
-        const invoices = await getInvoices(orgId);
 
-        const index = invoices.findIndex((inv: any) => inv.id === id);
+        // Check if invoice exists
+        const invoice = await getInvoiceById(id, orgId);
 
-        if (index === -1) {
+        if (!invoice) {
             return NextResponse.json({
                 success: false,
                 error: 'Invoice not found',
@@ -78,11 +75,9 @@ export async function PATCH(
         }
 
         // Update status
-        invoices[index].status = status;
+        await updateInvoiceStatus(id, status, orgId);
 
-        await saveInvoices(orgId, invoices);
-
-        return NextResponse.json({ success: true, data: invoices[index] });
+        return NextResponse.json({ success: true, data: { ...invoice, status } });
     } catch (e) {
         console.error(e);
         return NextResponse.json({ success: false, error: 'Internal Error', details: String(e) }, { status: 500 });

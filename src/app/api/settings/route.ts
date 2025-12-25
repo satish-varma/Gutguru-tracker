@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getSettings, saveSettings } from '@/lib/settings';
+import { getSettings, saveSettings } from '@/lib/turso';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 
@@ -8,9 +8,14 @@ export async function GET() {
     // @ts-ignore
     if (!session || !session.user || !session.user.organizationId) return NextResponse.json({}, { status: 401 });
 
-    // @ts-ignore
-    const settings = await getSettings(session.user.organizationId);
-    return NextResponse.json(settings);
+    try {
+        // @ts-ignore
+        const settings = await getSettings(session.user.organizationId);
+        return NextResponse.json(settings);
+    } catch (error) {
+        console.error('[API] Failed to get settings:', error);
+        return NextResponse.json({ error: 'Failed to get settings' }, { status: 500 });
+    }
 }
 
 export async function POST(request: Request) {
@@ -29,6 +34,7 @@ export async function POST(request: Request) {
         await saveSettings(session.user.organizationId, body);
         return NextResponse.json({ success: true, settings: body });
     } catch (error) {
+        console.error('[API] Failed to save settings:', error);
         return NextResponse.json({ success: false, error: 'Failed to save settings' }, { status: 500 });
     }
 }

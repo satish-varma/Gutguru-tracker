@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { performSync } from '@/lib/sync';
-import { getInvoices } from '@/lib/db';
+import { getInvoices } from '@/lib/turso';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 
@@ -9,9 +9,14 @@ export async function GET() {
   // @ts-ignore
   if (!session || !session.user || !session.user.organizationId) return NextResponse.json({}, { status: 401 });
 
-  // @ts-ignore
-  const invoices = await getInvoices(session.user.organizationId);
-  return NextResponse.json({ success: true, data: invoices });
+  try {
+    // @ts-ignore
+    const invoices = await getInvoices(session.user.organizationId);
+    return NextResponse.json({ success: true, data: invoices });
+  } catch (error) {
+    console.error('[API] Failed to get invoices:', error);
+    return NextResponse.json({ success: false, error: 'Failed to fetch invoices' }, { status: 500 });
+  }
 }
 
 export async function POST(request: Request) {

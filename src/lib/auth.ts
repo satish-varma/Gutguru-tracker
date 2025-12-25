@@ -1,8 +1,19 @@
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
-import { getUsers } from "@/lib/db";
-import { User } from "@/types";
+import { getUserByEmail, initializeDatabase, seedDefaultAdmin } from "@/lib/turso";
+
+// Initialize database on startup
+let dbInitialized = false;
+async function ensureDbInitialized() {
+    if (!dbInitialized) {
+        await initializeDatabase();
+        // Seed default admin for the default org
+        const defaultPassword = bcrypt.hashSync('admin123', 10);
+        await seedDefaultAdmin('default', defaultPassword);
+        dbInitialized = true;
+    }
+}
 
 export const authOptions: NextAuthOptions = {
     providers: [
@@ -15,17 +26,18 @@ export const authOptions: NextAuthOptions = {
             async authorize(credentials) {
                 if (!credentials?.email || !credentials?.password) return null;
 
-                const users = await getUsers();
-                const user = users.find((u: User) => u.email === credentials.email);
+                // Ensure database is initialized
+                await ensureDbInitialized();
 
-                if (user && bcrypt.compareSync(credentials.password, user.passwordHash)) {
+                const user = await getUserByEmail(credentials.email);
+
+                if (user && bcrypt.compareSync(credentials.password, user.password)) {
                     return {
                         id: user.id,
-                        name: user.name,
+                        name: user.name || user.email.split('@')[0],
                         email: user.email,
                         role: user.role,
-                        organizationId: user.organizationId,
-                        permissions: user.permissions
+                        organizationId: user.orgId,
                     };
                 }
                 return null;
