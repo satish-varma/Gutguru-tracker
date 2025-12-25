@@ -82,7 +82,7 @@ export async function performSync(organizationId: string, options: {
         if (options.signal?.aborted) throw new Error('Aborted');
 
         // Limit messages to process (Vercel has 60s timeout)
-        const MAX_MESSAGES = process.env.VERCEL === '1' ? 15 : 100;
+        const MAX_MESSAGES = process.env.VERCEL === '1' ? 5 : 100;
         const messages = allMessages.slice(0, MAX_MESSAGES);
         console.log(`[Sync:${organizationId}] Found ${allMessages.length} messages, processing ${messages.length}.`);
 
