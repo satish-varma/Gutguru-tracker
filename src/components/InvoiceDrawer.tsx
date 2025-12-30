@@ -98,8 +98,9 @@ export function InvoiceDrawer({ invoice, onClose, isOpen }: InvoiceDrawerProps) 
                   className="btn btn-outline"
                   style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
                   onClick={() => {
-                    const pdfUrl = invoice.pdfUrl || `/documents/${invoice.id}.pdf`;
-                    window.open(pdfUrl, '_blank');
+                    // Use API endpoint for R2/cloud storage
+                    const apiUrl = `/api/download-invoice?id=${encodeURIComponent(invoice.id)}&pdfPath=${encodeURIComponent(invoice.pdfPath || '')}`;
+                    window.open(apiUrl, '_blank');
                   }}
                 >
                   <Eye size={16} />
@@ -108,18 +109,31 @@ export function InvoiceDrawer({ invoice, onClose, isOpen }: InvoiceDrawerProps) 
                 <button
                   className="btn btn-primary"
                   style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
-                  onClick={() => {
-                    // Use static file path directly
-                    const pdfUrl = invoice.pdfUrl || `/documents/${invoice.id}.pdf`;
-                    // Trigger download
-                    const link = document.createElement('a');
-                    link.href = pdfUrl;
-                    link.download = `Invoice-${invoice.id.split('_')[0]}.pdf`;
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                    // Also open in new tab for viewing
-                    window.open(pdfUrl, '_blank');
+                  onClick={async () => {
+                    try {
+                      // Use API endpoint for download
+                      const apiUrl = `/api/download-invoice?id=${encodeURIComponent(invoice.id)}&pdfPath=${encodeURIComponent(invoice.pdfPath || '')}`;
+                      const response = await fetch(apiUrl);
+
+                      if (!response.ok) {
+                        const error = await response.json();
+                        alert(error.error || 'Failed to download PDF');
+                        return;
+                      }
+
+                      const blob = await response.blob();
+                      const url = window.URL.createObjectURL(blob);
+                      const link = document.createElement('a');
+                      link.href = url;
+                      link.download = `Invoice-${invoice.id}.pdf`;
+                      document.body.appendChild(link);
+                      link.click();
+                      document.body.removeChild(link);
+                      window.URL.revokeObjectURL(url);
+                    } catch (e) {
+                      console.error('Download error:', e);
+                      alert('Failed to download PDF');
+                    }
                   }}
                 >
                   <Download size={16} />

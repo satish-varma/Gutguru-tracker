@@ -7,6 +7,7 @@ export interface Invoice {
     status: 'Processed' | 'Pending' | 'Paid';
     serviceDateRange?: string;
     pdfUrl?: string;
+    pdfPath?: string;
 }
 
 export type UserRole = 'admin' | 'manager' | 'user';

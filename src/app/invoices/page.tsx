@@ -402,20 +402,37 @@ export default function InvoicesPage() {
         }
     };
 
-    const handleDownloadSelected = () => {
+    const handleDownloadSelected = async () => {
         const selectedInvoices = invoices.filter(inv => selectedIds.has(inv.id));
-        selectedInvoices.forEach((inv, index) => {
-            // Stagger downloads to prevent browser blocking
-            setTimeout(() => {
-                const pdfUrl = inv.pdfUrl || `/documents/${inv.id}.pdf`;
+        for (let i = 0; i < selectedInvoices.length; i++) {
+            const inv = selectedInvoices[i];
+            try {
+                const apiUrl = `/api/download-invoice?id=${encodeURIComponent(inv.id)}&pdfPath=${encodeURIComponent(inv.pdfPath || '')}`;
+                const response = await fetch(apiUrl);
+
+                if (!response.ok) {
+                    console.error(`Failed to download ${inv.id}`);
+                    continue;
+                }
+
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
                 const link = document.createElement('a');
-                link.href = pdfUrl;
-                link.download = `Invoice-${inv.id.split('_')[0]}.pdf`;
+                link.href = url;
+                link.download = `Invoice-${inv.id}.pdf`;
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
-            }, index * 300); // 300ms delay between each download
-        });
+                window.URL.revokeObjectURL(url);
+
+                // Stagger downloads
+                if (i < selectedInvoices.length - 1) {
+                    await new Promise(resolve => setTimeout(resolve, 300));
+                }
+            } catch (e) {
+                console.error(`Error downloading ${inv.id}:`, e);
+            }
+        }
         // Clear selection after download
         setSelectedIds(new Set());
     };
@@ -833,19 +850,31 @@ export default function InvoicesPage() {
                                                 )}
 
                                                 <button
-                                                    onClick={(e) => {
+                                                    onClick={async (e) => {
                                                         e.stopPropagation();
-                                                        // Use static file path directly
-                                                        const pdfUrl = inv.pdfUrl || `/documents/${inv.id}.pdf`;
-                                                        // Trigger download
-                                                        const link = document.createElement('a');
-                                                        link.href = pdfUrl;
-                                                        link.download = `Invoice-${inv.id.split('_')[0]}.pdf`;
-                                                        document.body.appendChild(link);
-                                                        link.click();
-                                                        document.body.removeChild(link);
-                                                        // Also open in new tab for viewing
-                                                        window.open(pdfUrl, '_blank');
+                                                        try {
+                                                            const apiUrl = `/api/download-invoice?id=${encodeURIComponent(inv.id)}&pdfPath=${encodeURIComponent(inv.pdfPath || '')}`;
+                                                            const response = await fetch(apiUrl);
+
+                                                            if (!response.ok) {
+                                                                const error = await response.json();
+                                                                alert(error.error || 'Failed to download PDF');
+                                                                return;
+                                                            }
+
+                                                            const blob = await response.blob();
+                                                            const url = window.URL.createObjectURL(blob);
+                                                            const link = document.createElement('a');
+                                                            link.href = url;
+                                                            link.download = `Invoice-${inv.id}.pdf`;
+                                                            document.body.appendChild(link);
+                                                            link.click();
+                                                            document.body.removeChild(link);
+                                                            window.URL.revokeObjectURL(url);
+                                                        } catch (err) {
+                                                            console.error('Download error:', err);
+                                                            alert('Failed to download PDF');
+                                                        }
                                                     }}
                                                     className="p-1.5 bg-indigo-50 text-indigo-500 rounded-full hover:bg-indigo-100 hover:text-indigo-700 hover:shadow-md border border-indigo-100 transition-all duration-200 inline-flex items-center justify-center group-hover:bg-indigo-100 group-hover:shadow-sm"
                                                     title="Download Invoice"
