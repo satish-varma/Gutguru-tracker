@@ -103,7 +103,7 @@ export async function performSync(organizationId: string, options: {
                 markSeen: false,
             };
 
-            const messages = await imap.fetch(connection, uidsToFetch, fetchOptions);
+            const messages = await connection.search({ uid: uidsToFetch }, fetchOptions);
 
             for (const message of messages) {
                 if (options.signal?.aborted) {
