@@ -103,7 +103,7 @@ export async function performSync(organizationId: string, options: {
                 markSeen: false,
             };
 
-            const messages = await connection.search({ uid: uidsToFetch }, fetchOptions);
+            const messages = await connection.search([['UID', uidsToFetch.join(',')]], fetchOptions);
 
             for (const message of messages) {
                 if (options.signal?.aborted) {
