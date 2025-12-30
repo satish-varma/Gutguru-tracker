@@ -64,13 +64,13 @@ export async function performSync(organizationId: string, options: {
         const existingIds = new Set(existingInvoices.map(inv => inv.id));
 
         let searchCriteria = [
-            ['TEXT', searchTerm],
+            ['SUBJECT', searchTerm],
             ['SINCE', lookbackDate]
         ];
 
         if (existingInvoices.length === 0 || options.forceFullSync) {
-            console.log(`[Sync:${organizationId}] Full sync or first run. Fetching ALL matching emails...`);
-            searchCriteria = [['TEXT', searchTerm]];
+            console.log(`[Sync:${organizationId}] Full sync or first run. Fetching matching emails by SUBJECT...`);
+            searchCriteria = [['SUBJECT', searchTerm]];
         }
 
         const fetchOptions = {
@@ -86,8 +86,8 @@ export async function performSync(organizationId: string, options: {
         if (options.signal?.aborted) throw new Error('Aborted');
 
         // Step 2: Limit how many messages we process to avoid Vercel timeouts
-        // Hobby limit is 10s, Pro is 60s. 5 messages is safer for Hobby.
-        const MAX_MESSAGES = process.env.VERCEL === '1' ? 6 : 1000;
+        // Hobby limit is 10s. 3 messages is very safe.
+        const MAX_MESSAGES = process.env.VERCEL === '1' ? 3 : 1000;
         const uidsToFetch = uids.reverse().slice(0, MAX_MESSAGES); // Newest first
 
         console.log(`[Sync:${organizationId}] Found ${uids.length} total messages, processing newest ${uidsToFetch.length}.`);

@@ -65,7 +65,13 @@ export default function Home() {
   const fetchInvoices = async () => {
     try {
       const response = await fetch('/api/invoices');
-      const result = await response.json();
+      let result;
+      try {
+        result = await response.json();
+      } catch (e) {
+        console.error('Failed to parse response as JSON:', e);
+        return;
+      }
 
       if (result.success && result.data && result.data.length > 0) {
         // Sort by date descending (newest first)
@@ -212,7 +218,18 @@ export default function Home() {
         return;
       }
 
-      const result = await response.json();
+      let result;
+      try {
+        result = await response.json();
+      } catch (e) {
+        console.error('Failed to parse response as JSON:', e);
+        if (response.status === 504) {
+          alert('Sync timed out (Vercel limit). We optimized the process - please click sync again to catch up, or wait for the auto-sync.');
+        } else {
+          alert(`Server Error: ${response.status}. The server returned an invalid response.`);
+        }
+        return;
+      }
 
       if (result.success) {
         if (result.count > 0) {

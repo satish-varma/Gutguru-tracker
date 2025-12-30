@@ -104,7 +104,18 @@ export default function SettingsPage() {
                 return;
             }
 
-            const result = await response.json();
+            let result;
+            try {
+                result = await response.json();
+            } catch (e) {
+                console.error('Failed to parse response as JSON:', e);
+                if (response.status === 504) {
+                    setStatusMsg('Sync timed out. Still processing in background.');
+                } else {
+                    setStatusMsg(`Server Error: ${response.status}`);
+                }
+                return;
+            }
 
             if (result.success) {
                 setStatusMsg(result.count > 0 ? `Synced ${result.count} new invoices!` : 'Sync completed. No new invoices.');
