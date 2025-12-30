@@ -56,7 +56,9 @@ export async function performSync(organizationId: string, options: {
 
         const searchTerm = settings.emailSearchTerm;
         const lookbackDate = new Date();
-        lookbackDate.setDate(lookbackDate.getDate() - (options.forceFullSync ? 3650 : settings.syncLookbackDays));
+        // Use shorter lookback for regular sync to speed up search
+        const lookbackDays = options.forceFullSync ? 3650 : Math.min(settings.syncLookbackDays, 7);
+        lookbackDate.setDate(lookbackDate.getDate() - lookbackDays);
 
         console.log(`[Sync:${organizationId}] Search Term: "${searchTerm}", Since: ${lookbackDate.toISOString()}`);
 
@@ -73,8 +75,9 @@ export async function performSync(organizationId: string, options: {
             searchCriteria = [['TEXT', searchTerm]];
         }
 
+        // Only fetch structure initially - much faster than full body
         const fetchOptions = {
-            bodies: ['HEADER', 'TEXT', ''],
+            bodies: ['HEADER'],
             struct: true,
             markSeen: false,
         };
@@ -85,8 +88,8 @@ export async function performSync(organizationId: string, options: {
         const allMessages = await connection.search(searchCriteria, fetchOptions);
         if (options.signal?.aborted) throw new Error('Aborted');
 
-        // Limit how many messages we process to avoid Vercel timeouts
-        const MAX_MESSAGES = process.env.VERCEL === '1' ? 10 : 1000;
+        // Limit messages to prevent timeout - 5 is safe for Vercel
+        const MAX_MESSAGES = process.env.VERCEL === '1' ? 5 : 1000;
         // Sort by UID descending (newest first) and slice
         const messages = allMessages
             .sort((a: any, b: any) => (b.attributes?.uid || 0) - (a.attributes?.uid || 0))
