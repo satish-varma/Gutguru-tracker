@@ -64,13 +64,13 @@ export async function performSync(organizationId: string, options: {
         const existingIds = new Set(existingInvoices.map(inv => inv.id));
 
         let searchCriteria = [
-            ['SUBJECT', searchTerm],
+            ['TEXT', searchTerm],
             ['SINCE', lookbackDate]
         ];
 
         if (existingInvoices.length === 0 || options.forceFullSync) {
-            console.log(`[Sync:${organizationId}] Full sync or first run. Fetching matching emails by SUBJECT...`);
-            searchCriteria = [['SUBJECT', searchTerm]];
+            console.log(`[Sync:${organizationId}] Full sync or first run. Fetching matching emails by TEXT...`);
+            searchCriteria = [['TEXT', searchTerm]];
         }
 
         const fetchOptions = {
