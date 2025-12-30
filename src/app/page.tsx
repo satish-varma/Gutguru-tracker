@@ -201,49 +201,79 @@ export default function Home() {
 
   const handleSync = async (fullSync = false) => {
     setIsSyncing(true);
+    let totalSynced = 0;
+    let batchCount = 0;
+    const MAX_BATCHES = 20; // Safety limit to prevent infinite loops
+
     try {
-      const url = fullSync ? '/api/sync?full=true' : '/api/sync';
-      const response = await fetch(url, { method: 'POST' });
+      while (batchCount < MAX_BATCHES) {
+        batchCount++;
+        console.log(`[Sync] Starting batch ${batchCount}...`);
 
-      // Handle non-JSON responses (like 504 timeouts)
-      const contentType = response.headers.get("content-type");
-      if (!contentType || !contentType.includes("application/json")) {
-        const text = await response.text();
-        console.error('Server returned non-JSON response:', text);
-        if (response.status === 504) {
-          alert('Sync timed out on the server. We are processing it in chunks, please try again in a moment or wait for the auto-sync.');
-        } else {
-          alert(`Server Error: ${response.status}. Please check logs.`);
+        const url = fullSync ? '/api/sync?full=true' : '/api/sync';
+        const response = await fetch(url, { method: 'POST' });
+
+        // Handle non-JSON responses (like 504 timeouts)
+        const contentType = response.headers.get("content-type");
+        if (!contentType || !contentType.includes("application/json")) {
+          console.error('Server returned non-JSON response');
+          if (response.status === 504 && totalSynced > 0) {
+            // Got some invoices before timeout, report partial success
+            await fetchInvoices();
+            alert(`Synced ${totalSynced} invoices before timeout. Click sync again for more.`);
+            return;
+          }
+          alert('Sync timed out. Please try again.');
+          return;
         }
-        return;
-      }
 
-      let result;
-      try {
-        result = await response.json();
-      } catch (e) {
-        console.error('Failed to parse response as JSON:', e);
-        if (response.status === 504) {
-          alert('Sync timed out (Vercel limit). We optimized the process - please click sync again to catch up, or wait for the auto-sync.');
-        } else {
-          alert(`Server Error: ${response.status}. The server returned an invalid response.`);
+        let result;
+        try {
+          result = await response.json();
+        } catch (e) {
+          console.error('Failed to parse JSON:', e);
+          if (totalSynced > 0) {
+            await fetchInvoices();
+            alert(`Synced ${totalSynced} invoices. Click sync again for more.`);
+          } else {
+            alert('Sync failed. Please try again.');
+          }
+          return;
         }
-        return;
-      }
 
-      if (result.success) {
+        if (!result.success) {
+          alert(result.error || 'Sync failed. Check credentials.');
+          return;
+        }
+
         if (result.count > 0) {
-          await fetchInvoices();
-          alert(`Synced ${result.count} new invoices!`);
+          totalSynced += result.count;
+          console.log(`[Sync] Batch ${batchCount}: Found ${result.count} new invoices. Total: ${totalSynced}`);
+          // Continue to next batch
         } else {
-          alert('Sync completed. No new invoices found.');
+          // No new invoices found - we're done!
+          console.log(`[Sync] Batch ${batchCount}: No new invoices. Sync complete.`);
+          break;
         }
-      } else {
-        alert(result.error || 'Sync failed. Check credentials.');
       }
+
+      // Refresh invoices list
+      await fetchInvoices();
+
+      if (totalSynced > 0) {
+        alert(`✓ Sync complete! Found ${totalSynced} new invoices.`);
+      } else {
+        alert('Sync complete. No new invoices found.');
+      }
+
     } catch (error: any) {
       console.error('Frontend Sync Error:', error);
-      alert('Failed to sync: ' + (error.message || 'Unknown network error'));
+      if (totalSynced > 0) {
+        await fetchInvoices();
+        alert(`Synced ${totalSynced} invoices before error. Try again for more.`);
+      } else {
+        alert('Failed to sync: ' + (error.message || 'Unknown network error'));
+      }
     } finally {
       setIsSyncing(false);
     }
