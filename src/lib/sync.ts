@@ -80,190 +80,205 @@ export async function performSync(organizationId: string, options: {
         };
 
         console.log(`[Sync:${organizationId}] Searching emails with criteria:`, JSON.stringify(searchCriteria));
-        const allMessages = await connection.search(searchCriteria, fetchOptions);
+
+        // Step 1: Search for UIDs only (more efficient than fetching full body in search)
+        const uids = await connection.search(searchCriteria);
         if (options.signal?.aborted) throw new Error('Aborted');
 
-        // Limit messages to process (Vercel has 60s timeout)
-        const MAX_MESSAGES = process.env.VERCEL === '1' ? 8 : 1000;
-        const messages = allMessages.slice(0, MAX_MESSAGES);
-        console.log(`[Sync:${organizationId}] Found ${allMessages.length} total messages, processing ${messages.length}.`);
+        // Step 2: Limit how many messages we process to avoid Vercel timeouts
+        // Hobby limit is 10s, Pro is 60s. 5 messages is safer for Hobby.
+        const MAX_MESSAGES = process.env.VERCEL === '1' ? 6 : 1000;
+        const uidsToFetch = uids.reverse().slice(0, MAX_MESSAGES); // Newest first
+
+        console.log(`[Sync:${organizationId}] Found ${uids.length} total messages, processing newest ${uidsToFetch.length}.`);
 
         const addedInvoices: Invoice[] = [];
 
-        for (const message of messages) {
-            if (options.signal?.aborted) {
-                console.log(`[Sync:${organizationId}] Sync aborted`);
-                break;
-            }
-            if (!message.attributes || !message.attributes.struct) continue;
+        // Step 3: Fetch details for the selected UIDs
+        if (uidsToFetch.length > 0) {
+            const fetchOptions = {
+                bodies: ['HEADER'], // Only need headers initially
+                struct: true,
+                markSeen: false,
+            };
 
-            const parts = imap.getParts(message.attributes.struct!);
-            const attachments = parts.filter(
-                (part) =>
-                    (part.disposition && part.disposition.type.toUpperCase() === 'ATTACHMENT') ||
-                    (part.params && part.params.name && part.params.name.toLowerCase().endsWith('.pdf'))
-            );
+            const messages = await connection.fetch(uidsToFetch, fetchOptions);
 
-            if (attachments.length === 0) {
-                console.log(`[Sync] Message ${message.attributes.uid} has no PDF attachments.`);
-                continue;
-            }
+            for (const message of messages) {
+                if (options.signal?.aborted) {
+                    console.log(`[Sync:${organizationId}] Sync aborted`);
+                    break;
+                }
+                if (!message.attributes || !message.attributes.struct) continue;
 
-            for (const attachment of attachments) {
-                if (options.signal?.aborted) break;
+                const parts = imap.getParts(message.attributes.struct!);
+                const attachments = parts.filter(
+                    (part) =>
+                        (part.disposition && part.disposition.type.toUpperCase() === 'ATTACHMENT') ||
+                        (part.params && part.params.name && part.params.name.toLowerCase().endsWith('.pdf'))
+                );
 
-                const fileName = attachment.params?.name || '';
-
-                if (fileName.includes("commission_invoice")) continue;
-                if (!fileName.toLowerCase().endsWith('.pdf')) continue;
-
-                if (options.signal?.aborted) break;
-                const partData = await connection.getPartData(message, attachment);
-
-                if (options.signal?.aborted) break;
-                let text = '';
-                try {
-                    text = await new Promise((resolve, reject) => {
-                        const pdfParser = new PDFParser(null, 1);
-                        pdfParser.on("pdfParser_dataError", (errData: any) => reject(errData.parserError));
-                        pdfParser.on("pdfParser_dataReady", () => {
-                            resolve(pdfParser.getRawTextContent());
-                        });
-                        pdfParser.parseBuffer(partData);
-                    });
-                } catch (err) {
-                    console.error(`Failed to parse PDF ${fileName}:`, err);
+                if (attachments.length === 0) {
+                    console.log(`[Sync] Message ${message.attributes.uid} has no PDF attachments.`);
                     continue;
                 }
 
-                // Improved Regex for amount
-                const amountMatch = text.match(/Net\s+Payable\s+Amount[\s:]*([0-9,]+\.?\d*)/i);
-                const amount = amountMatch ? parseFloat(amountMatch[1].replace(/,/g, '')) : 0;
-                console.log(`[Sync] Extracted Amount from ${fileName}: ${amount}`);
+                for (const attachment of attachments) {
+                    if (options.signal?.aborted) break;
 
-                const dateMatch = text.match(/Raised On\s*:\s*(\d{4}-\d{2}-\d{2})/i);
-                const date = dateMatch ? dateMatch[1] : new Date().toISOString().split('T')[0];
+                    const fileName = attachment.params?.name || '';
 
-                const vendorLocationMatch = text.match(/Payment Advice Raised To\s*\n\s*([^\n]+)\n\s*([^\n]+)/i);
-                let stall = 'Unknown Stall';
-                let rawLocation = '';
+                    if (fileName.includes("commission_invoice")) continue;
+                    if (!fileName.toLowerCase().endsWith('.pdf')) continue;
 
-                if (vendorLocationMatch) {
-                    stall = vendorLocationMatch[1].trim();
-                    rawLocation = vendorLocationMatch[2].trim();
-                } else {
-                    const altLocation = text.match(/(?:Location|Site|Cafeteria)[\s:]*([^\n]+)/i);
-                    if (altLocation) rawLocation = altLocation[1].trim();
-                }
+                    if (options.signal?.aborted) break;
+                    const partData = await connection.getPartData(message, attachment);
 
-                const annexureMatch = text.match(/(\d{4}-\d{2}-\d{2})\s+\w+\s+(Live\s*Counter|Tuck\s*Shop|Tuckshop)\s+(.+?)(?=\s+\d+(\.\\d+)?\s+\d)/i);
-                if (annexureMatch) {
-                    const vendorName = annexureMatch[2].replace(/\s+/g, ' ').trim();
-                    const fullLoc = annexureMatch[3].trim();
-                    const words = fullLoc.split(/\s+/);
-                    let shortLoc = fullLoc;
-                    if (words.length >= 3) shortLoc = `${words[0]} ${words[1]} ${words[2]}`;
-                    else if (words.length >= 2) shortLoc = `${words[0]} ${words[1]}`;
-
-                    stall = `${vendorName} ${shortLoc}`;
-                    rawLocation = shortLoc;
-                }
-
-                const dateRangeMatch = text.match(/For the Date Range\s*:?[\s]*(\d{4}-\d{2}-\d{2})[\s\S]*?to[\s\S]*?(\d{4}-\d{2}-\d{2})/i);
-                let serviceDateRange = '';
-                if (dateRangeMatch) {
-                    serviceDateRange = `${dateRangeMatch[1]} to ${dateRangeMatch[2]}`;
-                }
-
-                if (stall && rawLocation) {
-                    const cleanLoc = rawLocation.replace(/[,\.]/g, ' ').trim();
-                    const words = cleanLoc.split(/\s+/).filter(w => w.length > 0);
-                    let shortLoc = '';
-                    if (words.length >= 3) shortLoc = `${words[0]} ${words[1]} ${words[2]}`;
-                    else if (words.length >= 2) shortLoc = `${words[0]} ${words[1]}`;
-                    else if (words.length === 1) shortLoc = words[0];
-
-                    if (shortLoc && !stall.toLowerCase().includes(shortLoc.toLowerCase())) {
-                        stall = `${stall} ${shortLoc}`;
-                    }
-                }
-
-                let location = 'Other';
-                const combinedString = (fileName + ' ' + rawLocation).toUpperCase();
-                if (combinedString.includes('BROADRIDGE')) location = 'Broadridge';
-                else if (combinedString.includes('CGI')) location = 'CGI Information Systems';
-                else if (combinedString.includes('IBM')) location = 'IBM';
-                else if (combinedString.includes('DSM')) location = 'DSM Shared Services';
-                else location = rawLocation || 'Other';
-
-                if (amount > 0) {
-                    const uniqueId = `INV-${fileName.split('.')[0]}-${amount}`;
-
-                    // Skip if already exists
-                    if (existingIds.has(uniqueId)) {
+                    if (options.signal?.aborted) break;
+                    let text = '';
+                    try {
+                        text = await new Promise((resolve, reject) => {
+                            const pdfParser = new PDFParser(null, 1);
+                            pdfParser.on("pdfParser_dataError", (errData: any) => reject(errData.parserError));
+                            pdfParser.on("pdfParser_dataReady", () => {
+                                resolve(pdfParser.getRawTextContent());
+                            });
+                            pdfParser.parseBuffer(partData);
+                        });
+                    } catch (err) {
+                        console.error(`Failed to parse PDF ${fileName}:`, err);
                         continue;
                     }
 
-                    // Try to upload PDF to R2 or save locally
-                    let pdfPath: string | null = null;
+                    // Improved Regex for amount
+                    const amountMatch = text.match(/Net\s+Payable\s+Amount[\s:]*([0-9,]+\.?\d*)/i);
+                    const amount = amountMatch ? parseFloat(amountMatch[1].replace(/,/g, '')) : 0;
+                    console.log(`[Sync] Extracted Amount from ${fileName}: ${amount}`);
 
-                    // First, try Cloudflare R2 (works on serverless)
-                    if (isR2Configured()) {
-                        try {
-                            const r2Key = getInvoicePdfKey(uniqueId);
-                            await uploadToR2(r2Key, partData);
-                            pdfPath = `r2://${r2Key}`; // Special prefix to indicate R2 storage
-                            console.log(`[Sync] PDF uploaded to R2: ${r2Key}`);
-                        } catch (err) {
-                            console.error('[Sync] Failed to upload PDF to R2:', err);
+                    const dateMatch = text.match(/Raised On\s*:\s*(\d{4}-\d{2}-\d{2})/i);
+                    const date = dateMatch ? dateMatch[1] : new Date().toISOString().split('T')[0];
+
+                    const vendorLocationMatch = text.match(/Payment Advice Raised To\s*\n\s*([^\n]+)\n\s*([^\n]+)/i);
+                    let stall = 'Unknown Stall';
+                    let rawLocation = '';
+
+                    if (vendorLocationMatch) {
+                        stall = vendorLocationMatch[1].trim();
+                        rawLocation = vendorLocationMatch[2].trim();
+                    } else {
+                        const altLocation = text.match(/(?:Location|Site|Cafeteria)[\s:]*([^\n]+)/i);
+                        if (altLocation) rawLocation = altLocation[1].trim();
+                    }
+
+                    const annexureMatch = text.match(/(\d{4}-\d{2}-\d{2})\s+\w+\s+(Live\s*Counter|Tuck\s*Shop|Tuckshop)\s+(.+?)(?=\s+\d+(\.\\d+)?\s+\d)/i);
+                    if (annexureMatch) {
+                        const vendorName = annexureMatch[2].replace(/\s+/g, ' ').trim();
+                        const fullLoc = annexureMatch[3].trim();
+                        const words = fullLoc.split(/\s+/);
+                        let shortLoc = fullLoc;
+                        if (words.length >= 3) shortLoc = `${words[0]} ${words[1]} ${words[2]}`;
+                        else if (words.length >= 2) shortLoc = `${words[0]} ${words[1]}`;
+
+                        stall = `${vendorName} ${shortLoc}`;
+                        rawLocation = shortLoc;
+                    }
+
+                    const dateRangeMatch = text.match(/For the Date Range\s*:?[\s]*(\d{4}-\d{2}-\d{2})[\s\S]*?to[\s\S]*?(\d{4}-\d{2}-\d{2})/i);
+                    let serviceDateRange = '';
+                    if (dateRangeMatch) {
+                        serviceDateRange = `${dateRangeMatch[1]} to ${dateRangeMatch[2]}`;
+                    }
+
+                    if (stall && rawLocation) {
+                        const cleanLoc = rawLocation.replace(/[,\.]/g, ' ').trim();
+                        const words = cleanLoc.split(/\s+/).filter(w => w.length > 0);
+                        let shortLoc = '';
+                        if (words.length >= 3) shortLoc = `${words[0]} ${words[1]} ${words[2]}`;
+                        else if (words.length >= 2) shortLoc = `${words[0]} ${words[1]}`;
+                        else if (words.length === 1) shortLoc = words[0];
+
+                        if (shortLoc && !stall.toLowerCase().includes(shortLoc.toLowerCase())) {
+                            stall = `${stall} ${shortLoc}`;
                         }
                     }
 
-                    // Fallback to local storage if R2 not configured
-                    if (!pdfPath) {
-                        try {
-                            const isServerless = process.env.VERCEL === '1';
-                            if (!isServerless) {
-                                const uploadDir = path.join(process.cwd(), 'public', 'documents');
-                                if (!fs.existsSync(uploadDir)) {
-                                    fs.mkdirSync(uploadDir, { recursive: true });
-                                }
-                                const filePath = path.join(uploadDir, `${uniqueId}.pdf`);
-                                fs.writeFileSync(filePath, partData);
-                                pdfPath = `/documents/${uniqueId}.pdf`;
-                                console.log(`[Sync] PDF saved locally: ${filePath}`);
+                    let location = 'Other';
+                    const combinedString = (fileName + ' ' + rawLocation).toUpperCase();
+                    if (combinedString.includes('BROADRIDGE')) location = 'Broadridge';
+                    else if (combinedString.includes('CGI')) location = 'CGI Information Systems';
+                    else if (combinedString.includes('IBM')) location = 'IBM';
+                    else if (combinedString.includes('DSM')) location = 'DSM Shared Services';
+                    else location = rawLocation || 'Other';
+
+                    if (amount > 0) {
+                        const uniqueId = `INV-${fileName.split('.')[0]}-${amount}`;
+
+                        // Skip if already exists
+                        if (existingIds.has(uniqueId)) {
+                            continue;
+                        }
+
+                        // Try to upload PDF to R2 or save locally
+                        let pdfPath: string | null = null;
+
+                        // First, try Cloudflare R2 (works on serverless)
+                        if (isR2Configured()) {
+                            try {
+                                const r2Key = getInvoicePdfKey(uniqueId);
+                                await uploadToR2(r2Key, partData);
+                                pdfPath = `r2://${r2Key}`; // Special prefix to indicate R2 storage
+                                console.log(`[Sync] PDF uploaded to R2: ${r2Key}`);
+                            } catch (err) {
+                                console.error('[Sync] Failed to upload PDF to R2:', err);
                             }
-                        } catch (err) {
-                            console.warn('[Sync] Could not save PDF locally:', err);
                         }
+
+                        // Fallback to local storage if R2 not configured
+                        if (!pdfPath) {
+                            try {
+                                const isServerless = process.env.VERCEL === '1';
+                                if (!isServerless) {
+                                    const uploadDir = path.join(process.cwd(), 'public', 'documents');
+                                    if (!fs.existsSync(uploadDir)) {
+                                        fs.mkdirSync(uploadDir, { recursive: true });
+                                    }
+                                    const filePath = path.join(uploadDir, `${uniqueId}.pdf`);
+                                    fs.writeFileSync(filePath, partData);
+                                    pdfPath = `/documents/${uniqueId}.pdf`;
+                                    console.log(`[Sync] PDF saved locally: ${filePath}`);
+                                }
+                            } catch (err) {
+                                console.warn('[Sync] Could not save PDF locally:', err);
+                            }
+                        }
+
+                        // Save to Turso database
+                        await createInvoice({
+                            id: uniqueId,
+                            date,
+                            serviceDateRange,
+                            location,
+                            stall,
+                            amount,
+                            status: 'Processed',
+                            pdfPath: pdfPath || undefined,
+                            syncedAt: new Date().toISOString(),
+                            orgId: organizationId,
+                        });
+
+                        addedInvoices.push({
+                            id: uniqueId,
+                            date,
+                            location,
+                            stall,
+                            amount,
+                            status: 'Processed',
+                            serviceDateRange,
+                            pdfUrl: `/documents/${uniqueId}.pdf`
+                        });
+
+                        existingIds.add(uniqueId);
                     }
-
-                    // Save to Turso database
-                    await createInvoice({
-                        id: uniqueId,
-                        date,
-                        serviceDateRange,
-                        location,
-                        stall,
-                        amount,
-                        status: 'Processed',
-                        pdfPath: pdfPath || undefined,
-                        syncedAt: new Date().toISOString(),
-                        orgId: organizationId,
-                    });
-
-                    addedInvoices.push({
-                        id: uniqueId,
-                        date,
-                        location,
-                        stall,
-                        amount,
-                        status: 'Processed',
-                        serviceDateRange,
-                        pdfUrl: `/documents/${uniqueId}.pdf`
-                    });
-
-                    existingIds.add(uniqueId);
                 }
             }
         }
