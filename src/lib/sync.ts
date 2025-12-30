@@ -86,11 +86,12 @@ export async function performSync(organizationId: string, options: {
         if (options.signal?.aborted) throw new Error('Aborted');
 
         // Step 2: Limit how many messages we process to avoid Vercel timeouts
-        // Hobby limit is 10s. 3 messages is very safe.
-        const MAX_MESSAGES = process.env.VERCEL === '1' ? 3 : 1000;
+        // Increase to 10 now that we have 60s maxDuration.
+        const MAX_MESSAGES = process.env.VERCEL === '1' ? 10 : 1000;
         const uidsToFetch = uids.reverse().slice(0, MAX_MESSAGES); // Newest first
 
-        console.log(`[Sync:${organizationId}] Found ${uids.length} total messages, processing newest ${uidsToFetch.length}.`);
+        console.log(`[Sync:${organizationId}] Found ${uids.length} matching UIDs: ${uids.slice(-5).join(', ')}`);
+        console.log(`[Sync:${organizationId}] Processing newest ${uidsToFetch.length}.`);
 
         const addedInvoices: Invoice[] = [];
 
