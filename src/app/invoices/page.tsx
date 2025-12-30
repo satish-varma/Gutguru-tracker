@@ -120,29 +120,91 @@ export default function InvoicesPage() {
         setAbortController(controller);
         setIsSyncing(true);
 
+        let totalSynced = 0;
+        let batchCount = 0;
+        const MAX_BATCHES = 20; // Safety limit
+
         try {
-            const res = await fetch('/api/sync?full=true', {
-                method: 'POST',
-                signal: controller.signal
-            });
-            const result = await res.json();
-            if (result.success) {
-                alert(`Synced ${result.count} new invoices.`);
-                fetchInvoices();
-            } else {
-                alert('Sync failed.');
+            while (batchCount < MAX_BATCHES && !controller.signal.aborted) {
+                batchCount++;
+                console.log(`[Sync] Starting batch ${batchCount}...`);
+
+                const res = await fetch('/api/sync', {
+                    method: 'POST',
+                    signal: controller.signal
+                });
+
+                // Handle non-JSON responses (504 timeout)
+                const contentType = res.headers.get("content-type");
+                if (!contentType || !contentType.includes("application/json")) {
+                    console.error('Server returned non-JSON response');
+                    if (res.status === 504 && totalSynced > 0) {
+                        await fetchInvoices();
+                        alert(`Synced ${totalSynced} invoices before timeout. Click sync again for more.`);
+                        return;
+                    }
+                    alert('Sync timed out. Please try again.');
+                    return;
+                }
+
+                let result;
+                try {
+                    result = await res.json();
+                } catch (e) {
+                    console.error('Failed to parse JSON:', e);
+                    if (totalSynced > 0) {
+                        await fetchInvoices();
+                        alert(`Synced ${totalSynced} invoices. Click sync again for more.`);
+                    } else {
+                        alert('Sync failed. Please try again.');
+                    }
+                    return;
+                }
+
+                if (!result.success) {
+                    alert(result.error || 'Sync failed. Check credentials.');
+                    return;
+                }
+
+                if (result.count > 0) {
+                    totalSynced += result.count;
+                    console.log(`[Sync] Batch ${batchCount}: Found ${result.count} new invoices. Total: ${totalSynced}`);
+                    // Continue to next batch
+                } else {
+                    // No new invoices found - we're done!
+                    console.log(`[Sync] Batch ${batchCount}: No new invoices. Sync complete.`);
+                    break;
+                }
             }
+
+            // Refresh invoices list
+            await fetchInvoices();
+
+            if (totalSynced > 0) {
+                alert(`✓ Sync complete! Found ${totalSynced} new invoices.`);
+            } else {
+                alert('Sync complete. No new invoices found.');
+            }
+
         } catch (e: any) {
             if (e.name === 'AbortError') {
                 console.log('Sync aborted by user');
+                if (totalSynced > 0) {
+                    await fetchInvoices();
+                    alert(`Sync cancelled. Synced ${totalSynced} invoices before cancellation.`);
+                }
             } else {
-                alert('Error syncing.');
+                console.error('Sync error:', e);
+                if (totalSynced > 0) {
+                    await fetchInvoices();
+                    alert(`Synced ${totalSynced} invoices before error. Try again for more.`);
+                } else {
+                    alert('Error syncing: ' + (e.message || 'Unknown error'));
+                }
             }
         } finally {
-            if (!abortController?.signal.aborted) {
-                setIsSyncing(false);
-                setAbortController(null);
-            }
+            setIsSyncing(false);
+            setAbortController(null);
         }
     };
 
