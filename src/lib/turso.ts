@@ -278,6 +278,7 @@ export async function getSettings(orgId: string) {
     const defaults = {
         emailSearchTerm: 'TheGutGuru',
         syncLookbackDays: 30,
+        emailUser: '',
         emailPassword: '',
         syncIntervalHours: 6,
     };
