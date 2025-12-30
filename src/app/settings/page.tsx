@@ -231,7 +231,9 @@ export default function SettingsPage() {
                                     </select>
                                 </div>
                                 <p className="help-text">
-                                    Determines how frequently the system checks for new invoices. Note: System-wide changes take effect on next deployment.
+                                    Determines how frequently the system checks for new invoices.
+                                    <br />
+                                    <strong>Note:</strong> On Vercel Hobby plan, the automated system only supports <strong>once per day</strong> execution. For more frequent updates, use the "Sync" button on the Overview page.
                                 </p>
                             </div>
                         )}
