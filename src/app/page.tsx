@@ -198,6 +198,20 @@ export default function Home() {
     try {
       const url = fullSync ? '/api/sync?full=true' : '/api/sync';
       const response = await fetch(url, { method: 'POST' });
+
+      // Handle non-JSON responses (like 504 timeouts)
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        const text = await response.text();
+        console.error('Server returned non-JSON response:', text);
+        if (response.status === 504) {
+          alert('Sync timed out on the server. We are processing it in chunks, please try again in a moment or wait for the auto-sync.');
+        } else {
+          alert(`Server Error: ${response.status}. Please check logs.`);
+        }
+        return;
+      }
+
       const result = await response.json();
 
       if (result.success) {
@@ -210,9 +224,9 @@ export default function Home() {
       } else {
         alert(result.error || 'Sync failed. Check credentials.');
       }
-    } catch (error) {
-      console.error(error);
-      alert('Failed to sync. Check console for details.');
+    } catch (error: any) {
+      console.error('Frontend Sync Error:', error);
+      alert('Failed to sync: ' + (error.message || 'Unknown network error'));
     } finally {
       setIsSyncing(false);
     }

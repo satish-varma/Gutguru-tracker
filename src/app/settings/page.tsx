@@ -87,6 +87,20 @@ export default function SettingsPage() {
         try {
             const url = fullSync ? '/api/sync?full=true' : '/api/sync';
             const response = await fetch(url, { method: 'POST' });
+
+            // Handle non-JSON responses (like 504 timeouts)
+            const contentType = response.headers.get("content-type");
+            if (!contentType || !contentType.includes("application/json")) {
+                const text = await response.text();
+                console.error('Server returned non-JSON response:', text);
+                if (response.status === 504) {
+                    setStatusMsg('Sync timed out. Still processing in background.');
+                } else {
+                    setStatusMsg(`Server Error: ${response.status}`);
+                }
+                return;
+            }
+
             const result = await response.json();
 
             if (result.success) {
@@ -94,9 +108,9 @@ export default function SettingsPage() {
             } else {
                 setStatusMsg('Error: ' + (result.error || 'Sync failed'));
             }
-        } catch (error) {
+        } catch (error: any) {
             console.error(error);
-            setStatusMsg('Sync failed due to network error.');
+            setStatusMsg('Sync failed: ' + (error.message || 'Network error'));
         } finally {
             setIsSyncing(false);
             setTimeout(() => setStatusMsg(''), 5000);
