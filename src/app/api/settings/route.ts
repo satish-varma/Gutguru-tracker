@@ -8,7 +8,9 @@ export async function GET() {
     if (!session || !session.user || !session.user.organizationId) return NextResponse.json({}, { status: 401 });
 
     try {
+        console.log(`[API Settings] Fetching for Org: ${session.user.organizationId}`);
         const settings = await getSettings(session.user.organizationId as string);
+        console.log(`[API Settings] Data:`, JSON.stringify(settings));
         return NextResponse.json(settings);
     } catch (error) {
         console.error('[API] Failed to get settings:', error);

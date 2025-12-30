@@ -10,6 +10,9 @@ export default function SettingsPage() {
     const router = useRouter();
 
     useEffect(() => {
+        console.log('[Settings] Auth Status:', status);
+        console.log('[Settings] User Role:', session?.user?.role);
+
         if (status === 'unauthenticated') {
             router.push('/auth/signin');
         } else if (status === 'authenticated' && session?.user?.role !== 'manager' && session?.user?.role !== 'admin') {
