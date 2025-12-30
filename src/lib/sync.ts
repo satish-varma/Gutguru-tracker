@@ -88,18 +88,25 @@ export async function performSync(organizationId: string, options: {
         const allMessages = await connection.search(searchCriteria, fetchOptions);
         if (options.signal?.aborted) throw new Error('Aborted');
 
-        // Limit messages to prevent timeout - 5 is safe for Vercel
-        const MAX_MESSAGES = process.env.VERCEL === '1' ? 5 : 1000;
-        // Sort by UID descending (newest first) and slice
+        // Sort by UID descending (newest first)
         const messages = allMessages
-            .sort((a: any, b: any) => (b.attributes?.uid || 0) - (a.attributes?.uid || 0))
-            .slice(0, MAX_MESSAGES);
+            .sort((a: any, b: any) => (b.attributes?.uid || 0) - (a.attributes?.uid || 0));
 
-        console.log(`[Sync:${organizationId}] Found ${allMessages.length} total messages, processing newest ${messages.length}.`);
+        console.log(`[Sync:${organizationId}] Found ${allMessages.length} total messages to scan.`);
 
         const addedInvoices: Invoice[] = [];
+        // Limit how many NEW invoices we add per sync to avoid timeout
+        const MAX_NEW_INVOICES = process.env.VERCEL === '1' ? 5 : 100;
+        let processedCount = 0;
 
         for (const message of messages) {
+            // Stop if we've added enough new invoices
+            if (addedInvoices.length >= MAX_NEW_INVOICES) {
+                console.log(`[Sync:${organizationId}] Reached limit of ${MAX_NEW_INVOICES} new invoices.`);
+                break;
+            }
+
+            processedCount++;
             if (options.signal?.aborted) {
                 console.log(`[Sync:${organizationId}] Sync aborted`);
                 break;
@@ -284,8 +291,8 @@ export async function performSync(organizationId: string, options: {
             count: addedInvoices.length,
             data: addedInvoices,
             message: addedInvoices.length > 0
-                ? `Successfully synced ${addedInvoices.length} new invoices`
-                : 'No new unique invoices found'
+                ? `Successfully synced ${addedInvoices.length} new invoices (scanned ${processedCount} emails)`
+                : `No new unique invoices found (scanned ${processedCount} emails)`
         };
 
     } catch (error: any) {
