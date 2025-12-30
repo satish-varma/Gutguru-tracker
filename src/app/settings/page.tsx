@@ -38,9 +38,15 @@ export default function SettingsPage() {
         async function fetchSettings() {
             try {
                 const res = await fetch('/api/settings');
-                const data = await res.json();
-                setSearchTerm(data.emailSearchTerm);
-                setLookbackDays(data.syncLookbackDays);
+                let data;
+                try {
+                    data = await res.json();
+                } catch (e) {
+                    console.error('Failed to parse settings as JSON:', e);
+                    return;
+                }
+                setSearchTerm(data.emailSearchTerm || 'Hungerbox');
+                setLookbackDays(data.syncLookbackDays || 30);
                 setEmailUser(data.emailUser || '');
                 setEmailPassword(data.emailPassword || '');
                 setSyncInterval(data.syncIntervalHours || 6);
