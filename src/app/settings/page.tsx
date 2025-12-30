@@ -198,11 +198,17 @@ export default function SettingsPage() {
 
                         {['admin', 'manager'].includes(session?.user?.role?.toLowerCase() || '') && (
                             <div className="form-group">
+                                <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginBottom: '0.25rem' }}>
+                                    Authenticated as {session?.user?.role} (Elevated View)
+                                </div>
                                 <label>Auto-Sync Interval (Hours)</label>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                                     <select
                                         value={syncInterval}
-                                        onChange={(e) => setSyncInterval(Number(e.target.value))}
+                                        onChange={(e) => {
+                                            console.log('[Settings] Changing Interval to:', e.target.value);
+                                            setSyncInterval(Number(e.target.value));
+                                        }}
                                         className="full-width-input"
                                         style={{ maxWidth: '200px' }}
                                     >
