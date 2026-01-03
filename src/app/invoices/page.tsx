@@ -615,9 +615,9 @@ export default function InvoicesPage() {
                 <div>
                     <div className="flex items-center gap-2 flex-wrap mt-1">
                         <h1>Invoices</h1>
-                        <div className="flex items-center gap-2 ml-2">
+                        <div className="flex items-center gap-3 ml-4">
                             <span
-                                className={`text-sm font-bold px-3 py-1 rounded-full border shadow-sm transition-all duration-300 ${selectedIds.size > 0
+                                className={`text-lg font-extrabold px-4 py-1.5 rounded-full border shadow-md transition-all duration-300 ${selectedIds.size > 0
                                     ? 'bg-amber-50 text-amber-700 border-amber-200 ring-2 ring-amber-100'
                                     : 'bg-indigo-50 text-indigo-600 border-indigo-100'
                                     }`}
@@ -626,13 +626,13 @@ export default function InvoicesPage() {
                                 {selectedIds.size > 0 ? 'Selected: ' : 'Total: '}₹{summaryTotals.total.toLocaleString('en-IN', { maximumFractionDigits: 2 })}
                             </span>
                             <span
-                                className="text-sm font-bold px-3 py-1 rounded-full border bg-emerald-50 text-emerald-700 border-emerald-200 shadow-sm"
+                                className="text-lg font-extrabold px-4 py-1.5 rounded-full border bg-emerald-50 text-emerald-700 border-emerald-200 shadow-md"
                                 title="Total amount paid"
                             >
                                 Paid: ₹{summaryTotals.paid.toLocaleString('en-IN', { maximumFractionDigits: 2 })}
                             </span>
                             <span
-                                className="text-sm font-bold px-3 py-1 rounded-full border bg-amber-50 text-amber-700 border-amber-200 shadow-sm"
+                                className="text-lg font-extrabold px-4 py-1.5 rounded-full border bg-amber-50 text-amber-700 border-amber-200 shadow-md"
                                 title="Total amount pending"
                             >
                                 Pending: ₹{summaryTotals.pending.toLocaleString('en-IN', { maximumFractionDigits: 2 })}

@@ -337,22 +337,6 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Stats Row */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', marginBottom: '2rem' }}>
-        <div className="glass-panel stat-card">
-          <span className="stat-label">Total Revenue</span>
-          <span className="stat-value">₹{totalAmount.toLocaleString()}</span>
-        </div>
-        <div className="glass-panel stat-card">
-          <span className="stat-label" style={{ color: '#059669' }}>Paid</span>
-          <span className="stat-value" style={{ fontSize: '1.5rem' }}>₹{paidAmount.toLocaleString()}</span>
-        </div>
-        <div className="glass-panel stat-card">
-          <span className="stat-label" style={{ color: '#f59e0b' }}>Pending</span>
-          <span className="stat-value" style={{ fontSize: '1.5rem' }}>₹{pendingAmount.toLocaleString()}</span>
-        </div>
-      </div>
-
       {/* Filter Bar */}
       <div className="glass-panel" style={{ padding: '1.5rem', marginBottom: '2rem' }}>
         <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
@@ -437,6 +421,22 @@ export default function Home() {
               />
             </div>
           )}
+        </div>
+      </div>
+
+      {/* Stats Row */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', marginBottom: '2rem' }}>
+        <div className="glass-panel stat-card">
+          <span className="stat-label">Total Revenue</span>
+          <span className="stat-value">₹{totalAmount.toLocaleString()}</span>
+        </div>
+        <div className="glass-panel stat-card">
+          <span className="stat-label" style={{ color: '#059669' }}>Paid</span>
+          <span className="stat-value" style={{ fontSize: '1.5rem' }}>₹{paidAmount.toLocaleString()}</span>
+        </div>
+        <div className="glass-panel stat-card">
+          <span className="stat-label" style={{ color: '#f59e0b' }}>Pending</span>
+          <span className="stat-value" style={{ fontSize: '1.5rem' }}>₹{pendingAmount.toLocaleString()}</span>
         </div>
       </div>
 
