@@ -118,9 +118,7 @@ export function GroupedInvoiceView({
                     const allSelected = groupIds.every(id => selectedIds.has(id));
                     const someSelected = groupIds.some(id => selectedIds.has(id)) && !allSelected;
 
-                    const allPaid = useMemo(() => {
-                        return group.invoices.length > 0 && group.invoices.every(inv => inv.status?.toLowerCase() === 'paid');
-                    }, [group.invoices]);
+                    const allPaid = group.invoices.length > 0 && group.invoices.every(inv => inv.status?.toLowerCase() === 'paid');
 
                     return (
                         <div key={group.period} className={`period-group ${allPaid ? 'fully-paid' : ''}`}>
