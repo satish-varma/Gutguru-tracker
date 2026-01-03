@@ -34,7 +34,7 @@ The main dashboard provides an at-a-glance overview of your invoice data.
 | **Total Invoices** | Count of all invoices in the system |
 | **Total Amount** | Sum of all invoice amounts |
 | **Paid Invoices** | Count and amount of paid invoices |
-| **Pending Invoices** | Invoices awaiting payment |
+| **Pending Invoices** | All unpaid invoices (includes newly synced) |
 | **Interactive Charts** | Visual breakdown by location, stall, and time period |
 | **Recent Activity** | Quick view of the latest invoices |
 
@@ -49,7 +49,7 @@ Complete invoice lifecycle management with powerful filtering and actions.
 | **Saved Filters** | Save and reuse frequently used filter combinations |
 | **Search** | Full-text search across all invoice fields |
 | **Invoice Details** | Slide-out drawer with complete invoice information |
-| **Status Management** | Mark invoices as Paid/Processed/Pending |
+| **Status Management** | Mark invoices as Paid (default starts as Pending) |
 | **PDF Preview** | View invoice PDFs directly in browser |
 | **PDF Download** | Download individual or multiple invoices |
 | **Bulk Download** | Select multiple invoices and download as ZIP |
@@ -137,9 +137,8 @@ Administrative controls (Admin role only).
 ### Database
 | Technology | Purpose |
 |------------|---------|
-| **Turso (LibSQL)** | Cloud SQLite database with 9GB free storage |
-| **@libsql/client** | Turso database client |
-| **File System** | PDF document storage |
+- **Turso (LibSQL)** | Cloud SQLite database |
+| **Cloudflare R2** | PDF document storage |
 
 ---
 
@@ -400,7 +399,7 @@ The application uses IMAP to connect to your email. For Gmail:
 
 1. **Check Dashboard** for overview
 2. **Review New Invoices** on the Invoices page
-3. **Process Payments** by marking invoices as Paid
+3. **Process Payments** by marking invoices as Paid (sets them to green status)
 4. **Download Invoices** for record-keeping
 5. **Export Data** for accounting/reconciliation
 
@@ -569,4 +568,4 @@ For issues or feature requests, please contact the development team.
 
 ---
 
-*Last Updated: December 25, 2025*
+*Last Updated: January 04, 2026*

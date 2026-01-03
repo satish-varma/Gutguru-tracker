@@ -146,7 +146,7 @@ interface Invoice {
   location: string;              // "IBM Bangalore"
   stall: string;                 // "Chai Point"
   amount: number;                // 1234.56
-  status: 'Pending' | 'Processed' | 'Paid';
+  status: 'Pending' | 'Paid';
   pdfPath?: string;              // Path to stored PDF
   syncedAt: string;              // ISO timestamp
 }
@@ -180,7 +180,7 @@ interface Invoice {
 ### Stats Cards (Top Row)
 1. **Total Invoices** - Count of all invoices
 2. **Total Amount** - Sum of all amounts (₹ formatted)
-3. **Pending Amount** - Sum of Pending + Processed invoices
+3. **Pending Amount** - Sum of all unpaid invoices
 4. **Paid Amount** - Sum of Paid invoices
 
 ### Charts
@@ -196,7 +196,7 @@ interface Invoice {
 - **Search**: Text search across ID, stall, amount
 - **Location**: Multi-select dropdown
 - **Stall**: Multi-select dropdown  
-- **Status**: Dropdown (All, Pending, Processed, Paid)
+- **Status**: Dropdown (All, Pending, Paid)
 
 ### Filters (Row 2)
 - **Quick Range**: All Time, Last 7 Days, Last 30 Days, Custom
@@ -216,7 +216,7 @@ interface Invoice {
 4. Location (hidden on mobile)
 5. Stall Name
 6. Amount (₹ formatted)
-7. Status (with Pay Now button for Processed)
+7. Status (with Pay Now button for Pending)
 
 ### Bulk Actions
 - **Download Selected** - Download PDFs as ZIP
@@ -410,9 +410,9 @@ NEXTAUTH_URL=http://localhost:3000
 
 ### Invoice Status Workflow
 ```
-Pending → Processed → Paid
-   ↑         ↑
-   └─────────┴── Can be set by admin/manager
+Pending → Paid
+   ↑      
+   └───── Can be set by admin/manager
 ```
 
 ### PDF Download as ZIP (Multiple)
@@ -441,4 +441,4 @@ The app is complete when:
 ---
 
 *This prompt was auto-generated from the HungerBox Invoice Tracker application.*
-*Last Updated: December 25, 2025*
+*Last Updated: January 04, 2026*

@@ -40,7 +40,7 @@ This file tracks planned enhancements for the HungerBox Tracker application.
 
 ### Bulk Operations
 - [✓] **Multi-Select Download** - Select and download multiple invoices at once
-- [✓] **Bulk Status Update** - Mark multiple invoices as Paid/Processed at once
+- [✓] **Bulk Status Update** - Mark multiple invoices as Paid at once
 - [ ] **Bulk Delete** - Delete multiple selected invoices
 
 ### Filtering & Search
@@ -185,6 +185,10 @@ This file tracks planned enhancements for the HungerBox Tracker application.
 | 2025-12-25 | Cloudflare R2 Storage | ✅ Completed |
 | 2025-12-25 | Full Vercel Deployment | ✅ Completed |
 | 2025-12-25 | Advanced Admin User Mgmt | ✅ Completed |
+| 2026-01-04 | Simplified Payment Lifecycle | ✅ Completed |
+| 2026-01-04 | Dashboard Filters & Stats Refinement | ✅ Completed |
+| 2026-01-04 | Invoices Header UI Improvements | ✅ Completed |
+| 2026-01-04 | Consolidated 'Processed' to 'Pending' | ✅ Completed |
 
 ---
 
@@ -198,4 +202,4 @@ To implement features, simply:
 
 ---
 
-*Last Updated: December 24, 2025*
+*Last Updated: January 04, 2026*
