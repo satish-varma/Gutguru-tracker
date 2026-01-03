@@ -532,7 +532,8 @@ export default function InvoicesPage() {
 
     return (
         <div className="container">
-            <header className="flex justify-between items-center mb-8">
+            {/* Header Row 1: Title + Actions */}
+            <header className="flex justify-between items-center mb-4">
                 <div>
                     <h1>Invoices</h1>
                     <p style={{ color: '#64748b' }}>Manage and view all payment advices.</p>
@@ -579,26 +580,6 @@ export default function InvoicesPage() {
                         </>
                     )}
 
-                    {/* View Mode Toggle */}
-                    <div className="flex border border-slate-200 rounded-lg overflow-hidden">
-                        <button
-                            onClick={() => setViewMode('grouped')}
-                            className={`flex items-center gap-1.5 px-3 py-2 text-sm ${viewMode === 'grouped' ? 'bg-indigo-600 text-white' : 'bg-white text-slate-600 hover:bg-slate-50'}`}
-                            title="Group by Service Period"
-                        >
-                            <Layers size={16} />
-                            Grouped
-                        </button>
-                        <button
-                            onClick={() => setViewMode('list')}
-                            className={`flex items-center gap-1.5 px-3 py-2 text-sm ${viewMode === 'list' ? 'bg-indigo-600 text-white' : 'bg-white text-slate-600 hover:bg-slate-50'}`}
-                            title="List View"
-                        >
-                            <List size={16} />
-                            List
-                        </button>
-                    </div>
-
                     <button onClick={handleExportCSV} className="btn glass-panel flex items-center gap-2 px-4 py-2">
                         <Download size={16} /> Export
                     </button>
@@ -608,238 +589,275 @@ export default function InvoicesPage() {
                         </button>
                     )}
                 </div>
-            </header >
+            </header>
+
+            {/* Filter Bar - Compact colorful row */}
+            <div className="filter-bar">
+                {/* Search */}
+                <div className="filter-item search-filter">
+                    <Search size={16} className="search-icon" />
+                    <input
+                        type="text"
+                        placeholder="Search invoices..."
+                        value={searchTerm}
+                        onChange={e => setSearchTerm(e.target.value)}
+                        className="search-input"
+                    />
+                </div>
+
+                {/* Location */}
+                <div className="filter-item">
+                    <MultiSelect
+                        label="📍 Location"
+                        options={uniqueLocations}
+                        value={selectedLocations}
+                        onChange={setSelectedLocations}
+                    />
+                </div>
+
+                {/* Stall */}
+                <div className="filter-item">
+                    <MultiSelect
+                        label="🏪 Stall"
+                        options={uniqueStalls}
+                        value={selectedStalls}
+                        onChange={setSelectedStalls}
+                    />
+                </div>
+
+                {/* Status Dropdown */}
+                <select
+                    className="filter-select status-select"
+                    value={statusFilter}
+                    onChange={e => setStatusFilter(e.target.value)}
+                >
+                    <option value="All Status">📊 All Status</option>
+                    <option value="Pending">🟡 Pending</option>
+                    <option value="Processed">🟢 Processed</option>
+                    <option value="Paid">🔵 Paid</option>
+                </select>
+
+                {/* Date Filter */}
+                <select
+                    className="filter-select date-select"
+                    value={dateFilter}
+                    onChange={e => {
+                        setDateFilter(e.target.value);
+                        if (e.target.value === 'Custom') {
+                            setShowDatePicker(true);
+                        }
+                    }}
+                >
+                    <option>📅 All Time</option>
+                    <option>Last 7 Days</option>
+                    <option>Last 30 Days</option>
+                    <option>Custom</option>
+                </select>
+
+                {/* Spacer */}
+                <div style={{ flex: 1 }} />
+
+                {/* View Mode Toggle */}
+                <div className="view-toggle">
+                    <button
+                        onClick={() => setViewMode('grouped')}
+                        className={`toggle-btn ${viewMode === 'grouped' ? 'active' : ''}`}
+                        title="Group by Service Period"
+                    >
+                        <Layers size={16} />
+                        Grouped
+                    </button>
+                    <button
+                        onClick={() => setViewMode('list')}
+                        className={`toggle-btn ${viewMode === 'list' ? 'active' : ''}`}
+                        title="List View"
+                    >
+                        <List size={16} />
+                        List
+                    </button>
+                </div>
+            </div>
 
             <div className="glass-panel p-6">
-                {/* Filter Section - 2 Rows */}
-                <div className="space-y-4 mb-6">
+                <div>
+                    <label className="text-xs font-semibold text-slate-500 mb-1 block">Quick Range</label>
+                    <select
+                        className="py-2 px-3 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:border-indigo-500"
+                        value={dateFilter}
+                        onChange={e => {
+                            setDateFilter(e.target.value);
+                            if (e.target.value === 'Custom') {
+                                setShowDatePicker(true);
+                            }
+                        }}
+                    >
+                        <option>All Time</option>
+                        <option>Last 7 Days</option>
+                        <option>Last 30 Days</option>
+                        <option>Custom</option>
+                    </select>
+                </div>
 
-                    {/* Row 1: Search, Location, Stall, Status */}
-                    <div className="filter-row flex flex-wrap items-center gap-4">
-                        {/* Search */}
-                        <div className="flex-1 min-w-[200px]">
-                            <div style={{ position: 'relative' }}>
-                                <Search
-                                    size={16}
-                                    style={{
-                                        position: 'absolute',
-                                        right: '12px',
-                                        top: '50%',
-                                        transform: 'translateY(-50%)',
-                                        color: '#94a3b8',
-                                        pointerEvents: 'none',
-                                        zIndex: 1
-                                    }}
-                                />
-                                <input
-                                    className="w-full rounded-lg border border-slate-200 bg-slate-50 focus:outline-none focus:border-indigo-500 transition-colors text-sm"
-                                    placeholder="Search invoices..."
-                                    value={searchTerm}
-                                    onChange={e => setSearchTerm(e.target.value)}
-                                    style={{ height: '38px', paddingLeft: '16px', paddingRight: '40px' }}
-                                />
-                            </div>
-                        </div>
-
-                        {/* Location */}
-                        <div className="w-[180px]">
-                            <MultiSelect
-                                label="Location"
-                                options={uniqueLocations}
-                                value={selectedLocations}
-                                onChange={setSelectedLocations}
-                            />
-                        </div>
-
-                        {/* Stall */}
-                        <div className="w-[180px]">
-                            <MultiSelect
-                                label="Stall"
-                                options={uniqueStalls}
-                                value={selectedStalls}
-                                onChange={setSelectedStalls}
-                            />
-                        </div>
-
-                        {/* Status - styled like MultiSelect */}
-                        <div className="w-[160px]">
+                {/* Advanced Filters Row */}
+                <div className="advanced-filters mb-4">
+                    <div className="flex flex-wrap items-end gap-3">
+                        <div>
+                            <label className="text-xs font-semibold text-slate-500 mb-1 block">Month</label>
                             <select
-                                className="w-full py-2 px-3 rounded-lg border border-slate-200 bg-white focus:outline-none focus:border-indigo-500 text-sm cursor-pointer"
-                                value={statusFilter}
-                                onChange={e => setStatusFilter(e.target.value)}
-                                style={{ height: '38px' }}
+                                className="py-2 px-3 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:border-indigo-500"
+                                value={monthFilter}
+                                onChange={e => setMonthFilter(e.target.value)}
                             >
-                                <option value="All Status">Status: All</option>
-                                <option value="Pending">Status: Pending</option>
-                                <option value="Processed">Status: Processed</option>
-                                <option value="Paid">Status: Paid</option>
+                                <option>All</option>
+                                <option>Jan</option>
+                                <option>Feb</option>
+                                <option>Mar</option>
+                                <option>Apr</option>
+                                <option>May</option>
+                                <option>Jun</option>
+                                <option>Jul</option>
+                                <option>Aug</option>
+                                <option>Sep</option>
+                                <option>Oct</option>
+                                <option>Nov</option>
+                                <option>Dec</option>
                             </select>
                         </div>
-                    </div>
 
-                    {/* Row 2: Date Filters + Saved Filters + Actions */}
-                    <div className="filter-row flex flex-wrap items-end gap-4 pt-3 border-t border-slate-100">
-                        {/* Date Filters */}
-                        <div className="flex items-end gap-3">
-                            <div>
-                                <label className="text-xs font-semibold text-slate-500 mb-1 block">Quick Range</label>
-                                <select
-                                    className="py-2 px-3 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:border-indigo-500"
-                                    value={dateFilter}
-                                    onChange={e => {
-                                        setDateFilter(e.target.value);
-                                        if (e.target.value === 'Custom') {
-                                            setShowDatePicker(true);
-                                        }
-                                    }}
-                                >
-                                    <option>All Time</option>
-                                    <option>Last 7 Days</option>
-                                    <option>Last 30 Days</option>
-                                    <option>Custom</option>
-                                </select>
-                            </div>
-
-                            <div>
-                                <label className="text-xs font-semibold text-slate-500 mb-1 block">Month</label>
-                                <select
-                                    className="py-2 px-3 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:border-indigo-500"
-                                    value={monthFilter}
-                                    onChange={e => setMonthFilter(e.target.value)}
-                                >
-                                    <option>All</option>
-                                    <option>Jan</option>
-                                    <option>Feb</option>
-                                    <option>Mar</option>
-                                    <option>Apr</option>
-                                    <option>May</option>
-                                    <option>Jun</option>
-                                    <option>Jul</option>
-                                    <option>Aug</option>
-                                    <option>Sep</option>
-                                    <option>Oct</option>
-                                    <option>Nov</option>
-                                    <option>Dec</option>
-                                </select>
-                            </div>
-
-                            <div>
-                                <label className="text-xs font-semibold text-slate-500 mb-1 block">Year</label>
-                                <select
-                                    className="py-2 px-3 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:border-indigo-500"
-                                    value={yearFilter}
-                                    onChange={e => setYearFilter(e.target.value)}
-                                >
-                                    <option>All</option>
-                                    <option>2025</option>
-                                    <option>2024</option>
-                                    <option>2023</option>
-                                </select>
-                            </div>
-
-                            {/* Custom Date Range - only shows when Custom is selected */}
-                            {dateFilter === 'Custom' && (
-                                <>
-                                    <div className="h-6 w-px bg-slate-300" />
-                                    <div>
-                                        <label className="text-xs font-semibold text-slate-500 mb-1 block">From</label>
-                                        <input
-                                            type="date"
-                                            value={customDateFrom}
-                                            onChange={e => setCustomDateFrom(e.target.value)}
-                                            className="py-2 px-3 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:border-indigo-500"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="text-xs font-semibold text-slate-500 mb-1 block">To</label>
-                                        <input
-                                            type="date"
-                                            value={customDateTo}
-                                            onChange={e => setCustomDateTo(e.target.value)}
-                                            className="py-2 px-3 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:border-indigo-500"
-                                        />
-                                    </div>
-                                </>
-                            )}
+                        <div>
+                            <label className="text-xs font-semibold text-slate-500 mb-1 block">Year</label>
+                            <select
+                                className="py-2 px-3 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:border-indigo-500"
+                                value={yearFilter}
+                                onChange={e => setYearFilter(e.target.value)}
+                            >
+                                <option>All</option>
+                                <option>2025</option>
+                                <option>2024</option>
+                                <option>2026</option>
+                            </select>
                         </div>
 
-                        {/* Spacer */}
-                        <div className="flex-1" />
-
-                        {/* Action Buttons */}
-                        <div className="flex items-center gap-2">
-                            <button
-                                onClick={clearAllFilters}
-                                className="btn py-2 px-4 text-sm bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-lg flex items-center gap-2 transition-colors"
-                            >
-                                <X size={14} />
-                                Clear
-                            </button>
-                            <button
-                                onClick={() => setShowSaveFilter(!showSaveFilter)}
-                                className="btn py-2 px-4 text-sm bg-indigo-100 text-indigo-600 hover:bg-indigo-200 rounded-lg flex items-center gap-2 transition-colors"
-                            >
-                                <Save size={14} />
-                                Save
-                            </button>
-                        </div>
-                    </div>
-
-                    {/* Save Filter Dialog */}
-                    {showSaveFilter && (
-                        <div className="flex gap-3 items-center p-3 bg-indigo-50 rounded-lg border border-indigo-100">
-                            <Bookmark size={16} className="text-indigo-500" />
+                        <div>
+                            <label className="text-xs font-semibold text-slate-500 mb-1 block">Min ₹</label>
                             <input
-                                type="text"
-                                placeholder="Filter name..."
-                                value={filterName}
-                                onChange={e => setFilterName(e.target.value)}
-                                className="flex-1 py-2 px-3 rounded-lg border border-indigo-200 bg-white text-sm focus:outline-none focus:border-indigo-500"
-                                onKeyDown={e => e.key === 'Enter' && saveCurrentFilter()}
-                                autoFocus
+                                type="number"
+                                className="py-2 px-3 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:border-indigo-500 w-24"
+                                placeholder="0"
+                                value={minAmount}
+                                onChange={e => setMinAmount(e.target.value)}
                             />
-                            <button
-                                onClick={saveCurrentFilter}
-                                className="btn py-2 px-4 text-sm bg-indigo-600 text-white hover:bg-indigo-700 rounded-lg"
-                            >
-                                Save
-                            </button>
-                            <button
-                                onClick={() => setShowSaveFilter(false)}
-                                className="btn py-2 px-3 text-sm bg-white text-slate-600 hover:bg-slate-100 rounded-lg border border-slate-200"
-                            >
-                                Cancel
-                            </button>
                         </div>
-                    )}
 
-                    {/* Saved Filters - Clean Separate Row */}
-                    {savedFilters.length > 0 && (
-                        <div className="flex items-center gap-4 py-2">
-                            <span className="text-xs text-slate-500 font-medium">Quick Access:</span>
-                            <div className="flex items-center gap-2 flex-wrap">
-                                {savedFilters.map(filter => (
-                                    <button
-                                        key={filter.id}
-                                        onClick={() => loadFilter(filter)}
-                                        className="group inline-flex items-center gap-2 px-3 py-1.5 bg-white border border-slate-200 rounded-md text-sm text-slate-700 hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-600 transition-all"
-                                    >
-                                        <span>{filter.name}</span>
-                                        <span
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                deleteFilter(filter.id);
-                                            }}
-                                            className="text-slate-400 hover:text-red-500 transition-colors"
-                                        >
-                                            <X size={12} />
-                                        </span>
-                                    </button>
-                                ))}
-                            </div>
+                        <div>
+                            <label className="text-xs font-semibold text-slate-500 mb-1 block">Max ₹</label>
+                            <input
+                                type="number"
+                                className="py-2 px-3 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:border-indigo-500 w-24"
+                                placeholder="99999"
+                                value={maxAmount}
+                                onChange={e => setMaxAmount(e.target.value)}
+                            />
                         </div>
-                    )}
+
+                        {/* Custom Date Range */}
+                        {dateFilter === 'Custom' && (
+                            <>
+                                <div className="h-6 w-px bg-slate-300" />
+                                <div>
+                                    <label className="text-xs font-semibold text-slate-500 mb-1 block">From</label>
+                                    <input
+                                        type="date"
+                                        value={customDateFrom}
+                                        onChange={e => setCustomDateFrom(e.target.value)}
+                                        className="py-2 px-3 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:border-indigo-500"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="text-xs font-semibold text-slate-500 mb-1 block">To</label>
+                                    <input
+                                        type="date"
+                                        value={customDateTo}
+                                        onChange={e => setCustomDateTo(e.target.value)}
+                                        className="py-2 px-3 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:border-indigo-500"
+                                    />
+                                </div>
+                            </>
+                        )}
+
+                        <div style={{ flex: 1 }} />
+
+                        <button
+                            onClick={clearAllFilters}
+                            className="btn py-2 px-4 text-sm bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-lg flex items-center gap-2 transition-colors"
+                        >
+                            <X size={14} />
+                            Clear
+                        </button>
+                        <button
+                            onClick={() => setShowSaveFilter(!showSaveFilter)}
+                            className="btn py-2 px-4 text-sm bg-indigo-100 text-indigo-600 hover:bg-indigo-200 rounded-lg flex items-center gap-2 transition-colors"
+                        >
+                            <Save size={14} />
+                            Save
+                        </button>
+                    </div>
                 </div>
+
+                {/* Save Filter Dialog */}
+                {showSaveFilter && (
+                    <div className="flex gap-3 items-center p-3 bg-indigo-50 rounded-lg border border-indigo-100 mb-4">
+                        <Bookmark size={16} className="text-indigo-500" />
+                        <input
+                            type="text"
+                            placeholder="Filter name..."
+                            value={filterName}
+                            onChange={e => setFilterName(e.target.value)}
+                            className="flex-1 py-2 px-3 rounded-lg border border-indigo-200 bg-white text-sm focus:outline-none focus:border-indigo-500"
+                            onKeyDown={e => e.key === 'Enter' && saveCurrentFilter()}
+                            autoFocus
+                        />
+                        <button
+                            onClick={saveCurrentFilter}
+                            className="btn py-2 px-4 text-sm bg-indigo-600 text-white hover:bg-indigo-700 rounded-lg"
+                        >
+                            Save
+                        </button>
+                        <button
+                            onClick={() => setShowSaveFilter(false)}
+                            className="btn py-2 px-3 text-sm bg-white text-slate-600 hover:bg-slate-100 rounded-lg border border-slate-200"
+                        >
+                            Cancel
+                        </button>
+                    </div>
+                )}
+
+                {/* Saved Filters - Clean Separate Row */}
+                {savedFilters.length > 0 && (
+                    <div className="flex items-center gap-4 py-2 mb-4">
+                        <span className="text-xs text-slate-500 font-medium">Quick Access:</span>
+                        <div className="flex items-center gap-2 flex-wrap">
+                            {savedFilters.map(filter => (
+                                <button
+                                    key={filter.id}
+                                    onClick={() => loadFilter(filter)}
+                                    className="group inline-flex items-center gap-2 px-3 py-1.5 bg-white border border-slate-200 rounded-md text-sm text-slate-700 hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-600 transition-all"
+                                >
+                                    <span>{filter.name}</span>
+                                    <span
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            deleteFilter(filter.id);
+                                        }}
+                                        className="text-slate-400 hover:text-red-500 transition-colors"
+                                    >
+                                        <X size={12} />
+                                    </span>
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                )}
 
                 {/* Grouped View */}
                 {viewMode === 'grouped' ? (
@@ -997,8 +1015,9 @@ export default function InvoicesPage() {
                             )
                         }
                     </>
-                )}
-            </div>
+                )
+                }
+            </div >
 
             <InvoiceDrawer
                 isOpen={!!selectedInvoice}
@@ -1048,7 +1067,120 @@ export default function InvoicesPage() {
                 .bg-amber-100 { background-color: #fef3c7; }
                 .text-amber-700 { color: #b45309; }
                 input:focus { outline: 2px solid #3b82f6; border-color: transparent; }
+
+                /* Filter Bar Styles */
+                .filter-bar {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.75rem;
+                    padding: 1rem 1.25rem;
+                    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f0fdf4 100%);
+                    border-radius: 1rem;
+                    margin-bottom: 1.5rem;
+                    border: 1px solid #bae6fd;
+                    flex-wrap: wrap;
+                }
+
+                .filter-item {
+                    min-width: 140px;
+                }
+
+                .search-filter {
+                    position: relative;
+                    flex: 1;
+                    min-width: 200px;
+                    max-width: 300px;
+                }
+
+                .search-filter .search-icon {
+                    position: absolute;
+                    left: 12px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    color: #0ea5e9;
+                    z-index: 1;
+                }
+
+                .search-filter .search-input {
+                    width: 100%;
+                    padding: 0.5rem 0.75rem 0.5rem 2.5rem;
+                    border-radius: 0.5rem;
+                    border: 2px solid #7dd3fc;
+                    background: white;
+                    font-size: 0.875rem;
+                    transition: all 0.2s;
+                }
+
+                .search-filter .search-input:focus {
+                    outline: none;
+                    border-color: #0ea5e9;
+                    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
+                }
+
+                .filter-select {
+                    padding: 0.5rem 0.75rem;
+                    border-radius: 0.5rem;
+                    font-size: 0.875rem;
+                    cursor: pointer;
+                    transition: all 0.2s;
+                }
+
+                .filter-select.status-select {
+                    border: 2px solid #a78bfa;
+                    background: linear-gradient(135deg, #faf5ff, #f5f3ff);
+                    color: #7c3aed;
+                    font-weight: 500;
+                }
+
+                .filter-select.status-select:focus {
+                    outline: none;
+                    border-color: #8b5cf6;
+                    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+                }
+
+                .filter-select.date-select {
+                    border: 2px solid #fbbf24;
+                    background: linear-gradient(135deg, #fffbeb, #fef3c7);
+                    color: #d97706;
+                    font-weight: 500;
+                }
+
+                .filter-select.date-select:focus {
+                    outline: none;
+                    border-color: #f59e0b;
+                    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+                }
+
+                .view-toggle {
+                    display: flex;
+                    border-radius: 0.5rem;
+                    overflow: hidden;
+                    border: 2px solid #6366f1;
+                }
+
+                .toggle-btn {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.375rem;
+                    padding: 0.5rem 0.75rem;
+                    font-size: 0.875rem;
+                    font-weight: 500;
+                    border: none;
+                    cursor: pointer;
+                    transition: all 0.2s;
+                    background: white;
+                    color: #6366f1;
+                }
+
+                .toggle-btn:hover {
+                    background: #eef2ff;
+                }
+
+                .toggle-btn.active {
+                    background: linear-gradient(135deg, #6366f1, #4f46e5);
+                    color: white;
+                }
             `}</style>
-        </div>
+        </div >
     );
 }
