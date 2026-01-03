@@ -594,15 +594,26 @@ export default function InvoicesPage() {
             {/* Filter Bar - Compact colorful row */}
             <div className="filter-bar">
                 {/* Search */}
-                <div className="filter-item search-filter">
+                <div className="filter-item search-filter" style={{ position: 'relative' }}>
                     <input
                         type="text"
                         placeholder="Search invoices..."
                         value={searchTerm}
                         onChange={e => setSearchTerm(e.target.value)}
                         className="search-input"
+                        style={{ paddingRight: '2.5rem' }}
                     />
-                    <Search size={16} className="search-icon" />
+                    <Search
+                        size={16}
+                        style={{
+                            position: 'absolute',
+                            right: '12px',
+                            top: '50%',
+                            transform: 'translateY(-50%)',
+                            color: '#0ea5e9',
+                            pointerEvents: 'none'
+                        }}
+                    />
                 </div>
 
                 {/* Location */}
