@@ -598,228 +598,231 @@ export default function InvoicesPage() {
 
             {/* Filter Bar - Compact colorful row */}
             <div className="filter-bar">
-                {/* Search */}
-                <div className="filter-item search-filter" style={{ position: 'relative' }}>
-                    <input
-                        type="text"
-                        placeholder="Search invoices..."
-                        value={searchTerm}
-                        onChange={e => setSearchTerm(e.target.value)}
-                        className="search-input"
-                        style={{ paddingRight: '2.5rem' }}
-                    />
-                    <Search
-                        size={16}
-                        style={{
-                            position: 'absolute',
-                            right: '12px',
-                            top: '50%',
-                            transform: 'translateY(-50%)',
-                            color: '#0ea5e9',
-                            pointerEvents: 'none'
-                        }}
-                    />
-                </div>
-
-                {/* Location */}
-                <div className="filter-item">
-                    <MultiSelect
-                        label="📍 Location"
-                        options={uniqueLocations}
-                        value={selectedLocations}
-                        onChange={setSelectedLocations}
-                    />
-                </div>
-
-                {/* Stall */}
-                <div className="filter-item">
-                    <MultiSelect
-                        label="🏪 Stall"
-                        options={uniqueStalls}
-                        value={selectedStalls}
-                        onChange={setSelectedStalls}
-                    />
-                </div>
-
-                {/* Status Dropdown */}
-                <select
-                    className="filter-select status-select"
-                    value={statusFilter}
-                    onChange={e => setStatusFilter(e.target.value)}
-                >
-                    <option value="All Status">📊 All Status</option>
-                    <option value="Pending">🟡 Pending</option>
-                    <option value="Processed">🟢 Processed</option>
-                    <option value="Paid">🔵 Paid</option>
-                </select>
-
-                {/* Date Range Filter */}
-                <select
-                    className="filter-select date-select"
-                    value={dateFilter}
-                    onChange={e => setDateFilter(e.target.value)}
-                >
-                    <option value="All Time">📅 All Time</option>
-                    <option value="Last Month">Last Month</option>
-                    <option value="Last 2 Months">Last 2 Months</option>
-                    <option value="Last 3 Months">Last 3 Months</option>
-                    <option value="Custom">Custom Range</option>
-                </select>
-
-                {/* Month Filter */}
-                <select
-                    className="filter-select month-select"
-                    value={monthFilter}
-                    onChange={e => setMonthFilter(e.target.value)}
-                >
-                    <option value="All">📆 Month</option>
-                    <option value="Jan">Jan</option>
-                    <option value="Feb">Feb</option>
-                    <option value="Mar">Mar</option>
-                    <option value="Apr">Apr</option>
-                    <option value="May">May</option>
-                    <option value="Jun">Jun</option>
-                    <option value="Jul">Jul</option>
-                    <option value="Aug">Aug</option>
-                    <option value="Sep">Sep</option>
-                    <option value="Oct">Oct</option>
-                    <option value="Nov">Nov</option>
-                    <option value="Dec">Dec</option>
-                </select>
-
-                {/* Year Filter */}
-                <select
-                    className="filter-select year-select"
-                    value={yearFilter}
-                    onChange={e => setYearFilter(e.target.value)}
-                >
-                    <option value="All">🗓️ Year</option>
-                    <option value="2024">2024</option>
-                    <option value="2025">2025</option>
-                    <option value="2026">2026</option>
-                </select>
-
-                {/* Custom Date Range - inline */}
-                {dateFilter === 'Custom' && (
-                    <>
+                <div className="filter-bar-header">
+                    {/* Search */}
+                    <div className="filter-item search-filter" style={{ position: 'relative' }}>
                         <input
-                            type="date"
-                            value={customDateFrom}
-                            onChange={e => setCustomDateFrom(e.target.value)}
-                            className="filter-date-input"
-                            title="From date"
+                            type="text"
+                            placeholder="Search invoices..."
+                            value={searchTerm}
+                            onChange={e => setSearchTerm(e.target.value)}
+                            className="search-input"
+                            style={{ paddingRight: '2.5rem' }}
                         />
-                        <span style={{ color: '#64748b' }}>→</span>
-                        <input
-                            type="date"
-                            value={customDateTo}
-                            onChange={e => setCustomDateTo(e.target.value)}
-                            className="filter-date-input"
-                            title="To date"
+                        <Search
+                            size={16}
+                            style={{
+                                position: 'absolute',
+                                right: '12px',
+                                top: '50%',
+                                transform: 'translateY(-50%)',
+                                color: '#0ea5e9',
+                                pointerEvents: 'none'
+                            }}
                         />
-                    </>
-                )}
+                    </div>
 
-                {/* Spacer */}
-                <div style={{ flex: 1 }} />
+                    {/* Location */}
+                    <div className="filter-item">
+                        <MultiSelect
+                            label="📍 Location"
+                            options={uniqueLocations}
+                            value={selectedLocations}
+                            onChange={setSelectedLocations}
+                        />
+                    </div>
 
-                {/* View Mode Toggle */}
-                <div className="view-toggle">
-                    <button
-                        onClick={() => setViewMode('grouped')}
-                        className={`toggle-btn ${viewMode === 'grouped' ? 'active' : ''}`}
-                        title="Group by Service Period"
+                    {/* Stall */}
+                    <div className="filter-item">
+                        <MultiSelect
+                            label="🏪 Stall"
+                            options={uniqueStalls}
+                            value={selectedStalls}
+                            onChange={setSelectedStalls}
+                        />
+                    </div>
+
+                    {/* Status Dropdown */}
+                    <select
+                        className="filter-select status-select"
+                        value={statusFilter}
+                        onChange={e => setStatusFilter(e.target.value)}
                     >
-                        <Layers size={16} />
-                        Grouped
-                    </button>
-                    <button
-                        onClick={() => setViewMode('list')}
-                        className={`toggle-btn ${viewMode === 'list' ? 'active' : ''}`}
-                        title="List View"
+                        <option value="All Status">📊 All Status</option>
+                        <option value="Pending">🟡 Pending</option>
+                        <option value="Processed">🟢 Processed</option>
+                        <option value="Paid">🔵 Paid</option>
+                    </select>
+
+                    {/* Date Range Filter */}
+                    <select
+                        className="filter-select date-select"
+                        value={dateFilter}
+                        onChange={e => setDateFilter(e.target.value)}
                     >
-                        <List size={16} />
-                        List
-                    </button>
+                        <option value="All Time">📅 All Time</option>
+                        <option value="Last Month">Last Month</option>
+                        <option value="Last 2 Months">Last 2 Months</option>
+                        <option value="Last 3 Months">Last 3 Months</option>
+                        <option value="Custom">Custom Range</option>
+                    </select>
+
+                    {/* Month Filter */}
+                    <select
+                        className="filter-select month-select"
+                        value={monthFilter}
+                        onChange={e => setMonthFilter(e.target.value)}
+                    >
+                        <option value="All">📆 Month</option>
+                        <option value="Jan">Jan</option>
+                        <option value="Feb">Feb</option>
+                        <option value="Mar">Mar</option>
+                        <option value="Apr">Apr</option>
+                        <option value="May">May</option>
+                        <option value="Jun">Jun</option>
+                        <option value="Jul">Jul</option>
+                        <option value="Aug">Aug</option>
+                        <option value="Sep">Sep</option>
+                        <option value="Oct">Oct</option>
+                        <option value="Nov">Nov</option>
+                        <option value="Dec">Dec</option>
+                    </select>
+
+                    {/* Year Filter */}
+                    <select
+                        className="filter-select year-select"
+                        value={yearFilter}
+                        onChange={e => setYearFilter(e.target.value)}
+                    >
+                        <option value="All">🗓️ Year</option>
+                        <option value="2024">2024</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                    </select>
+
+                    {/* Custom Date Range - inline */}
+                    {dateFilter === 'Custom' && (
+                        <>
+                            <input
+                                type="date"
+                                value={customDateFrom}
+                                onChange={e => setCustomDateFrom(e.target.value)}
+                                className="filter-date-input"
+                                title="From date"
+                            />
+                            <span style={{ color: '#64748b' }}>→</span>
+                            <input
+                                type="date"
+                                value={customDateTo}
+                                onChange={e => setCustomDateTo(e.target.value)}
+                                className="filter-date-input"
+                                title="To date"
+                            />
+                        </>
+                    )}
+
+                    {/* Spacer */}
+                    <div style={{ flex: 1 }} />
+
+                    {/* View Mode Toggle moved here */}
+                    <div className="view-toggle">
+                        <button
+                            onClick={() => setViewMode('grouped')}
+                            className={`toggle-btn ${viewMode === 'grouped' ? 'active' : ''}`}
+                            title="Group by Service Period"
+                        >
+                            <Layers size={16} />
+                            Grouped
+                        </button>
+                        <button
+                            onClick={() => setViewMode('list')}
+                            className={`toggle-btn ${viewMode === 'list' ? 'active' : ''}`}
+                            title="List View"
+                        >
+                            <List size={16} />
+                            List
+                        </button>
+                    </div>
                 </div>
-            </div>
 
-            <div className="glass-panel p-6">
-                {/* Action Buttons Row */}
-                <div className="flex items-center gap-3 mb-4">
-                    <button
-                        onClick={clearAllFilters}
-                        className="btn py-2 px-4 text-sm bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-lg flex items-center gap-2 transition-colors"
-                    >
-                        <X size={14} />
-                        Clear Filters
-                    </button>
-                    <button
-                        onClick={() => setShowSaveFilter(!showSaveFilter)}
-                        className="btn py-2 px-4 text-sm bg-indigo-100 text-indigo-600 hover:bg-indigo-200 rounded-lg flex items-center gap-2 transition-colors"
-                    >
-                        <Save size={14} />
-                        Save Filter
-                    </button>
+                {/* Second Row: Quick Access + Action Buttons */}
+                <div className="filter-bar-footer">
+                    {savedFilters.length > 0 && (
+                        <div className="quick-access">
+                            <span className="quick-access-label">Quick Access:</span>
+                            <div className="filter-chips">
+                                {savedFilters.map(filter => (
+                                    <button
+                                        key={filter.id}
+                                        onClick={() => loadFilter(filter)}
+                                        className="filter-chip"
+                                    >
+                                        <span>{filter.name}</span>
+                                        <span
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                deleteFilter(filter.id);
+                                            }}
+                                            className="delete-chip"
+                                        >
+                                            <X size={12} />
+                                        </span>
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    )}
 
                     <div style={{ flex: 1 }} />
+
+                    <div className="action-buttons">
+                        <button
+                            onClick={clearAllFilters}
+                            className="filter-action-btn clear-btn"
+                        >
+                            <X size={14} />
+                            Clear Filters
+                        </button>
+                        <button
+                            onClick={() => setShowSaveFilter(!showSaveFilter)}
+                            className="filter-action-btn save-btn"
+                        >
+                            <Save size={14} />
+                            Save Filter
+                        </button>
+                    </div>
                 </div>
 
-                {/* Save Filter Dialog */}
+                {/* Save Filter Dialog - Integrated */}
                 {showSaveFilter && (
-                    <div className="flex gap-3 items-center p-3 bg-indigo-50 rounded-lg border border-indigo-100 mb-4">
+                    <div className="save-filter-dialog-inline">
                         <Bookmark size={16} className="text-indigo-500" />
                         <input
                             type="text"
                             placeholder="Filter name..."
                             value={filterName}
                             onChange={e => setFilterName(e.target.value)}
-                            className="flex-1 py-2 px-3 rounded-lg border border-indigo-200 bg-white text-sm focus:outline-none focus:border-indigo-500"
+                            className="save-filter-input"
                             onKeyDown={e => e.key === 'Enter' && saveCurrentFilter()}
                             autoFocus
                         />
                         <button
                             onClick={saveCurrentFilter}
-                            className="btn py-2 px-4 text-sm bg-indigo-600 text-white hover:bg-indigo-700 rounded-lg"
+                            className="btn-save-confirm"
                         >
                             Save
                         </button>
                         <button
                             onClick={() => setShowSaveFilter(false)}
-                            className="btn py-2 px-3 text-sm bg-white text-slate-600 hover:bg-slate-100 rounded-lg border border-slate-200"
+                            className="btn-save-cancel"
                         >
                             Cancel
                         </button>
                     </div>
                 )}
+            </div>
 
-                {/* Saved Filters - Clean Separate Row */}
-                {savedFilters.length > 0 && (
-                    <div className="flex items-center gap-4 py-2 mb-4">
-                        <span className="text-xs text-slate-500 font-medium">Quick Access:</span>
-                        <div className="flex items-center gap-2 flex-wrap">
-                            {savedFilters.map(filter => (
-                                <button
-                                    key={filter.id}
-                                    onClick={() => loadFilter(filter)}
-                                    className="group inline-flex items-center gap-2 px-3 py-1.5 bg-white border border-slate-200 rounded-md text-sm text-slate-700 hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-600 transition-all"
-                                >
-                                    <span>{filter.name}</span>
-                                    <span
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            deleteFilter(filter.id);
-                                        }}
-                                        className="text-slate-400 hover:text-red-500 transition-colors"
-                                    >
-                                        <X size={12} />
-                                    </span>
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-                )}
-
+            <div className="glass-panel p-6">
                 {/* Grouped View */}
                 {viewMode === 'grouped' ? (
                     <GroupedInvoiceView
@@ -1032,13 +1035,28 @@ export default function InvoicesPage() {
                 /* Filter Bar Styles */
                 .filter-bar {
                     display: flex;
-                    align-items: center;
-                    gap: 0.75rem;
-                    padding: 1rem 1.25rem;
+                    flex-direction: column;
+                    gap: 1.25rem;
+                    padding: 1.25rem;
                     background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f0fdf4 100%);
                     border-radius: 1rem;
                     margin-bottom: 1.5rem;
                     border: 1px solid #bae6fd;
+                }
+
+                .filter-bar-header {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.75rem;
+                    flex-wrap: wrap;
+                }
+
+                .filter-bar-footer {
+                    display: flex;
+                    align-items: center;
+                    gap: 1.5rem;
+                    padding-top: 1rem;
+                    border-top: 1px dashed #bae6fd;
                     flex-wrap: wrap;
                 }
 
@@ -1183,6 +1201,159 @@ export default function InvoicesPage() {
                 .toggle-btn.active {
                     background: linear-gradient(135deg, #6366f1, #4f46e5);
                     color: white;
+                }
+
+                /* New Compact Elements Styles */
+                .quick-access {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.75rem;
+                }
+
+                .quick-access-label {
+                    font-size: 0.75rem;
+                    font-weight: 600;
+                    color: #64748b;
+                    text-transform: uppercase;
+                    letter-spacing: 0.025em;
+                }
+
+                .filter-chips {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    flex-wrap: wrap;
+                }
+
+                .filter-chip {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    padding: 0.375rem 0.75rem;
+                    background: white;
+                    border: 1px solid #e2e8f0;
+                    border-radius: 2rem;
+                    font-size: 0.8125rem;
+                    color: #475569;
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+                }
+
+                .filter-chip:hover {
+                    border-color: #6366f1;
+                    background: #f5f3ff;
+                    color: #6366f1;
+                }
+
+                .delete-chip {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: #94a3b8;
+                    transition: color 0.2s;
+                }
+
+                .delete-chip:hover {
+                    color: #ef4444;
+                }
+
+                .action-buttons {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                }
+
+                .filter-action-btn {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    padding: 0.5rem 0.875rem;
+                    font-size: 0.8125rem;
+                    font-weight: 500;
+                    border-radius: 0.5rem;
+                    cursor: pointer;
+                    transition: all 0.2s;
+                    border: none;
+                }
+
+                .clear-btn {
+                    background: #f1f5f9;
+                    color: #64748b;
+                }
+
+                .clear-btn:hover {
+                    background: #e2e8f0;
+                    color: #475569;
+                }
+
+                .save-btn {
+                    background: #eef2ff;
+                    color: #6366f1;
+                }
+
+                .save-btn:hover {
+                    background: #e0e7ff;
+                    color: #4f46e5;
+                }
+
+                .save-filter-dialog-inline {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.75rem;
+                    padding: 0.75rem 1rem;
+                    background: #f5f3ff;
+                    border: 1px solid #c7d2fe;
+                    border-radius: 0.75rem;
+                    margin-top: 0.5rem;
+                    animation: slideDown 0.2s ease-out;
+                }
+
+                @keyframes slideDown {
+                    from { opacity: 0; transform: translateY(-10px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+
+                .save-filter-input {
+                    flex: 1;
+                    padding: 0.375rem 0.75rem;
+                    border-radius: 0.375rem;
+                    border: 1px solid #c7d2fe;
+                    font-size: 0.875rem;
+                    outline: none;
+                }
+
+                .save-filter-input:focus {
+                    border-color: #6366f1;
+                    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1);
+                }
+
+                .btn-save-confirm {
+                    padding: 0.375rem 1rem;
+                    background: #6366f1;
+                    color: white;
+                    border: none;
+                    border-radius: 0.375rem;
+                    font-size: 0.8125rem;
+                    font-weight: 500;
+                    cursor: pointer;
+                }
+
+                .btn-save-confirm:hover {
+                    background: #4f46e5;
+                }
+
+                .btn-save-cancel {
+                    padding: 0.375rem 0.75rem;
+                    background: white;
+                    border: 1px solid #e2e8f0;
+                    border-radius: 0.375rem;
+                    font-size: 0.8125rem;
+                    color: #64748b;
+                    cursor: pointer;
+                }
+
+                .btn-save-cancel:hover {
+                    background: #f8fafc;
                 }
             `}</style>
         </div >
