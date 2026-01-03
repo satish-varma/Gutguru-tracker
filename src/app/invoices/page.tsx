@@ -595,7 +595,6 @@ export default function InvoicesPage() {
             <div className="filter-bar">
                 {/* Search */}
                 <div className="filter-item search-filter">
-                    <Search size={16} className="search-icon" />
                     <input
                         type="text"
                         placeholder="Search invoices..."
@@ -603,6 +602,7 @@ export default function InvoicesPage() {
                         onChange={e => setSearchTerm(e.target.value)}
                         className="search-input"
                     />
+                    <Search size={16} className="search-icon" />
                 </div>
 
                 {/* Location */}
@@ -738,27 +738,7 @@ export default function InvoicesPage() {
                             </select>
                         </div>
 
-                        <div>
-                            <label className="text-xs font-semibold text-slate-500 mb-1 block">Min ₹</label>
-                            <input
-                                type="number"
-                                className="py-2 px-3 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:border-indigo-500 w-24"
-                                placeholder="0"
-                                value={minAmount}
-                                onChange={e => setMinAmount(e.target.value)}
-                            />
-                        </div>
 
-                        <div>
-                            <label className="text-xs font-semibold text-slate-500 mb-1 block">Max ₹</label>
-                            <input
-                                type="number"
-                                className="py-2 px-3 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:border-indigo-500 w-24"
-                                placeholder="99999"
-                                value={maxAmount}
-                                onChange={e => setMaxAmount(e.target.value)}
-                            />
-                        </div>
 
                         {/* Custom Date Range */}
                         {dateFilter === 'Custom' && (
@@ -1094,16 +1074,17 @@ export default function InvoicesPage() {
 
                 .search-filter .search-icon {
                     position: absolute;
-                    left: 12px;
+                    right: 12px;
                     top: 50%;
                     transform: translateY(-50%);
                     color: #0ea5e9;
                     z-index: 1;
+                    pointer-events: none;
                 }
 
                 .search-filter .search-input {
                     width: 100%;
-                    padding: 0.5rem 0.75rem 0.5rem 2.5rem;
+                    padding: 0.5rem 2.5rem 0.5rem 0.75rem;
                     border-radius: 0.5rem;
                     border: 2px solid #7dd3fc;
                     background: white;
