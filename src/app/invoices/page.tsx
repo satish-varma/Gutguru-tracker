@@ -385,6 +385,25 @@ export default function InvoicesPage() {
         }
     };
 
+    // Wrapper for GroupedInvoiceView (doesn't need event)
+    const handlePayInvoice = async (invoice: Invoice) => {
+        try {
+            const res = await fetch(`/api/invoices/${encodeURIComponent(invoice.id)}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ status: 'Paid' })
+            });
+            const data = await res.json();
+            if (data.success) {
+                setInvoices(prev => prev.map(i => i.id === invoice.id ? { ...i, status: 'Paid' } : i));
+            } else {
+                console.error('Update failed:', data);
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
     // Multi-select functions
     const toggleSelection = (id: string) => {
         setSelectedIds(prev => {
@@ -828,6 +847,8 @@ export default function InvoicesPage() {
                         invoices={filteredInvoices}
                         onInvoiceClick={(inv) => setSelectedInvoice(inv)}
                         onDownload={handleDownloadInvoice}
+                        onPay={handlePayInvoice}
+                        userRole={session?.user?.role}
                     />
                 ) : (
                     <>

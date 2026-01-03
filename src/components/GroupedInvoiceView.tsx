@@ -2,12 +2,14 @@
 
 import { useState, useMemo } from 'react';
 import { Invoice } from '@/types';
-import { ChevronDown, ChevronRight, Download, Calendar } from 'lucide-react';
+import { ChevronDown, ChevronRight, Download, Calendar, CreditCard } from 'lucide-react';
 
 interface GroupedInvoiceViewProps {
     invoices: Invoice[];
     onInvoiceClick: (invoice: Invoice) => void;
     onDownload: (invoice: Invoice) => void;
+    onPay?: (invoice: Invoice) => void;
+    userRole?: string;
 }
 
 interface ServicePeriodGroup {
@@ -20,7 +22,7 @@ interface ServicePeriodGroup {
     locationCount: number;
 }
 
-export function GroupedInvoiceView({ invoices, onInvoiceClick, onDownload }: GroupedInvoiceViewProps) {
+export function GroupedInvoiceView({ invoices, onInvoiceClick, onDownload, onPay, userRole }: GroupedInvoiceViewProps) {
     const [expandedPeriods, setExpandedPeriods] = useState<Set<string>>(new Set());
 
     // Group invoices by service period
@@ -172,9 +174,26 @@ export function GroupedInvoiceView({ invoices, onInvoiceClick, onDownload }: Gro
                                                     ₹{inv.amount.toLocaleString('en-IN', { maximumFractionDigits: 2 })}
                                                 </td>
                                                 <td>
-                                                    <span className={`status-badge ${inv.status.toLowerCase()}`}>
-                                                        {inv.status}
-                                                    </span>
+                                                    <div className="status-cell">
+                                                        {inv.status === 'Paid' ? (
+                                                            <span className="status-badge paid">Paid</span>
+                                                        ) : inv.status === 'Processed' && onPay && userRole !== 'user' ? (
+                                                            <button
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation();
+                                                                    onPay(inv);
+                                                                }}
+                                                                className="pay-btn"
+                                                            >
+                                                                <CreditCard size={12} />
+                                                                Pay Now
+                                                            </button>
+                                                        ) : (
+                                                            <span className={`status-badge ${inv.status.toLowerCase()}`}>
+                                                                {inv.status}
+                                                            </span>
+                                                        )}
+                                                    </div>
                                                 </td>
                                                 <td>
                                                     <button
@@ -409,6 +428,33 @@ export function GroupedInvoiceView({ invoices, onInvoiceClick, onDownload }: Gro
                 .action-btn:hover {
                     background: #e0e7ff;
                     color: #4f46e5;
+                }
+
+                .status-cell {
+                    display: flex;
+                    align-items: center;
+                }
+
+                .pay-btn {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.25rem;
+                    padding: 0.375rem 0.75rem;
+                    border-radius: 0.375rem;
+                    border: none;
+                    background: linear-gradient(135deg, #10b981, #059669);
+                    color: white;
+                    font-size: 0.75rem;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: all 0.2s;
+                    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+                }
+
+                .pay-btn:hover {
+                    background: linear-gradient(135deg, #059669, #047857);
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+                    transform: translateY(-1px);
                 }
             `}</style>
         </div>
