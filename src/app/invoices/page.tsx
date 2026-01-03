@@ -6,7 +6,8 @@ import { useRouter } from 'next/navigation';
 import { Invoice } from '@/types';
 import { MultiSelect } from '@/components/MultiSelect';
 import { InvoiceDrawer } from '@/components/InvoiceDrawer';
-import { Download, Filter, Search, CreditCard, CheckSquare, Save, Bookmark, Calendar, X } from 'lucide-react';
+import { GroupedInvoiceView } from '@/components/GroupedInvoiceView';
+import { Download, Filter, Search, CreditCard, CheckSquare, Save, Bookmark, Calendar, X, List, Layers } from 'lucide-react';
 
 // Saved filter type
 interface SavedFilter {
@@ -58,6 +59,9 @@ export default function InvoicesPage() {
     const [savedFilters, setSavedFilters] = useState<SavedFilter[]>([]);
     const [filterName, setFilterName] = useState('');
     const [showSaveFilter, setShowSaveFilter] = useState(false);
+
+    // View Mode: 'list' or 'grouped'
+    const [viewMode, setViewMode] = useState<'list' | 'grouped'>('grouped');
 
     // Pagination
     const [currentPage, setCurrentPage] = useState(1);
@@ -437,6 +441,31 @@ export default function InvoicesPage() {
         setSelectedIds(new Set());
     };
 
+    // Helper function for single invoice download (used by GroupedInvoiceView)
+    const handleDownloadInvoice = async (inv: Invoice) => {
+        try {
+            const apiUrl = `/api/download-invoice?id=${encodeURIComponent(inv.id)}&pdfPath=${encodeURIComponent(inv.pdfPath || '')}`;
+            const response = await fetch(apiUrl);
+
+            if (!response.ok) {
+                console.error(`Failed to download ${inv.id}`);
+                return;
+            }
+
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `Invoice-${inv.id}.pdf`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(url);
+        } catch (e) {
+            console.error(`Error downloading ${inv.id}:`, e);
+        }
+    };
+
     const [isUpdatingStatus, setIsUpdatingStatus] = useState(false);
 
     const handleBulkStatusUpdate = async (newStatus: 'Paid' | 'Processed' | 'Pending') => {
@@ -530,6 +559,27 @@ export default function InvoicesPage() {
                             )}
                         </>
                     )}
+
+                    {/* View Mode Toggle */}
+                    <div className="flex border border-slate-200 rounded-lg overflow-hidden">
+                        <button
+                            onClick={() => setViewMode('grouped')}
+                            className={`flex items-center gap-1.5 px-3 py-2 text-sm ${viewMode === 'grouped' ? 'bg-indigo-600 text-white' : 'bg-white text-slate-600 hover:bg-slate-50'}`}
+                            title="Group by Service Period"
+                        >
+                            <Layers size={16} />
+                            Grouped
+                        </button>
+                        <button
+                            onClick={() => setViewMode('list')}
+                            className={`flex items-center gap-1.5 px-3 py-2 text-sm ${viewMode === 'list' ? 'bg-indigo-600 text-white' : 'bg-white text-slate-600 hover:bg-slate-50'}`}
+                            title="List View"
+                        >
+                            <List size={16} />
+                            List
+                        </button>
+                    </div>
+
                     <button onClick={handleExportCSV} className="btn glass-panel flex items-center gap-2 px-4 py-2">
                         <Download size={16} /> Export
                     </button>
@@ -772,151 +822,162 @@ export default function InvoicesPage() {
                     )}
                 </div>
 
-                {/* Table */}
-                <div className="table-container">
-                    <table className="w-full">
-                        <thead>
-                            <tr className="text-left text-sm text-slate-500 border-b border-slate-100">
-                                <th className="pb-3 pl-4 w-10">
-                                    <input
-                                        type="checkbox"
-                                        checked={paginatedInvoices.length > 0 && selectedIds.size === paginatedInvoices.length}
-                                        onChange={toggleSelectAll}
-                                        className="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer"
-                                    />
-                                </th>
-                                <th className="pb-3">Service Period</th>
-                                <th className="pb-3 hide-mobile">Date</th>
-                                <th className="pb-3 hide-mobile">Location</th>
-                                <th className="pb-3">Stall Name</th>
-                                <th className="pb-3 text-right">Amount</th>
-                                <th className="pb-3 text-center">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {isLoading ? (
-                                <tr><td colSpan={6} className="text-center p-8 text-slate-400">Loading...</td></tr>
-                            ) : paginatedInvoices.length === 0 ? (
-                                <tr><td colSpan={6} className="text-center p-8 text-slate-400">No invoices match your filters.</td></tr>
-                            ) : (
-                                paginatedInvoices.map((inv) => (
-                                    <tr
-                                        key={inv.id}
-                                        className={`border-b border-slate-50 hover:bg-slate-50/50 transition-colors cursor-pointer group ${selectedIds.has(inv.id) ? 'bg-indigo-50/50' : ''}`}
-                                        onClick={() => setSelectedInvoice(inv)}
-                                    >
-                                        <td className="py-3 pl-4">
+                {/* Grouped View */}
+                {viewMode === 'grouped' ? (
+                    <GroupedInvoiceView
+                        invoices={filteredInvoices}
+                        onInvoiceClick={(inv) => setSelectedInvoice(inv)}
+                        onDownload={handleDownloadInvoice}
+                    />
+                ) : (
+                    <>
+                        {/* Table */}
+                        <div className="table-container">
+                            <table className="w-full">
+                                <thead>
+                                    <tr className="text-left text-sm text-slate-500 border-b border-slate-100">
+                                        <th className="pb-3 pl-4 w-10">
                                             <input
                                                 type="checkbox"
-                                                checked={selectedIds.has(inv.id)}
-                                                onChange={(e) => {
-                                                    e.stopPropagation();
-                                                    toggleSelection(inv.id);
-                                                }}
-                                                onClick={(e) => e.stopPropagation()}
+                                                checked={paginatedInvoices.length > 0 && selectedIds.size === paginatedInvoices.length}
+                                                onChange={toggleSelectAll}
                                                 className="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer"
                                             />
-                                        </td>
-                                        <td
-                                            className="py-3 text-sm font-medium text-slate-700 group-hover:text-blue-600"
-                                            title={`Invoice ID: ${inv.id}`}
-                                        >
-                                            {inv.serviceDateRange || 'N/A'}
-                                        </td>
-                                        <td className="py-3 text-sm text-slate-600 hide-mobile">{inv.date}</td>
-                                        <td className="py-3 text-sm text-slate-600 hide-mobile">{inv.location}</td>
-                                        <td className="py-3 text-sm text-slate-600">{inv.stall}</td>
-                                        <td className="py-3 text-sm font-semibold text-slate-700 text-right">₹{inv.amount.toLocaleString()}</td>
-                                        <td className="py-3 text-center">
-                                            <div className="flex items-center justify-center gap-2">
-                                                {inv.status === 'Paid' ? (
-                                                    <span className="inline-block px-2 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700">
-                                                        Paid
-                                                    </span>
-                                                ) : inv.status === 'Processed' ? (
-                                                    session?.user?.role !== 'user' && (
-                                                        <button
-                                                            onClick={(e) => handlePay(e, inv)}
-                                                            className="btn-premium text-[10px] py-1 px-3 shrink-0 w-max"
-                                                            style={{ whiteSpace: 'nowrap' }}
-                                                        >
-                                                            Pay Now
-                                                        </button>
-                                                    )
-                                                ) : (
-                                                    <span className="inline-block px-2 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-700">
-                                                        {inv.status}
-                                                    </span>
-                                                )}
-
-                                                <button
-                                                    onClick={async (e) => {
-                                                        e.stopPropagation();
-                                                        try {
-                                                            const apiUrl = `/api/download-invoice?id=${encodeURIComponent(inv.id)}&pdfPath=${encodeURIComponent(inv.pdfPath || '')}`;
-                                                            const response = await fetch(apiUrl);
-
-                                                            if (!response.ok) {
-                                                                const error = await response.json();
-                                                                alert(error.error || 'Failed to download PDF');
-                                                                return;
-                                                            }
-
-                                                            const blob = await response.blob();
-                                                            const url = window.URL.createObjectURL(blob);
-                                                            const link = document.createElement('a');
-                                                            link.href = url;
-                                                            link.download = `Invoice-${inv.id}.pdf`;
-                                                            document.body.appendChild(link);
-                                                            link.click();
-                                                            document.body.removeChild(link);
-                                                            window.URL.revokeObjectURL(url);
-                                                        } catch (err) {
-                                                            console.error('Download error:', err);
-                                                            alert('Failed to download PDF');
-                                                        }
-                                                    }}
-                                                    className="p-1.5 bg-indigo-50 text-indigo-500 rounded-full hover:bg-indigo-100 hover:text-indigo-700 hover:shadow-md border border-indigo-100 transition-all duration-200 inline-flex items-center justify-center group-hover:bg-indigo-100 group-hover:shadow-sm"
-                                                    title="Download Invoice"
-                                                >
-                                                    <Download size={14} />
-                                                </button>
-                                            </div>
-                                        </td>
+                                        </th>
+                                        <th className="pb-3">Service Period</th>
+                                        <th className="pb-3 hide-mobile">Date</th>
+                                        <th className="pb-3 hide-mobile">Location</th>
+                                        <th className="pb-3">Stall Name</th>
+                                        <th className="pb-3 text-right">Amount</th>
+                                        <th className="pb-3 text-center">Status</th>
                                     </tr>
-                                ))
-                            )}
-                        </tbody>
-                    </table>
-                </div>
+                                </thead>
+                                <tbody>
+                                    {isLoading ? (
+                                        <tr><td colSpan={6} className="text-center p-8 text-slate-400">Loading...</td></tr>
+                                    ) : paginatedInvoices.length === 0 ? (
+                                        <tr><td colSpan={6} className="text-center p-8 text-slate-400">No invoices match your filters.</td></tr>
+                                    ) : (
+                                        paginatedInvoices.map((inv) => (
+                                            <tr
+                                                key={inv.id}
+                                                className={`border-b border-slate-50 hover:bg-slate-50/50 transition-colors cursor-pointer group ${selectedIds.has(inv.id) ? 'bg-indigo-50/50' : ''}`}
+                                                onClick={() => setSelectedInvoice(inv)}
+                                            >
+                                                <td className="py-3 pl-4">
+                                                    <input
+                                                        type="checkbox"
+                                                        checked={selectedIds.has(inv.id)}
+                                                        onChange={(e) => {
+                                                            e.stopPropagation();
+                                                            toggleSelection(inv.id);
+                                                        }}
+                                                        onClick={(e) => e.stopPropagation()}
+                                                        className="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer"
+                                                    />
+                                                </td>
+                                                <td
+                                                    className="py-3 text-sm font-medium text-slate-700 group-hover:text-blue-600"
+                                                    title={`Invoice ID: ${inv.id}`}
+                                                >
+                                                    {inv.serviceDateRange || 'N/A'}
+                                                </td>
+                                                <td className="py-3 text-sm text-slate-600 hide-mobile">{inv.date}</td>
+                                                <td className="py-3 text-sm text-slate-600 hide-mobile">{inv.location}</td>
+                                                <td className="py-3 text-sm text-slate-600">{inv.stall}</td>
+                                                <td className="py-3 text-sm font-semibold text-slate-700 text-right">₹{inv.amount.toLocaleString()}</td>
+                                                <td className="py-3 text-center">
+                                                    <div className="flex items-center justify-center gap-2">
+                                                        {inv.status === 'Paid' ? (
+                                                            <span className="inline-block px-2 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700">
+                                                                Paid
+                                                            </span>
+                                                        ) : inv.status === 'Processed' ? (
+                                                            session?.user?.role !== 'user' && (
+                                                                <button
+                                                                    onClick={(e) => handlePay(e, inv)}
+                                                                    className="btn-premium text-[10px] py-1 px-3 shrink-0 w-max"
+                                                                    style={{ whiteSpace: 'nowrap' }}
+                                                                >
+                                                                    Pay Now
+                                                                </button>
+                                                            )
+                                                        ) : (
+                                                            <span className="inline-block px-2 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-700">
+                                                                {inv.status}
+                                                            </span>
+                                                        )}
 
-                {/* Pagination */}
-                {
-                    filteredInvoices.length > 0 && (
-                        <div className="flex justify-between items-center mt-6 pt-4 border-t border-slate-100">
-                            <div className="text-sm text-slate-500">
-                                Page {currentPage} of {totalPages} ({filteredInvoices.length} items)
-                            </div>
-                            <div className="flex gap-2">
-                                <button
-                                    onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-                                    disabled={currentPage === 1}
-                                    className="px-3 py-1 rounded border border-slate-200 text-sm disabled:opacity-50 hover:bg-slate-50"
-                                >
-                                    Previous
-                                </button>
-                                <button
-                                    onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-                                    disabled={currentPage === totalPages}
-                                    className="px-3 py-1 rounded border border-slate-200 text-sm disabled:opacity-50 hover:bg-slate-50"
-                                >
-                                    Next
-                                </button>
-                            </div>
+                                                        <button
+                                                            onClick={async (e) => {
+                                                                e.stopPropagation();
+                                                                try {
+                                                                    const apiUrl = `/api/download-invoice?id=${encodeURIComponent(inv.id)}&pdfPath=${encodeURIComponent(inv.pdfPath || '')}`;
+                                                                    const response = await fetch(apiUrl);
+
+                                                                    if (!response.ok) {
+                                                                        const error = await response.json();
+                                                                        alert(error.error || 'Failed to download PDF');
+                                                                        return;
+                                                                    }
+
+                                                                    const blob = await response.blob();
+                                                                    const url = window.URL.createObjectURL(blob);
+                                                                    const link = document.createElement('a');
+                                                                    link.href = url;
+                                                                    link.download = `Invoice-${inv.id}.pdf`;
+                                                                    document.body.appendChild(link);
+                                                                    link.click();
+                                                                    document.body.removeChild(link);
+                                                                    window.URL.revokeObjectURL(url);
+                                                                } catch (err) {
+                                                                    console.error('Download error:', err);
+                                                                    alert('Failed to download PDF');
+                                                                }
+                                                            }}
+                                                            className="p-1.5 bg-indigo-50 text-indigo-500 rounded-full hover:bg-indigo-100 hover:text-indigo-700 hover:shadow-md border border-indigo-100 transition-all duration-200 inline-flex items-center justify-center group-hover:bg-indigo-100 group-hover:shadow-sm"
+                                                            title="Download Invoice"
+                                                        >
+                                                            <Download size={14} />
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        ))
+                                    )}
+                                </tbody>
+                            </table>
                         </div>
-                    )
-                }
-            </div >
+
+                        {/* Pagination */}
+                        {
+                            filteredInvoices.length > 0 && (
+                                <div className="flex justify-between items-center mt-6 pt-4 border-t border-slate-100">
+                                    <div className="text-sm text-slate-500">
+                                        Page {currentPage} of {totalPages} ({filteredInvoices.length} items)
+                                    </div>
+                                    <div className="flex gap-2">
+                                        <button
+                                            onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                                            disabled={currentPage === 1}
+                                            className="px-3 py-1 rounded border border-slate-200 text-sm disabled:opacity-50 hover:bg-slate-50"
+                                        >
+                                            Previous
+                                        </button>
+                                        <button
+                                            onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                                            disabled={currentPage === totalPages}
+                                            className="px-3 py-1 rounded border border-slate-200 text-sm disabled:opacity-50 hover:bg-slate-50"
+                                        >
+                                            Next
+                                        </button>
+                                    </div>
+                                </div>
+                            )
+                        }
+                    </>
+                )}
+            </div>
 
             <InvoiceDrawer
                 isOpen={!!selectedInvoice}
@@ -967,6 +1028,6 @@ export default function InvoicesPage() {
                 .text-amber-700 { color: #b45309; }
                 input:focus { outline: 2px solid #3b82f6; border-color: transparent; }
             `}</style>
-        </div >
+        </div>
     );
 }
