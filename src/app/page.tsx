@@ -531,8 +531,8 @@ export default function Home() {
                         padding: '0.25rem 0.75rem',
                         borderRadius: '9999px',
                         fontSize: '0.75rem',
-                        background: inv.status === 'Paid' ? 'rgba(219, 234, 254, 0.2)' : inv.status === 'Processed' ? 'rgba(16, 185, 129, 0.2)' : 'rgba(245, 158, 11, 0.2)',
-                        color: inv.status === 'Paid' ? '#1e40af' : inv.status === 'Processed' ? '#34d399' : '#fbbf24'
+                        background: inv.status?.toLowerCase() === 'paid' ? 'rgba(16, 185, 129, 0.15)' : inv.status?.toLowerCase() === 'processed' ? 'rgba(16, 185, 129, 0.2)' : 'rgba(245, 158, 11, 0.2)',
+                        color: inv.status?.toLowerCase() === 'paid' ? '#059669' : inv.status?.toLowerCase() === 'processed' ? '#34d399' : '#fbbf24'
                       }}>
                         {inv.status}
                       </span>

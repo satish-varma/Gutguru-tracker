@@ -4,6 +4,8 @@ import { getInvoices } from '@/lib/turso';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   const session = await getServerSession(authOptions);
   // @ts-ignore

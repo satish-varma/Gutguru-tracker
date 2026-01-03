@@ -1002,20 +1002,25 @@ export default function InvoicesPage() {
                                                 <td className="py-3 text-sm font-semibold text-slate-700 text-right">₹{inv.amount.toLocaleString()}</td>
                                                 <td className="py-3 text-center">
                                                     <div className="flex items-center justify-center gap-2">
-                                                        {inv.status === 'Paid' ? (
+                                                        {inv.status?.toLowerCase() === 'paid' ? (
                                                             <span className="inline-block px-2 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700">
                                                                 Paid
                                                             </span>
-                                                        ) : inv.status === 'Processed' ? (
-                                                            session?.user?.role !== 'user' && (
-                                                                <button
-                                                                    onClick={(e) => handlePay(e, inv)}
-                                                                    className="btn-premium text-[10px] py-1 px-3 shrink-0 w-max"
-                                                                    style={{ whiteSpace: 'nowrap' }}
-                                                                >
-                                                                    Pay Now
-                                                                </button>
-                                                            )
+                                                        ) : inv.status?.toLowerCase() === 'processed' ? (
+                                                            <div className="flex items-center gap-2">
+                                                                <span className="inline-block px-2 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-700 border border-blue-100">
+                                                                    Processed
+                                                                </span>
+                                                                {session?.user?.role !== 'user' && (
+                                                                    <button
+                                                                        onClick={(e) => handlePay(e, inv)}
+                                                                        className="btn-premium text-[10px] py-1 px-3 shrink-0 w-max"
+                                                                        style={{ whiteSpace: 'nowrap' }}
+                                                                    >
+                                                                        Pay Now
+                                                                    </button>
+                                                                )}
+                                                            </div>
                                                         ) : (
                                                             <span className="inline-block px-2 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-700">
                                                                 {inv.status}

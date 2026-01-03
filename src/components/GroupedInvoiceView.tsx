@@ -233,21 +233,26 @@ export function GroupedInvoiceView({
                                                     </td>
                                                     <td>
                                                         <div className="status-cell">
-                                                            {inv.status === 'Paid' ? (
+                                                            {inv.status?.toLowerCase() === 'paid' ? (
                                                                 <span className="status-badge paid">Paid</span>
-                                                            ) : inv.status === 'Processed' && onPay && userRole !== 'user' ? (
-                                                                <button
-                                                                    onClick={(e) => {
-                                                                        e.stopPropagation();
-                                                                        onPay(inv);
-                                                                    }}
-                                                                    className="pay-btn"
-                                                                >
-                                                                    <CreditCard size={12} />
-                                                                    Pay Now
-                                                                </button>
+                                                            ) : inv.status?.toLowerCase() === 'processed' ? (
+                                                                <div className="status-cell">
+                                                                    <span className="status-badge processed">Processed</span>
+                                                                    {onPay && userRole !== 'user' && (
+                                                                        <button
+                                                                            onClick={(e) => {
+                                                                                e.stopPropagation();
+                                                                                onPay(inv);
+                                                                            }}
+                                                                            className="pay-btn"
+                                                                        >
+                                                                            <CreditCard size={12} />
+                                                                            Pay Now
+                                                                        </button>
+                                                                    )}
+                                                                </div>
                                                             ) : (
-                                                                <span className={`status-badge ${inv.status.toLowerCase()}`}>
+                                                                <span className={`status-badge ${inv.status?.toLowerCase()}`}>
                                                                     {inv.status}
                                                                 </span>
                                                             )}
@@ -515,12 +520,12 @@ export function GroupedInvoiceView({
                     text-transform: uppercase;
                 }
 
-                .status-badge.processed {
+                .status-badge.paid {
                     background: #dcfce7;
                     color: #166534;
                 }
 
-                .status-badge.paid {
+                .status-badge.processed {
                     background: #dbeafe;
                     color: #1e40af;
                 }
