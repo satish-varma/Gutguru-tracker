@@ -648,21 +648,37 @@ export default function InvoicesPage() {
                     <option value="Paid">🔵 Paid</option>
                 </select>
 
-                {/* Date Filter */}
+                {/* Month Filter */}
                 <select
-                    className="filter-select date-select"
-                    value={dateFilter}
-                    onChange={e => {
-                        setDateFilter(e.target.value);
-                        if (e.target.value === 'Custom') {
-                            setShowDatePicker(true);
-                        }
-                    }}
+                    className="filter-select month-select"
+                    value={monthFilter}
+                    onChange={e => setMonthFilter(e.target.value)}
                 >
-                    <option>📅 All Time</option>
-                    <option>Last 7 Days</option>
-                    <option>Last 30 Days</option>
-                    <option>Custom</option>
+                    <option>📅 All</option>
+                    <option>Jan</option>
+                    <option>Feb</option>
+                    <option>Mar</option>
+                    <option>Apr</option>
+                    <option>May</option>
+                    <option>Jun</option>
+                    <option>Jul</option>
+                    <option>Aug</option>
+                    <option>Sep</option>
+                    <option>Oct</option>
+                    <option>Nov</option>
+                    <option>Dec</option>
+                </select>
+
+                {/* Year Filter */}
+                <select
+                    className="filter-select year-select"
+                    value={yearFilter}
+                    onChange={e => setYearFilter(e.target.value)}
+                >
+                    <option>🗓️ All</option>
+                    <option>2024</option>
+                    <option>2025</option>
+                    <option>2026</option>
                 </select>
 
                 {/* Spacer */}
@@ -690,109 +706,24 @@ export default function InvoicesPage() {
             </div>
 
             <div className="glass-panel p-6">
-                <div>
-                    <label className="text-xs font-semibold text-slate-500 mb-1 block">Quick Range</label>
-                    <select
-                        className="py-2 px-3 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:border-indigo-500"
-                        value={dateFilter}
-                        onChange={e => {
-                            setDateFilter(e.target.value);
-                            if (e.target.value === 'Custom') {
-                                setShowDatePicker(true);
-                            }
-                        }}
+                {/* Action Buttons Row */}
+                <div className="flex items-center gap-3 mb-4">
+                    <button
+                        onClick={clearAllFilters}
+                        className="btn py-2 px-4 text-sm bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-lg flex items-center gap-2 transition-colors"
                     >
-                        <option>All Time</option>
-                        <option>Last 7 Days</option>
-                        <option>Last 30 Days</option>
-                        <option>Custom</option>
-                    </select>
-                </div>
+                        <X size={14} />
+                        Clear Filters
+                    </button>
+                    <button
+                        onClick={() => setShowSaveFilter(!showSaveFilter)}
+                        className="btn py-2 px-4 text-sm bg-indigo-100 text-indigo-600 hover:bg-indigo-200 rounded-lg flex items-center gap-2 transition-colors"
+                    >
+                        <Save size={14} />
+                        Save Filter
+                    </button>
 
-                {/* Advanced Filters Row */}
-                <div className="advanced-filters mb-4">
-                    <div className="flex flex-wrap items-end gap-3">
-                        <div>
-                            <label className="text-xs font-semibold text-slate-500 mb-1 block">Month</label>
-                            <select
-                                className="py-2 px-3 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:border-indigo-500"
-                                value={monthFilter}
-                                onChange={e => setMonthFilter(e.target.value)}
-                            >
-                                <option>All</option>
-                                <option>Jan</option>
-                                <option>Feb</option>
-                                <option>Mar</option>
-                                <option>Apr</option>
-                                <option>May</option>
-                                <option>Jun</option>
-                                <option>Jul</option>
-                                <option>Aug</option>
-                                <option>Sep</option>
-                                <option>Oct</option>
-                                <option>Nov</option>
-                                <option>Dec</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label className="text-xs font-semibold text-slate-500 mb-1 block">Year</label>
-                            <select
-                                className="py-2 px-3 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:border-indigo-500"
-                                value={yearFilter}
-                                onChange={e => setYearFilter(e.target.value)}
-                            >
-                                <option>All</option>
-                                <option>2025</option>
-                                <option>2024</option>
-                                <option>2026</option>
-                            </select>
-                        </div>
-
-
-
-                        {/* Custom Date Range */}
-                        {dateFilter === 'Custom' && (
-                            <>
-                                <div className="h-6 w-px bg-slate-300" />
-                                <div>
-                                    <label className="text-xs font-semibold text-slate-500 mb-1 block">From</label>
-                                    <input
-                                        type="date"
-                                        value={customDateFrom}
-                                        onChange={e => setCustomDateFrom(e.target.value)}
-                                        className="py-2 px-3 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:border-indigo-500"
-                                    />
-                                </div>
-                                <div>
-                                    <label className="text-xs font-semibold text-slate-500 mb-1 block">To</label>
-                                    <input
-                                        type="date"
-                                        value={customDateTo}
-                                        onChange={e => setCustomDateTo(e.target.value)}
-                                        className="py-2 px-3 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:border-indigo-500"
-                                    />
-                                </div>
-                            </>
-                        )}
-
-                        <div style={{ flex: 1 }} />
-
-                        <button
-                            onClick={clearAllFilters}
-                            className="btn py-2 px-4 text-sm bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-lg flex items-center gap-2 transition-colors"
-                        >
-                            <X size={14} />
-                            Clear
-                        </button>
-                        <button
-                            onClick={() => setShowSaveFilter(!showSaveFilter)}
-                            className="btn py-2 px-4 text-sm bg-indigo-100 text-indigo-600 hover:bg-indigo-200 rounded-lg flex items-center gap-2 transition-colors"
-                        >
-                            <Save size={14} />
-                            Save
-                        </button>
-                    </div>
+                    <div style={{ flex: 1 }} />
                 </div>
 
                 {/* Save Filter Dialog */}
@@ -1141,6 +1072,32 @@ export default function InvoicesPage() {
                     outline: none;
                     border-color: #f59e0b;
                     box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+                }
+
+                .filter-select.month-select {
+                    border: 2px solid #34d399;
+                    background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+                    color: #059669;
+                    font-weight: 500;
+                }
+
+                .filter-select.month-select:focus {
+                    outline: none;
+                    border-color: #10b981;
+                    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+                }
+
+                .filter-select.year-select {
+                    border: 2px solid #fb923c;
+                    background: linear-gradient(135deg, #fff7ed, #ffedd5);
+                    color: #ea580c;
+                    font-weight: 500;
+                }
+
+                .filter-select.year-select:focus {
+                    outline: none;
+                    border-color: #f97316;
+                    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.15);
                 }
 
                 .view-toggle {
