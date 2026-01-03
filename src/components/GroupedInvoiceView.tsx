@@ -134,16 +134,36 @@ export function GroupedInvoiceView({ invoices, onInvoiceClick, onDownload, onPay
                                 ₹{group.totalAmount.toLocaleString('en-IN', { maximumFractionDigits: 2 })}
                             </div>
 
-                            <button
-                                className="download-all-btn"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    handleDownloadAll(group);
-                                }}
-                                title="Download all invoices in this period"
-                            >
-                                <Download size={16} />
-                            </button>
+                            <div className="period-actions">
+                                {/* Pay All Button - only for managers/admins with unpaid invoices */}
+                                {onPay && userRole !== 'user' && group.invoices.some(inv => inv.status !== 'Paid') && (
+                                    <button
+                                        className="pay-all-btn"
+                                        onClick={async (e) => {
+                                            e.stopPropagation();
+                                            const unpaidInvoices = group.invoices.filter(inv => inv.status !== 'Paid');
+                                            for (const inv of unpaidInvoices) {
+                                                await onPay(inv);
+                                            }
+                                        }}
+                                        title="Mark all invoices in this period as paid"
+                                    >
+                                        <CreditCard size={16} />
+                                        Pay All ({group.invoices.filter(inv => inv.status !== 'Paid').length})
+                                    </button>
+                                )}
+
+                                <button
+                                    className="download-all-btn"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleDownloadAll(group);
+                                    }}
+                                    title="Download all invoices in this period"
+                                >
+                                    <Download size={16} />
+                                </button>
+                            </div>
                         </div>
 
                         {/* Expanded Content - Invoice List */}
@@ -297,6 +317,34 @@ export function GroupedInvoiceView({ invoices, onInvoiceClick, onDownload, onPay
                     color: #0f172a;
                     min-width: 120px;
                     text-align: right;
+                }
+
+                .period-actions {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                }
+
+                .pay-all-btn {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.375rem;
+                    padding: 0.5rem 0.75rem;
+                    border-radius: 0.5rem;
+                    border: none;
+                    background: linear-gradient(135deg, #10b981, #059669);
+                    color: white;
+                    font-size: 0.8rem;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: all 0.2s;
+                    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+                }
+
+                .pay-all-btn:hover {
+                    background: linear-gradient(135deg, #059669, #047857);
+                    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+                    transform: translateY(-1px);
                 }
 
                 .download-all-btn {
