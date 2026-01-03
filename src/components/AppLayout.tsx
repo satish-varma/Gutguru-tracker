@@ -24,19 +24,32 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     }
 
     return (
-        <div style={{ display: 'flex', minHeight: '100vh', background: '#f1f5f9' }}>
+        <div style={{ display: 'flex', minHeight: '100vh', background: '#f1f5f9', position: 'relative' }}>
             <Sidebar isCollapsed={isCollapsed} toggleCollapse={() => setIsCollapsed(!isCollapsed)} />
-            <div
+            <main
+                className="layout-main"
                 style={{
                     flex: 1,
-                    marginLeft: sidebarWidth,
-                    transition: 'margin-left 0.3s ease-in-out',
                     minWidth: 0,
                     position: 'relative'
                 }}
             >
                 {children}
-            </div>
+            </main>
+            <style jsx>{`
+                .layout-main {
+                    margin-left: ${sidebarWidth};
+                    transition: margin-left 0.3s ease-in-out;
+                    padding-bottom: 0;
+                }
+
+                @media (max-width: 768px) {
+                    .layout-main {
+                        margin-left: 0 !important;
+                        padding-bottom: 80px; /* Space for bottom nav */
+                    }
+                }
+            `}</style>
         </div>
     );
 }

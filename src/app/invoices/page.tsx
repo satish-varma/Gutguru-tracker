@@ -1474,6 +1474,43 @@ export default function InvoicesPage() {
                 .btn-save-cancel:hover {
                     background: #f8fafc;
                 }
+
+                @media (max-width: 768px) {
+                    .filter-bar-header, .filter-bar-footer {
+                        flex-direction: column;
+                        align-items: stretch;
+                        gap: 1rem;
+                    }
+
+                    .search-filter {
+                        max-width: none;
+                        width: 100%;
+                    }
+
+                    .filter-item {
+                        width: 100%;
+                    }
+
+                    .view-toggle {
+                        width: 100%;
+                    }
+
+                    .toggle-btn {
+                        flex: 1;
+                        justify-content: center;
+                    }
+
+                    header {
+                        flex-direction: column;
+                        align-items: flex-start;
+                        gap: 1rem;
+                    }
+
+                    header .flex-wrap {
+                        width: 100%;
+                        justify-content: space-between;
+                    }
+                }
             `}</style>
         </div >
     );

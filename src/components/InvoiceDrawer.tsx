@@ -367,6 +367,24 @@ export function InvoiceDrawer({ invoice, onClose, isOpen }: InvoiceDrawerProps) 
           justify-content: center;
           padding: 0.75rem;
         }
+
+        @media (max-width: 480px) {
+          .drawer-panel {
+            width: 100%;
+          }
+          
+          .info-grid {
+            grid-template-columns: 1fr;
+          }
+          
+          .drawer-header {
+            padding: 1rem;
+          }
+          
+          .drawer-content {
+            padding: 1rem;
+          }
+        }
       `}</style>
     </>
   );

@@ -313,19 +313,20 @@ export default function Home() {
 
   return (
     <main className="container">
-      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
+      <header className="dashboard-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
         <div>
           <h1>TheGutGuru Tracker</h1>
           <p style={{ color: '#94a3b8' }}>Payment Advice & Invoice Analytics</p>
         </div>
-        <div style={{ display: 'flex', gap: '0.5rem' }}>
+        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
           <button
             className="btn glass-panel"
             onClick={handleExportCSV}
             style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.5rem 1rem' }}
           >
             <Download size={16} />
-            Export CSV
+            <span className="hide-mobile">Export CSV</span>
+            <span className="show-mobile-flex">CSV</span>
           </button>
           <button
             className="btn btn-primary"
@@ -335,6 +336,15 @@ export default function Home() {
             {isSyncing ? 'Syncing...' : 'Sync Recent'}
           </button>
         </div>
+        <style jsx>{`
+          @media (max-width: 640px) {
+            .dashboard-header {
+              flex-direction: column;
+              align-items: flex-start !important;
+              gap: 1.5rem;
+            }
+          }
+        `}</style>
       </header>
 
       {/* Filter Bar */}
@@ -425,7 +435,7 @@ export default function Home() {
       </div>
 
       {/* Stats Row */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', marginBottom: '2rem' }}>
+      <div className="stats-grid" style={{ marginBottom: '2rem' }}>
         <div className="glass-panel stat-card">
           <span className="stat-label">Total Revenue</span>
           <span className="stat-value">₹{totalAmount.toLocaleString()}</span>
@@ -438,6 +448,19 @@ export default function Home() {
           <span className="stat-label" style={{ color: '#f59e0b' }}>Pending</span>
           <span className="stat-value" style={{ fontSize: '1.5rem' }}>₹{pendingAmount.toLocaleString()}</span>
         </div>
+        <style jsx>{`
+          .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+          }
+          @media (max-width: 768px) {
+            .stats-grid {
+              grid-template-columns: 1fr;
+              gap: 1rem;
+            }
+          }
+        `}</style>
       </div>
 
       {/* Data Visualization Charts */}

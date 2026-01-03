@@ -224,3 +224,52 @@
     margin-left: 1rem;
     font-weight: 500;
 }
+
+/* Mobile Navigation */
+.mobileNav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    display: none;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 1rem;
+    z-index: 1000;
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+.mobileNavItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    color: #64748b;
+    text-decoration: none;
+    font-size: 0.7rem;
+    font-weight: 500;
+    flex: 1;
+    transition: all 0.2s ease;
+}
+
+.mobileActive {
+    color: #4f46e5;
+}
+
+.mobileActive span {
+    font-weight: 700;
+}
+
+@media (max-width: 768px) {
+    .mobileNav {
+        display: flex;
+    }
+}
+
+```

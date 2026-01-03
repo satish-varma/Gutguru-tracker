@@ -56,7 +56,20 @@ export function DashboardCharts({ invoices }: DashboardChartsProps) {
     if (invoices.length === 0) return null;
 
     return (
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', marginBottom: '3rem' }}>
+        <div className="charts-grid" style={{ marginBottom: '3rem' }}>
+            <style jsx>{`
+                .charts-grid {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 2rem;
+                }
+                @media (max-width: 1024px) {
+                    .charts-grid {
+                        grid-template-columns: 1fr;
+                        gap: 1.5rem;
+                    }
+                }
+            `}</style>
 
             {/* Revenue Trend Chart */}
             <div className="glass-panel" style={{ padding: '1.5rem', minHeight: '400px' }}>

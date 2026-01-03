@@ -96,7 +96,7 @@ This file tracks planned enhancements for the HungerBox Tracker application.
 ### Mobile & Responsive
 - [✓] **Mobile Optimization** - Improved experience on phones
 - [ ] **Touch Gestures** - Swipe actions for mobile
-- [ ] **Progressive Web App** - Install as mobile app
+- [✓] **Progressive Web App** - Install as mobile app
 
 ### Accessibility
 - [ ] **Screen Reader Support** - ARIA labels and accessibility improvements
@@ -189,6 +189,8 @@ This file tracks planned enhancements for the HungerBox Tracker application.
 | 2026-01-04 | Dashboard Filters & Stats Refinement | ✅ Completed |
 | 2026-01-04 | Invoices Header UI Improvements | ✅ Completed |
 | 2026-01-04 | Consolidated 'Processed' to 'Pending' | ✅ Completed |
+| 2026-01-04 | Mobile Responsive Navigation | ✅ Completed |
+| 2026-01-04 | PWA Support & Manifest | ✅ Completed |
 
 ---
 

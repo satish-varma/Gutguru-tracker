@@ -8,6 +8,19 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata = {
   title: 'TheGutGuru Tracker',
   description: 'Automated invoice tracking and analytics',
+  manifest: '/manifest.json',
+  themeColor: '#4f46e5',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'GutGuru',
+  },
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+  },
 };
 
 export default function RootLayout({

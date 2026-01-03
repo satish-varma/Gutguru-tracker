@@ -92,10 +92,35 @@ h2 {
   /* Softer shadow for light mode */
 }
 
+/* Visibility Utilities */
+.hide-mobile {
+  display: flex;
+}
+
+.show-mobile-flex {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .hide-mobile {
+    display: none !important;
+  }
+
+  .show-mobile-flex {
+    display: flex !important;
+  }
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem 0.75rem;
+  }
 }
 
 .btn {
