@@ -323,33 +323,31 @@ export function GroupedInvoiceView({
                 }
 
                 .period-group.fully-paid {
-                    border-color: #10b981;
-                    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.08);
+                    border-color: #064e3b;
+                    box-shadow: 0 4px 12px rgba(6, 78, 59, 0.12);
                 }
 
                 .period-header.fully-paid {
-                    background: linear-gradient(to right, #ecfdf5, #ffffff);
+                    background: linear-gradient(to right, #064e3b, #065f46);
+                    color: #ecfdf5;
                 }
 
                 .period-header.fully-paid:hover {
-                    background: linear-gradient(to right, #d1fae5, #ecfdf5);
+                    background: linear-gradient(to right, #065f46, #064e3b);
                 }
 
-                .period-header.fully-paid .period-date {
-                    color: #065f46;
+                .period-header.fully-paid .period-date,
+                .period-header.fully-paid .period-toggle {
+                    color: #ffffff;
                 }
 
                 .period-header.fully-paid .period-amount {
-                    color: #059669;
+                    color: #34d399;
                     font-weight: 800;
                 }
 
                 .period-header.fully-paid .period-stats {
-                    color: #047857;
-                }
-
-                .period-header.fully-paid .period-toggle {
-                    color: #10b981;
+                    color: #a7f3d0;
                 }
 
                 .period-toggle {
