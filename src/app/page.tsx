@@ -178,6 +178,9 @@ export default function Home() {
   }, [selectedLocations, selectedStalls, dateFilter, customStart, customEnd, specificMonth, specificYear, statusFilter, searchTerm]);
 
   const totalAmount = filteredInvoices.reduce((acc, inv) => acc + inv.amount, 0);
+  const paidAmount = filteredInvoices
+    .filter(inv => inv.status === 'Paid')
+    .reduce((acc, inv) => acc + inv.amount, 0);
   const processedAmount = filteredInvoices
     .filter(inv => inv.status === 'Processed')
     .reduce((acc, inv) => acc + inv.amount, 0);
@@ -339,16 +342,16 @@ export default function Home() {
           <span className="stat-value">₹{totalAmount.toLocaleString()}</span>
         </div>
         <div className="glass-panel stat-card">
+          <span className="stat-label" style={{ color: '#059669' }}>Paid</span>
+          <span className="stat-value" style={{ fontSize: '1.5rem' }}>₹{paidAmount.toLocaleString()}</span>
+        </div>
+        <div className="glass-panel stat-card">
           <span className="stat-label" style={{ color: '#10b981' }}>Processed</span>
           <span className="stat-value" style={{ fontSize: '1.5rem' }}>₹{processedAmount.toLocaleString()}</span>
         </div>
         <div className="glass-panel stat-card">
           <span className="stat-label" style={{ color: '#f59e0b' }}>Pending</span>
           <span className="stat-value" style={{ fontSize: '1.5rem' }}>₹{pendingAmount.toLocaleString()}</span>
-        </div>
-        <div className="glass-panel stat-card">
-          <span className="stat-label">Active Stalls</span>
-          <span className="stat-value">{new Set(filteredInvoices.map(i => i.stall)).size}</span>
         </div>
       </div>
 
@@ -432,6 +435,7 @@ export default function Home() {
               style={{ background: 'var(--input-bg)', border: '1px solid var(--card-border)', padding: '0.5rem', borderRadius: '0.5rem', color: 'var(--foreground)' }}
             >
               <option value="All Status">All Status</option>
+              <option value="Paid">Paid</option>
               <option value="Processed">Processed</option>
               <option value="Pending">Pending</option>
             </select>
@@ -527,8 +531,8 @@ export default function Home() {
                         padding: '0.25rem 0.75rem',
                         borderRadius: '9999px',
                         fontSize: '0.75rem',
-                        background: inv.status === 'Processed' ? 'rgba(16, 185, 129, 0.2)' : 'rgba(245, 158, 11, 0.2)',
-                        color: inv.status === 'Processed' ? '#34d399' : '#fbbf24'
+                        background: inv.status === 'Paid' ? 'rgba(219, 234, 254, 0.2)' : inv.status === 'Processed' ? 'rgba(16, 185, 129, 0.2)' : 'rgba(245, 158, 11, 0.2)',
+                        color: inv.status === 'Paid' ? '#1e40af' : inv.status === 'Processed' ? '#34d399' : '#fbbf24'
                       }}>
                         {inv.status}
                       </span>
