@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { Shield, Key, UserPlus, Trash2, Edit, X, Check, Users } from 'lucide-react';
+import { Shield, Key, UserPlus, Trash2, Edit, X, Check, Users, FileText, History, Info, Monitor, MapPin } from 'lucide-react';
 
 export default function AdminDashboard() {
     const { data: session, status } = useSession();
@@ -12,6 +12,10 @@ export default function AdminDashboard() {
     const [isLoading, setIsLoading] = useState(true);
     const [selectedUser, setSelectedUser] = useState<any | null>(null);
     const [newPassword, setNewPassword] = useState('');
+    const [activeTab, setActiveTab] = useState<'users' | 'audit' | 'login'>('users');
+    const [auditLogs, setAuditLogs] = useState<any[]>([]);
+    const [loginHistory, setLoginHistory] = useState<any[]>([]);
+    const [isLogsLoading, setIsLogsLoading] = useState(false);
     const [actionMsg, setActionMsg] = useState('');
     const [actionType, setActionType] = useState<'success' | 'error'>('success');
 
@@ -31,11 +35,18 @@ export default function AdminDashboard() {
         } else if (status === 'authenticated' && session?.user?.role !== 'admin') {
             router.push('/'); // Redirect non-admins
         } else if (status === 'authenticated') {
-            fetchUsers();
+            if (activeTab === 'users') {
+                fetchUsers();
+            } else if (activeTab === 'audit') {
+                fetchLogs('audit');
+            } else if (activeTab === 'login') {
+                fetchLogs('login');
+            }
         }
-    }, [status, session, router]);
+    }, [status, session, router, activeTab]);
 
     const fetchUsers = async () => {
+        setIsLoading(true);
         try {
             const res = await fetch('/api/admin/users');
             const data = await res.json();
@@ -46,6 +57,22 @@ export default function AdminDashboard() {
             console.error('Failed to fetch users', error);
         } finally {
             setIsLoading(false);
+        }
+    };
+
+    const fetchLogs = async (type: 'audit' | 'login') => {
+        setIsLogsLoading(true);
+        try {
+            const res = await fetch(`/api/admin/logs?type=${type}`);
+            const data = await res.json();
+            if (data.success) {
+                if (type === 'audit') setAuditLogs(data.data);
+                else setLoginHistory(data.data);
+            }
+        } catch (error) {
+            console.error(`Failed to fetch ${type} logs`, error);
+        } finally {
+            setIsLogsLoading(false);
         }
     };
 
@@ -196,121 +223,332 @@ export default function AdminDashboard() {
                 </div>
             )}
 
-            <div className="glass-panel">
-                <div style={{ padding: '1.5rem', borderBottom: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                        <Users size={20} color="#64748b" />
-                        <h2 style={{ margin: 0, fontSize: '1.25rem' }}>Registered Users</h2>
-                    </div>
-                    <span style={{ fontSize: '0.875rem', color: '#64748b', background: '#f1f5f9', padding: '0.25rem 0.75rem', borderRadius: '9999px' }}>
-                        {users.length} users
-                    </span>
-                </div>
-
-                {users.length === 0 ? (
-                    <div style={{ padding: '3rem', textAlign: 'center', color: '#64748b' }}>
-                        <Users size={48} style={{ opacity: 0.3, marginBottom: '1rem' }} />
-                        <p>No users found. Click "Add User" to create one.</p>
-                    </div>
-                ) : (
-                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                        <thead>
-                            <tr style={{ background: '#f8fafc', textAlign: 'left' }}>
-                                <th style={{ padding: '1rem', fontSize: '0.875rem', color: '#64748b' }}>User</th>
-                                <th style={{ padding: '1rem', fontSize: '0.875rem', color: '#64748b' }}>Role</th>
-                                <th style={{ padding: '1rem', fontSize: '0.875rem', color: '#64748b' }}>Created</th>
-                                <th style={{ padding: '1rem', fontSize: '0.875rem', color: '#64748b', textAlign: 'right' }}>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {users.map((user) => (
-                                <tr key={user.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                                    <td style={{ padding: '1rem' }}>
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                                            <div style={{
-                                                width: '38px',
-                                                height: '38px',
-                                                borderRadius: '50%',
-                                                background: user.role === 'admin' ? '#dbeafe' : user.role === 'manager' ? '#fef3c7' : '#f1f5f9',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                justifyContent: 'center',
-                                                fontSize: '0.85rem',
-                                                fontWeight: 600,
-                                                color: user.role === 'admin' ? '#1d4ed8' : user.role === 'manager' ? '#d97706' : '#64748b'
-                                            }}>
-                                                {(user.name || user.email).substring(0, 2).toUpperCase()}
-                                            </div>
-                                            <div>
-                                                <div style={{ fontWeight: 500 }}>{user.name || 'Unnamed'}</div>
-                                                <div style={{ fontSize: '0.8rem', color: '#64748b' }}>{user.email}</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td style={{ padding: '1rem' }}>
-                                        <select
-                                            value={user.role}
-                                            onChange={(e) => handleRoleChange(user, e.target.value)}
-                                            style={{
-                                                padding: '0.35rem 0.75rem',
-                                                borderRadius: '6px',
-                                                fontSize: '0.8rem',
-                                                fontWeight: 600,
-                                                background: user.role === 'admin' ? '#dbeafe' : user.role === 'manager' ? '#fef3c7' : '#f1f5f9',
-                                                color: user.role === 'admin' ? '#1d4ed8' : user.role === 'manager' ? '#d97706' : '#64748b',
-                                                border: '1px solid transparent',
-                                                cursor: 'pointer'
-                                            }}
-                                        >
-                                            <option value="user">USER</option>
-                                            <option value="manager">MANAGER</option>
-                                            <option value="admin">ADMIN</option>
-                                        </select>
-                                    </td>
-                                    <td style={{ padding: '1rem', fontSize: '0.85rem', color: '#64748b' }}>
-                                        {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A'}
-                                    </td>
-                                    <td style={{ padding: '1rem', textAlign: 'right' }}>
-                                        <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
-                                            <button
-                                                onClick={() => setSelectedUser(user)}
-                                                className="btn"
-                                                title="Reset Password"
-                                                style={{
-                                                    border: '1px solid #e2e8f0',
-                                                    padding: '0.5rem',
-                                                    fontSize: '0.8rem',
-                                                    display: 'inline-flex',
-                                                    alignItems: 'center',
-                                                    background: '#f8fafc'
-                                                }}
-                                            >
-                                                <Key size={16} />
-                                            </button>
-                                            <button
-                                                onClick={() => handleDeleteUser(user)}
-                                                className="btn"
-                                                title="Delete User"
-                                                style={{
-                                                    border: '1px solid #fecaca',
-                                                    padding: '0.5rem',
-                                                    fontSize: '0.8rem',
-                                                    display: 'inline-flex',
-                                                    alignItems: 'center',
-                                                    background: '#fef2f2',
-                                                    color: '#dc2626'
-                                                }}
-                                            >
-                                                <Trash2 size={16} />
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                )}
+            {/* Tabs Navigation */}
+            <div style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem', borderBottom: '1px solid #e2e8f0', paddingBottom: '0.5rem' }}>
+                <button
+                    onClick={() => setActiveTab('users')}
+                    style={{
+                        padding: '0.75rem 1.25rem',
+                        fontSize: '0.9rem',
+                        fontWeight: 600,
+                        color: activeTab === 'users' ? '#0284c7' : '#64748b',
+                        background: 'none',
+                        border: 'none',
+                        borderBottom: activeTab === 'users' ? '2px solid #0284c7' : '2px solid transparent',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.5rem',
+                        transition: 'all 0.2s'
+                    }}
+                >
+                    <Users size={18} />
+                    User Management
+                </button>
+                <button
+                    onClick={() => setActiveTab('audit')}
+                    style={{
+                        padding: '0.75rem 1.25rem',
+                        fontSize: '0.9rem',
+                        fontWeight: 600,
+                        color: activeTab === 'audit' ? '#0284c7' : '#64748b',
+                        background: 'none',
+                        border: 'none',
+                        borderBottom: activeTab === 'audit' ? '2px solid #0284c7' : '2px solid transparent',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.5rem',
+                        transition: 'all 0.2s'
+                    }}
+                >
+                    <FileText size={18} />
+                    Audit Logs
+                </button>
+                <button
+                    onClick={() => setActiveTab('login')}
+                    style={{
+                        padding: '0.75rem 1.25rem',
+                        fontSize: '0.9rem',
+                        fontWeight: 600,
+                        color: activeTab === 'login' ? '#0284c7' : '#64748b',
+                        background: 'none',
+                        border: 'none',
+                        borderBottom: activeTab === 'login' ? '2px solid #0284c7' : '2px solid transparent',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.5rem',
+                        transition: 'all 0.2s'
+                    }}
+                >
+                    <History size={18} />
+                    Login History
+                </button>
             </div>
+
+            {activeTab === 'users' && (
+                <div className="glass-panel animate-fade-in">
+                    <div style={{ padding: '1.5rem', borderBottom: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                            <Users size={20} color="#64748b" />
+                            <h2 style={{ margin: 0, fontSize: '1.25rem' }}>Registered Users</h2>
+                        </div>
+                        <span style={{ fontSize: '0.875rem', color: '#64748b', background: '#f1f5f9', padding: '0.25rem 0.75rem', borderRadius: '9999px' }}>
+                            {users.length} users
+                        </span>
+                    </div>
+
+                    {users.length === 0 ? (
+                        <div style={{ padding: '3rem', textAlign: 'center', color: '#64748b' }}>
+                            <Users size={48} style={{ opacity: 0.3, marginBottom: '1rem' }} />
+                            <p>No users found. Click "Add User" to create one.</p>
+                        </div>
+                    ) : (
+                        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                            <thead>
+                                <tr style={{ background: '#f8fafc', textAlign: 'left' }}>
+                                    <th style={{ padding: '1rem', fontSize: '0.875rem', color: '#64748b' }}>User</th>
+                                    <th style={{ padding: '1rem', fontSize: '0.875rem', color: '#64748b' }}>Role</th>
+                                    <th style={{ padding: '1rem', fontSize: '0.875rem', color: '#64748b' }}>Created</th>
+                                    <th style={{ padding: '1rem', fontSize: '0.875rem', color: '#64748b', textAlign: 'right' }}>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {users.map((user) => (
+                                    <tr key={user.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                                        <td style={{ padding: '1rem' }}>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                                                <div style={{
+                                                    width: '38px',
+                                                    height: '38px',
+                                                    borderRadius: '50%',
+                                                    background: user.role === 'admin' ? '#dbeafe' : user.role === 'manager' ? '#fef3c7' : '#f1f5f9',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'center',
+                                                    fontSize: '0.85rem',
+                                                    fontWeight: 600,
+                                                    color: user.role === 'admin' ? '#1d4ed8' : user.role === 'manager' ? '#d97706' : '#64748b'
+                                                }}>
+                                                    {(user.name || user.email).substring(0, 2).toUpperCase()}
+                                                </div>
+                                                <div>
+                                                    <div style={{ fontWeight: 500 }}>{user.name || 'Unnamed'}</div>
+                                                    <div style={{ fontSize: '0.8rem', color: '#64748b' }}>{user.email}</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td style={{ padding: '1rem' }}>
+                                            <select
+                                                value={user.role}
+                                                onChange={(e) => handleRoleChange(user, e.target.value)}
+                                                style={{
+                                                    padding: '0.35rem 0.75rem',
+                                                    borderRadius: '6px',
+                                                    fontSize: '0.8rem',
+                                                    fontWeight: 600,
+                                                    background: user.role === 'admin' ? '#dbeafe' : user.role === 'manager' ? '#fef3c7' : '#f1f5f9',
+                                                    color: user.role === 'admin' ? '#1d4ed8' : user.role === 'manager' ? '#d97706' : '#64748b',
+                                                    border: '1px solid transparent',
+                                                    cursor: 'pointer'
+                                                }}
+                                            >
+                                                <option value="user">USER</option>
+                                                <option value="manager">MANAGER</option>
+                                                <option value="admin">ADMIN</option>
+                                            </select>
+                                        </td>
+                                        <td style={{ padding: '1rem', fontSize: '0.85rem', color: '#64748b' }}>
+                                            {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A'}
+                                        </td>
+                                        <td style={{ padding: '1rem', textAlign: 'right' }}>
+                                            <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
+                                                <button
+                                                    onClick={() => setSelectedUser(user)}
+                                                    className="btn"
+                                                    title="Reset Password"
+                                                    style={{
+                                                        border: '1px solid #e2e8f0',
+                                                        padding: '0.5rem',
+                                                        fontSize: '0.8rem',
+                                                        display: 'inline-flex',
+                                                        alignItems: 'center',
+                                                        background: '#f8fafc'
+                                                    }}
+                                                >
+                                                    <Key size={16} />
+                                                </button>
+                                                <button
+                                                    onClick={() => handleDeleteUser(user)}
+                                                    className="btn"
+                                                    title="Delete User"
+                                                    style={{
+                                                        border: '1px solid #fecaca',
+                                                        padding: '0.5rem',
+                                                        fontSize: '0.8rem',
+                                                        display: 'inline-flex',
+                                                        alignItems: 'center',
+                                                        background: '#fef2f2',
+                                                        color: '#dc2626'
+                                                    }}
+                                                >
+                                                    <Trash2 size={16} />
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    )}
+                </div>
+            )}
+
+            {activeTab === 'audit' && (
+                <div className="glass-panel animate-fade-in">
+                    <div style={{ padding: '1.5rem', borderBottom: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                            <FileText size={20} color="#64748b" />
+                            <h2 style={{ margin: 0, fontSize: '1.25rem' }}>Audit Logs</h2>
+                        </div>
+                        <button onClick={() => fetchLogs('audit')} style={{ background: 'none', border: 'none', color: '#0284c7', fontSize: '0.875rem', fontWeight: 500, cursor: 'pointer' }}>
+                            Refresh
+                        </button>
+                    </div>
+
+                    {isLogsLoading ? (
+                        <div style={{ padding: '4rem', textAlign: 'center' }}>Loading logs...</div>
+                    ) : auditLogs.length === 0 ? (
+                        <div style={{ padding: '3rem', textAlign: 'center', color: '#64748b' }}>
+                            <Info size={48} style={{ opacity: 0.3, marginBottom: '1rem' }} />
+                            <p>No audit logs recorded yet.</p>
+                        </div>
+                    ) : (
+                        <div style={{ overflowX: 'auto' }}>
+                            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                                <thead>
+                                    <tr style={{ background: '#f8fafc', textAlign: 'left' }}>
+                                        <th style={{ padding: '1rem', fontSize: '0.875rem', color: '#64748b' }}>Timestamp</th>
+                                        <th style={{ padding: '1rem', fontSize: '0.875rem', color: '#64748b' }}>User</th>
+                                        <th style={{ padding: '1rem', fontSize: '0.875rem', color: '#64748b' }}>Action</th>
+                                        <th style={{ padding: '1rem', fontSize: '0.875rem', color: '#64748b' }}>Details</th>
+                                        <th style={{ padding: '1rem', fontSize: '0.875rem', color: '#64748b' }}>IP Address</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {auditLogs.map((log) => (
+                                        <tr key={log.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                                            <td style={{ padding: '1rem', fontSize: '0.85rem', whiteSpace: 'nowrap' }}>
+                                                {new Date(log.timestamp).toLocaleString()}
+                                            </td>
+                                            <td style={{ padding: '1rem', fontSize: '0.85rem' }}>
+                                                <div style={{ fontWeight: 500 }}>{log.userEmail || 'System'}</div>
+                                            </td>
+                                            <td style={{ padding: '1rem' }}>
+                                                <span style={{
+                                                    fontSize: '0.75rem',
+                                                    fontWeight: 600,
+                                                    padding: '0.2rem 0.6rem',
+                                                    borderRadius: '4px',
+                                                    background: '#f1f5f9',
+                                                    color: '#475569'
+                                                }}>
+                                                    {log.action}
+                                                </span>
+                                            </td>
+                                            <td style={{ padding: '1rem', fontSize: '0.8rem', color: '#64748b', maxWidth: '300px' }}>
+                                                <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={log.details}>
+                                                    {log.details || '-'}
+                                                </div>
+                                            </td>
+                                            <td style={{ padding: '1rem', fontSize: '0.85rem', color: '#64748b' }}>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                                                    <Monitor size={14} />
+                                                    {log.ipAddress || 'unknown'}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
+                </div>
+            )}
+
+            {activeTab === 'login' && (
+                <div className="glass-panel animate-fade-in">
+                    <div style={{ padding: '1.5rem', borderBottom: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                            <History size={20} color="#64748b" />
+                            <h2 style={{ margin: 0, fontSize: '1.25rem' }}>Login History</h2>
+                        </div>
+                        <button onClick={() => fetchLogs('login')} style={{ background: 'none', border: 'none', color: '#0284c7', fontSize: '0.875rem', fontWeight: 500, cursor: 'pointer' }}>
+                            Refresh
+                        </button>
+                    </div>
+
+                    {isLogsLoading ? (
+                        <div style={{ padding: '4rem', textAlign: 'center' }}>Loading history...</div>
+                    ) : loginHistory.length === 0 ? (
+                        <div style={{ padding: '3rem', textAlign: 'center', color: '#64748b' }}>
+                            <History size={48} style={{ opacity: 0.3, marginBottom: '1rem' }} />
+                            <p>No login history recorded yet.</p>
+                        </div>
+                    ) : (
+                        <div style={{ overflowX: 'auto' }}>
+                            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                                <thead>
+                                    <tr style={{ background: '#f8fafc', textAlign: 'left' }}>
+                                        <th style={{ padding: '1rem', fontSize: '0.875rem', color: '#64748b' }}>Timestamp</th>
+                                        <th style={{ padding: '1rem', fontSize: '0.875rem', color: '#64748b' }}>User</th>
+                                        <th style={{ padding: '1rem', fontSize: '0.875rem', color: '#64748b' }}>Status</th>
+                                        <th style={{ padding: '1rem', fontSize: '0.875rem', color: '#64748b' }}>IP Address</th>
+                                        <th style={{ padding: '1rem', fontSize: '0.875rem', color: '#64748b' }}>Device / UA</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {loginHistory.map((log) => (
+                                        <tr key={log.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                                            <td style={{ padding: '1rem', fontSize: '0.85rem', whiteSpace: 'nowrap' }}>
+                                                {new Date(log.timestamp).toLocaleString()}
+                                            </td>
+                                            <td style={{ padding: '1rem', fontSize: '0.85rem' }}>
+                                                <div style={{ fontWeight: 500 }}>{log.userEmail}</div>
+                                            </td>
+                                            <td style={{ padding: '1rem' }}>
+                                                <span style={{
+                                                    fontSize: '0.7rem',
+                                                    fontWeight: 700,
+                                                    padding: '0.2rem 0.5rem',
+                                                    borderRadius: '4px',
+                                                    textTransform: 'uppercase',
+                                                    background: log.status === 'success' ? '#dcfce7' : '#fee2e2',
+                                                    color: log.status === 'success' ? '#166534' : '#ef4444'
+                                                }}>
+                                                    {log.status}
+                                                </span>
+                                            </td>
+                                            <td style={{ padding: '1rem', fontSize: '0.85rem', color: '#64748b' }}>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                                                    <MapPin size={14} />
+                                                    {log.ipAddress || 'unknown'}
+                                                </div>
+                                            </td>
+                                            <td style={{ padding: '1rem', fontSize: '0.75rem', color: '#64748b', maxWidth: '250px' }}>
+                                                <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={log.userAgent}>
+                                                    {log.userAgent || '-'}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
+                </div>
+            )}
 
             {/* Add User Modal */}
             {showAddUser && (

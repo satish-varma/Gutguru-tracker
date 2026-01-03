@@ -114,8 +114,8 @@ This file tracks planned enhancements for the HungerBox Tracker application.
 - [ ] **Session Management** - View and revoke active sessions
 
 ### Audit & Compliance
-- [ ] **Audit Logs** - Track all user actions with timestamps
-- [ ] **Login History** - View login attempts and locations
+- [✓] **Audit Logs** - Track all user actions with timestamps
+- [✓] **Login History** - View login attempts and locations
 - [ ] **Data Export for Compliance** - GDPR-compliant data export
 
 ### User Management
@@ -191,6 +191,8 @@ This file tracks planned enhancements for the HungerBox Tracker application.
 | 2026-01-04 | Consolidated 'Processed' to 'Pending' | ✅ Completed |
 | 2026-01-04 | Mobile Responsive Navigation | ✅ Completed |
 | 2026-01-04 | PWA Support & Manifest | ✅ Completed |
+| 2026-01-04 | Audit Logs & User Activity Tracking | ✅ Completed |
+| 2026-01-04 | Login Attempt History | ✅ Completed |
 
 ---
 

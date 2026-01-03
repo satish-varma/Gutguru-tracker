@@ -1,7 +1,8 @@
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
-import { getUserByEmail, initializeDatabase, seedDefaultAdmin } from "@/lib/turso";
+import { getUserByEmail, initializeDatabase, seedDefaultAdmin, createLoginHistory } from "@/lib/turso";
+import { headers } from 'next/headers';
 
 // Initialize database on startup
 let dbInitialized = false;
@@ -31,8 +32,12 @@ export const authOptions: NextAuthOptions = {
 
                 const user = await getUserByEmail(credentials.email);
 
+                const headerList = headers();
+                const ip = (await headerList).get('x-forwarded-for') || (await headerList).get('x-real-ip') || 'unknown';
+                const userAgent = (await headerList).get('user-agent') || 'unknown';
+
                 if (user && bcrypt.compareSync(credentials.password, user.password)) {
-                    return {
+                    const sessionUser = {
                         id: user.id,
                         name: user.name || user.email.split('@')[0],
                         email: user.email,
@@ -40,7 +45,32 @@ export const authOptions: NextAuthOptions = {
                         organizationId: user.orgId,
                         permissions: user.permissions,
                     };
+
+                    // Record successful login
+                    await createLoginHistory({
+                        userId: user.id,
+                        userEmail: user.email,
+                        status: 'success',
+                        ipAddress: ip,
+                        userAgent: userAgent,
+                        orgId: user.orgId
+                    });
+
+                    return sessionUser;
                 }
+
+                // Record failed login
+                if (user) {
+                    await createLoginHistory({
+                        userId: user.id,
+                        userEmail: user.email,
+                        status: 'failed',
+                        ipAddress: ip,
+                        userAgent: userAgent,
+                        orgId: user.orgId
+                    });
+                }
+
                 return null;
             }
         })

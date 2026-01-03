@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
-import { getUsers, createUser, updateUserRole, deleteUser, getUserByEmail, updateUserPassword } from "@/lib/turso";
+import { getUsers, createUser, updateUserRole, deleteUser, getUserByEmail, updateUserPassword, createAuditLog } from "@/lib/turso";
 import bcrypt from "bcryptjs";
+import { headers } from 'next/headers';
 
 export async function GET() {
     const session = await getServerSession(authOptions);
@@ -61,6 +62,19 @@ export async function POST(request: Request) {
             orgId: orgId,
         });
 
+        // Record audit log
+        const headerList = headers();
+        const ip = (await headerList).get('x-forwarded-for') || (await headerList).get('x-real-ip') || 'unknown';
+
+        await createAuditLog({
+            userId: session.user.id,
+            userEmail: session.user.email,
+            action: 'Created User',
+            details: JSON.stringify({ targetEmail: email, role: role || 'user' }),
+            orgId: orgId,
+            ipAddress: ip
+        });
+
         return NextResponse.json({ success: true, message: 'User created successfully' });
     } catch (error) {
         console.error('[API] Failed to create user:', error);
@@ -92,6 +106,19 @@ export async function PUT(request: Request) {
             await updateUserPassword(userId, hashedPassword, orgId);
         }
 
+        // Record audit log
+        const headerList = headers();
+        const ip = (await headerList).get('x-forwarded-for') || (await headerList).get('x-real-ip') || 'unknown';
+
+        await createAuditLog({
+            userId: session.user.id,
+            userEmail: session.user.email,
+            action: 'Updated User',
+            details: JSON.stringify({ targetUserId: userId, updatedRole: newRole || null, passwordReset: !!newPassword }),
+            orgId: orgId,
+            ipAddress: ip
+        });
+
         return NextResponse.json({ success: true, message: 'User updated successfully' });
     } catch (error) {
         console.error('[API] Failed to update user:', error);
@@ -115,6 +142,19 @@ export async function DELETE(request: Request) {
         }
 
         await deleteUser(userId, session.user.organizationId as string);
+
+        // Record audit log
+        const headerList = headers();
+        const ip = (await headerList).get('x-forwarded-for') || (await headerList).get('x-real-ip') || 'unknown';
+
+        await createAuditLog({
+            userId: session.user.id,
+            userEmail: session.user.email,
+            action: 'Deleted User',
+            details: JSON.stringify({ targetUserId: userId }),
+            orgId: session.user.organizationId as string,
+            ipAddress: ip
+        });
 
         return NextResponse.json({ success: true, message: 'User deleted successfully' });
     } catch (error) {

@@ -57,6 +57,35 @@ export async function initializeDatabase() {
             )
         `);
 
+        // Create audit_logs table
+        await turso.execute(`
+            CREATE TABLE IF NOT EXISTS audit_logs (
+                id TEXT PRIMARY KEY,
+                user_id TEXT,
+                user_email TEXT,
+                action TEXT NOT NULL,
+                details TEXT,
+                org_id TEXT NOT NULL,
+                ip_address TEXT,
+                timestamp TEXT DEFAULT CURRENT_TIMESTAMP
+            )
+        `);
+
+        // Create login_history table
+        await turso.execute(`
+            CREATE TABLE IF NOT EXISTS login_history (
+                id TEXT PRIMARY KEY,
+                user_id TEXT,
+                user_email TEXT,
+                status TEXT NOT NULL,
+                ip_address TEXT,
+                user_agent TEXT,
+                location TEXT,
+                org_id TEXT NOT NULL,
+                timestamp TEXT DEFAULT CURRENT_TIMESTAMP
+            )
+        `);
+
         // Create indexes for better query performance
         await turso.execute(`
             CREATE INDEX IF NOT EXISTS idx_invoices_org_id ON invoices(org_id)
@@ -72,6 +101,18 @@ export async function initializeDatabase() {
         `);
         await turso.execute(`
             CREATE INDEX IF NOT EXISTS idx_users_org_id ON users(org_id)
+        `);
+        await turso.execute(`
+            CREATE INDEX IF NOT EXISTS idx_audit_logs_org_id ON audit_logs(org_id)
+        `);
+        await turso.execute(`
+            CREATE INDEX IF NOT EXISTS idx_audit_logs_timestamp ON audit_logs(timestamp)
+        `);
+        await turso.execute(`
+            CREATE INDEX IF NOT EXISTS idx_login_history_org_id ON login_history(org_id)
+        `);
+        await turso.execute(`
+            CREATE INDEX IF NOT EXISTS idx_login_history_timestamp ON login_history(timestamp)
         `);
 
         // Add permissions and sync_interval_hours column if they don't exist
@@ -317,7 +358,95 @@ export async function saveSettings(orgId: string, settings: {
     });
 }
 
-// Seed default admin user if not exists
+// Settings operations
+// ... (existing saveSettings)
+
+// Audit Log operations
+export async function createAuditLog(log: {
+    userId?: string;
+    userEmail?: string;
+    action: string;
+    details?: string;
+    orgId: string;
+    ipAddress?: string;
+}) {
+    const id = `LOG-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    await turso.execute({
+        sql: `INSERT INTO audit_logs (id, user_id, user_email, action, details, org_id, ip_address)
+              VALUES (?, ?, ?, ?, ?, ?, ?)`,
+        args: [
+            id,
+            log.userId || null,
+            log.userEmail || null,
+            log.action,
+            log.details || null,
+            log.orgId,
+            log.ipAddress || null,
+        ],
+    });
+}
+
+export async function getAuditLogs(orgId: string, limit = 100) {
+    const result = await turso.execute({
+        sql: 'SELECT * FROM audit_logs WHERE org_id = ? ORDER BY timestamp DESC LIMIT ?',
+        args: [orgId, limit],
+    });
+    return result.rows.map(row => ({
+        id: row.id as string,
+        userId: row.user_id as string,
+        userEmail: row.user_email as string,
+        action: row.action as string,
+        details: row.details as string,
+        orgId: row.org_id as string,
+        ipAddress: row.ip_address as string,
+        timestamp: row.timestamp as string,
+    }));
+}
+
+// Login History operations
+export async function createLoginHistory(history: {
+    userId?: string;
+    userEmail?: string;
+    status: 'success' | 'failed';
+    ipAddress?: string;
+    userAgent?: string;
+    location?: string;
+    orgId: string;
+}) {
+    const id = `LOGIN-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    await turso.execute({
+        sql: `INSERT INTO login_history (id, user_id, user_email, status, ip_address, user_agent, location, org_id)
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+        args: [
+            id,
+            history.userId || null,
+            history.userEmail || null,
+            history.status,
+            history.ipAddress || null,
+            history.userAgent || null,
+            history.location || null,
+            history.orgId,
+        ],
+    });
+}
+
+export async function getLoginHistory(orgId: string, limit = 100) {
+    const result = await turso.execute({
+        sql: 'SELECT * FROM login_history WHERE org_id = ? ORDER BY timestamp DESC LIMIT ?',
+        args: [orgId, limit],
+    });
+    return result.rows.map(row => ({
+        id: row.id as string,
+        userId: row.user_id as string,
+        userEmail: row.user_email as string,
+        status: row.status as string,
+        ipAddress: row.ip_address as string,
+        userAgent: row.user_agent as string,
+        location: row.location as string,
+        orgId: row.org_id as string,
+        timestamp: row.timestamp as string,
+    }));
+}
 export async function seedDefaultAdmin(orgId: string, hashedPassword: string) {
     const existingAdmin = await getUserByEmail('admin@thegutguru.com');
     if (!existingAdmin) {

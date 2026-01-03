@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server';
 import { performSync } from '@/lib/sync';
-import { getInvoices } from '@/lib/turso';
+import { getInvoices, createAuditLog } from '@/lib/turso';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
+import { headers } from 'next/headers';
 
 export const dynamic = 'force-dynamic';
 
@@ -52,6 +53,25 @@ export async function POST(request: Request) {
     });
 
     console.log(`[Sync API] Sync completed:`, JSON.stringify(result).substring(0, 500));
+
+    // Record audit log
+    const headerList = headers();
+    const ip = (await headerList).get('x-forwarded-for') || (await headerList).get('x-real-ip') || 'unknown';
+
+    await createAuditLog({
+      userId: session.user.id,
+      userEmail: session.user.email,
+      action: forceFullSync ? 'Triggered Full Sync' : 'Triggered Quick Sync',
+      details: JSON.stringify({
+        success: result.success,
+        count: result.count,
+        totalChecked: result.totalChecked,
+        newHighWatermark: result.newHighWatermark
+      }),
+      orgId: session.user.organizationId,
+      ipAddress: ip
+    });
+
     return NextResponse.json(result);
 
   } catch (error: any) {
