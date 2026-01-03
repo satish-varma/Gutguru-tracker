@@ -10,6 +10,9 @@ interface GroupedInvoiceViewProps {
     onDownload: (invoice: Invoice) => void;
     onPay?: (invoice: Invoice) => void;
     userRole?: string;
+    selectedIds: Set<string>;
+    onToggleSelect: (id: string) => void;
+    onToggleAll?: (ids: string[], selected: boolean) => void;
 }
 
 interface ServicePeriodGroup {
@@ -22,7 +25,16 @@ interface ServicePeriodGroup {
     locationCount: number;
 }
 
-export function GroupedInvoiceView({ invoices, onInvoiceClick, onDownload, onPay, userRole }: GroupedInvoiceViewProps) {
+export function GroupedInvoiceView({
+    invoices,
+    onInvoiceClick,
+    onDownload,
+    onPay,
+    userRole,
+    selectedIds,
+    onToggleSelect,
+    onToggleAll
+}: GroupedInvoiceViewProps) {
     const [expandedPeriods, setExpandedPeriods] = useState<Set<string>>(new Set());
 
     // Group invoices by service period
@@ -101,140 +113,167 @@ export function GroupedInvoiceView({ invoices, onInvoiceClick, onDownload, onPay
                     <p>No invoices found for the selected filters.</p>
                 </div>
             ) : (
-                groupedInvoices.map(group => (
-                    <div key={group.period} className="period-group">
-                        {/* Period Header - Clickable */}
-                        <div
-                            className="period-header"
-                            onClick={() => togglePeriod(group.period)}
-                        >
-                            <div className="period-toggle">
-                                {expandedPeriods.has(group.period) ? (
-                                    <ChevronDown size={20} />
-                                ) : (
-                                    <ChevronRight size={20} />
-                                )}
-                            </div>
+                groupedInvoices.map(group => {
+                    const groupIds = group.invoices.map(inv => inv.id);
+                    const allSelected = groupIds.every(id => selectedIds.has(id));
+                    const someSelected = groupIds.some(id => selectedIds.has(id)) && !allSelected;
 
-                            <div className="period-info">
-                                <div className="period-date">
-                                    <Calendar size={16} />
-                                    <span>{formatPeriodDisplay(group.period)}</span>
+                    return (
+                        <div key={group.period} className="period-group">
+                            {/* Period Header - Clickable */}
+                            <div
+                                className="period-header"
+                                onClick={() => togglePeriod(group.period)}
+                            >
+                                <div className="period-selection" onClick={(e) => e.stopPropagation()}>
+                                    <input
+                                        type="checkbox"
+                                        checked={allSelected}
+                                        ref={el => {
+                                            if (el) el.indeterminate = someSelected;
+                                        }}
+                                        onChange={() => onToggleAll?.(groupIds, !allSelected)}
+                                        className="header-checkbox"
+                                    />
                                 </div>
-                                <div className="period-stats">
-                                    <span className="stat">{group.invoices.length} invoices</span>
-                                    <span className="stat">{group.stallCount} stalls</span>
-                                    {group.locationCount > 1 && (
-                                        <span className="stat">{group.locationCount} locations</span>
+
+                                <div className="period-toggle">
+                                    {expandedPeriods.has(group.period) ? (
+                                        <ChevronDown size={20} />
+                                    ) : (
+                                        <ChevronRight size={20} />
                                     )}
                                 </div>
-                            </div>
 
-                            <div className="period-amount">
-                                ₹{group.totalAmount.toLocaleString('en-IN', { maximumFractionDigits: 2 })}
-                            </div>
+                                <div className="period-info">
+                                    <div className="period-date">
+                                        <Calendar size={16} />
+                                        <span>{formatPeriodDisplay(group.period)}</span>
+                                    </div>
+                                    <div className="period-stats">
+                                        <span className="stat">{group.invoices.length} invoices</span>
+                                        <span className="stat">{group.stallCount} stalls</span>
+                                        {group.locationCount > 1 && (
+                                            <span className="stat">{group.locationCount} locations</span>
+                                        )}
+                                    </div>
+                                </div>
 
-                            <div className="period-actions">
-                                {/* Pay All Button - only for managers/admins with unpaid invoices */}
-                                {onPay && userRole !== 'user' && group.invoices.some(inv => inv.status !== 'Paid') && (
+                                <div className="period-amount">
+                                    ₹{group.totalAmount.toLocaleString('en-IN', { maximumFractionDigits: 2 })}
+                                </div>
+
+                                <div className="period-actions">
+                                    {/* Pay All Button - only for managers/admins with unpaid invoices */}
+                                    {onPay && userRole !== 'user' && group.invoices.some(inv => inv.status !== 'Paid') && (
+                                        <button
+                                            className="pay-all-btn"
+                                            onClick={async (e) => {
+                                                e.stopPropagation();
+                                                const unpaidInvoices = group.invoices.filter(inv => inv.status !== 'Paid');
+                                                for (const inv of unpaidInvoices) {
+                                                    await onPay(inv);
+                                                }
+                                            }}
+                                            title="Mark all invoices in this period as paid"
+                                        >
+                                            <CreditCard size={16} />
+                                            Pay All ({group.invoices.filter(inv => inv.status !== 'Paid').length})
+                                        </button>
+                                    )}
+
                                     <button
-                                        className="pay-all-btn"
-                                        onClick={async (e) => {
+                                        className="download-all-btn"
+                                        onClick={(e) => {
                                             e.stopPropagation();
-                                            const unpaidInvoices = group.invoices.filter(inv => inv.status !== 'Paid');
-                                            for (const inv of unpaidInvoices) {
-                                                await onPay(inv);
-                                            }
+                                            handleDownloadAll(group);
                                         }}
-                                        title="Mark all invoices in this period as paid"
+                                        title="Download all invoices in this period"
                                     >
-                                        <CreditCard size={16} />
-                                        Pay All ({group.invoices.filter(inv => inv.status !== 'Paid').length})
+                                        <Download size={16} />
                                     </button>
-                                )}
-
-                                <button
-                                    className="download-all-btn"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        handleDownloadAll(group);
-                                    }}
-                                    title="Download all invoices in this period"
-                                >
-                                    <Download size={16} />
-                                </button>
+                                </div>
                             </div>
-                        </div>
 
-                        {/* Expanded Content - Invoice List */}
-                        {expandedPeriods.has(group.period) && (
-                            <div className="period-invoices">
-                                <table className="invoice-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Stall</th>
-                                            <th>Location</th>
-                                            <th>Invoice ID</th>
-                                            <th className="text-right">Amount</th>
-                                            <th>Status</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {group.invoices.map(inv => (
-                                            <tr
-                                                key={inv.id}
-                                                onClick={() => onInvoiceClick(inv)}
-                                                className="invoice-row"
-                                            >
-                                                <td className="stall-name">{inv.stall}</td>
-                                                <td className="location">{inv.location}</td>
-                                                <td className="invoice-id">{inv.id.split('_')[0]}</td>
-                                                <td className="amount text-right">
-                                                    ₹{inv.amount.toLocaleString('en-IN', { maximumFractionDigits: 2 })}
-                                                </td>
-                                                <td>
-                                                    <div className="status-cell">
-                                                        {inv.status === 'Paid' ? (
-                                                            <span className="status-badge paid">Paid</span>
-                                                        ) : inv.status === 'Processed' && onPay && userRole !== 'user' ? (
-                                                            <button
-                                                                onClick={(e) => {
-                                                                    e.stopPropagation();
-                                                                    onPay(inv);
-                                                                }}
-                                                                className="pay-btn"
-                                                            >
-                                                                <CreditCard size={12} />
-                                                                Pay Now
-                                                            </button>
-                                                        ) : (
-                                                            <span className={`status-badge ${inv.status.toLowerCase()}`}>
-                                                                {inv.status}
-                                                            </span>
-                                                        )}
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <button
-                                                        onClick={(e) => {
-                                                            e.stopPropagation();
-                                                            onDownload(inv);
-                                                        }}
-                                                        className="action-btn"
-                                                        title="Download"
-                                                    >
-                                                        <Download size={14} />
-                                                    </button>
-                                                </td>
+                            {/* Expanded Content - Invoice List */}
+                            {expandedPeriods.has(group.period) && (
+                                <div className="period-invoices">
+                                    <table className="invoice-table">
+                                        <thead>
+                                            <tr>
+                                                <th className="w-10"></th>
+                                                <th>Stall</th>
+                                                <th>Location</th>
+                                                <th>Invoice ID</th>
+                                                <th className="text-right">Amount</th>
+                                                <th>Status</th>
+                                                <th></th>
                                             </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        )}
-                    </div>
-                ))
+                                        </thead>
+                                        <tbody>
+                                            {group.invoices.map(inv => (
+                                                <tr
+                                                    key={inv.id}
+                                                    onClick={() => onInvoiceClick(inv)}
+                                                    className={`invoice-row ${selectedIds.has(inv.id) ? 'selected' : ''}`}
+                                                >
+                                                    <td onClick={(e) => e.stopPropagation()}>
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={selectedIds.has(inv.id)}
+                                                            onChange={() => onToggleSelect(inv.id)}
+                                                            className="row-checkbox"
+                                                        />
+                                                    </td>
+                                                    <td className="stall-name">{inv.stall}</td>
+                                                    <td className="location">{inv.location}</td>
+                                                    <td className="invoice-id">{inv.id.split('_')[0]}</td>
+                                                    <td className="amount text-right">
+                                                        ₹{inv.amount.toLocaleString('en-IN', { maximumFractionDigits: 2 })}
+                                                    </td>
+                                                    <td>
+                                                        <div className="status-cell">
+                                                            {inv.status === 'Paid' ? (
+                                                                <span className="status-badge paid">Paid</span>
+                                                            ) : inv.status === 'Processed' && onPay && userRole !== 'user' ? (
+                                                                <button
+                                                                    onClick={(e) => {
+                                                                        e.stopPropagation();
+                                                                        onPay(inv);
+                                                                    }}
+                                                                    className="pay-btn"
+                                                                >
+                                                                    <CreditCard size={12} />
+                                                                    Pay Now
+                                                                </button>
+                                                            ) : (
+                                                                <span className={`status-badge ${inv.status.toLowerCase()}`}>
+                                                                    {inv.status}
+                                                                </span>
+                                                            )}
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <button
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                onDownload(inv);
+                                                            }}
+                                                            className="action-btn"
+                                                            title="Download"
+                                                        >
+                                                            <Download size={14} />
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            )}
+                        </div>
+                    );
+                })
             )}
 
             <style jsx>{`
@@ -437,6 +476,34 @@ export function GroupedInvoiceView({ invoices, onInvoiceClick, onDownload, onPay
 
                 .amount.text-right {
                     text-align: right;
+                }
+
+                .invoice-row.selected {
+                    background-color: #f0f7ff;
+                }
+
+                .invoice-row.selected:hover {
+                    background-color: #e0f0ff;
+                }
+
+                .period-selection {
+                    display: flex;
+                    align-items: center;
+                    margin-right: -0.5rem;
+                }
+
+                .header-checkbox, .row-checkbox {
+                    width: 1.1rem;
+                    height: 1.1rem;
+                    border-radius: 0.25rem;
+                    border: 2px solid #cbd5e1;
+                    cursor: pointer;
+                    transition: all 0.2s;
+                }
+
+                .header-checkbox:checked, .row-checkbox:checked {
+                    background-color: #6366f1;
+                    border-color: #6366f1;
                 }
 
                 .status-badge {

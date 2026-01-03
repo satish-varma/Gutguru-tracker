@@ -272,6 +272,7 @@ export default function InvoicesPage() {
     });
 
     // Pagination
+    const totalFilteredAmount = filteredInvoices.reduce((sum, inv) => sum + inv.amount, 0);
     const totalPages = Math.ceil(filteredInvoices.length / ITEMS_PER_PAGE);
     const paginatedInvoices = filteredInvoices.slice(
         (currentPage - 1) * ITEMS_PER_PAGE,
@@ -430,6 +431,17 @@ export default function InvoicesPage() {
         }
     };
 
+    const toggleGroupSelection = (ids: string[], selected: boolean) => {
+        setSelectedIds(prev => {
+            const next = new Set(prev);
+            ids.forEach(id => {
+                if (selected) next.add(id);
+                else next.delete(id);
+            });
+            return next;
+        });
+    };
+
     const handleDownloadSelected = async () => {
         const selectedInvoices = invoices.filter(inv => selectedIds.has(inv.id));
         for (let i = 0; i < selectedInvoices.length; i++) {
@@ -540,7 +552,12 @@ export default function InvoicesPage() {
             {/* Header Row 1: Title + Actions */}
             <header className="flex justify-between items-center mb-4">
                 <div>
-                    <h1>Invoices</h1>
+                    <div className="flex items-baseline gap-4">
+                        <h1>Invoices</h1>
+                        <span className="text-lg font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100 shadow-sm" title="Total of filtered invoices">
+                            ₹{totalFilteredAmount.toLocaleString('en-IN', { maximumFractionDigits: 2 })}
+                        </span>
+                    </div>
                     <p style={{ color: '#64748b' }}>Manage and view all payment advices.</p>
                 </div>
 
@@ -830,6 +847,9 @@ export default function InvoicesPage() {
                         onDownload={handleDownloadInvoice}
                         onPay={handlePayInvoice}
                         userRole={session?.user?.role}
+                        selectedIds={selectedIds}
+                        onToggleSelect={toggleSelection}
+                        onToggleAll={toggleGroupSelection}
                     />
                 ) : (
                     <>
