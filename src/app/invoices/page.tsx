@@ -615,7 +615,7 @@ export default function InvoicesPage() {
                 <div>
                     <div className="flex items-center gap-2 flex-wrap mt-1">
                         <h1>Invoices</h1>
-                        <div className="flex items-center gap-3 ml-4">
+                        <div className="flex items-center gap-8 ml-4">
                             <span
                                 className={`text-lg font-extrabold px-4 py-1.5 rounded-full border shadow-md transition-all duration-300 ${selectedIds.size > 0
                                     ? 'bg-amber-50 text-amber-700 border-amber-200 ring-2 ring-amber-100'
@@ -1116,6 +1116,7 @@ export default function InvoicesPage() {
                 .gap-1 { gap: 0.25rem; }
                 .gap-2 { gap: 0.5rem; }
                 .gap-4 { gap: 1rem; }
+                .gap-8 { gap: 2rem; }
                 .flex-wrap { flex-wrap: wrap; }
                 .flex-1 { flex: 1; }
                 .w-full { width: 100%; }
