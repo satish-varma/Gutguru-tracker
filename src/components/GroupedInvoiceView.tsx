@@ -237,9 +237,9 @@ export function GroupedInvoiceView({
                                                         <div className="status-cell">
                                                             {inv.status?.toLowerCase() === 'paid' ? (
                                                                 <span className="status-badge paid">Paid</span>
-                                                            ) : inv.status?.toLowerCase() === 'processed' ? (
+                                                            ) : (
                                                                 <div className="status-cell">
-                                                                    <span className="status-badge processed">Processed</span>
+                                                                    <span className="status-badge pending">Pending</span>
                                                                     {onPay && userRole !== 'user' && (
                                                                         <button
                                                                             onClick={(e) => {
@@ -253,10 +253,6 @@ export function GroupedInvoiceView({
                                                                         </button>
                                                                     )}
                                                                 </div>
-                                                            ) : (
-                                                                <span className={`status-badge ${inv.status?.toLowerCase()}`}>
-                                                                    {inv.status}
-                                                                </span>
                                                             )}
                                                         </div>
                                                     </td>
@@ -558,11 +554,6 @@ export function GroupedInvoiceView({
                 .status-badge.paid {
                     background: #dcfce7;
                     color: #166534;
-                }
-
-                .status-badge.processed {
-                    background: #dbeafe;
-                    color: #1e40af;
                 }
 
                 .status-badge.pending {

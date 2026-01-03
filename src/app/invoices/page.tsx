@@ -242,7 +242,13 @@ export default function InvoicesPage() {
     const filteredInvoices = invoices.filter(inv => {
         if (selectedLocations.length && !selectedLocations.includes(inv.location)) return false;
         if (selectedStalls.length && !selectedStalls.includes(inv.stall)) return false;
-        if (statusFilter !== 'All Status' && inv.status !== statusFilter) return false;
+        if (statusFilter !== 'All Status') {
+            if (statusFilter === 'Pending') {
+                if (inv.status?.toLowerCase() !== 'pending' && inv.status?.toLowerCase() !== 'processed') return false;
+            } else if (inv.status !== statusFilter) {
+                return false;
+            }
+        }
 
         if (searchTerm) {
             const lower = searchTerm.toLowerCase();
@@ -759,7 +765,6 @@ export default function InvoicesPage() {
                     >
                         <option value="All Status">📊 All Status</option>
                         <option value="Pending">🟡 Pending</option>
-                        <option value="Processed">🟢 Processed</option>
                         <option value="Paid">🔵 Paid</option>
                     </select>
 
@@ -1008,10 +1013,10 @@ export default function InvoicesPage() {
                                                             <span className="inline-block px-2 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700">
                                                                 Paid
                                                             </span>
-                                                        ) : inv.status?.toLowerCase() === 'processed' ? (
+                                                        ) : (
                                                             <div className="flex items-center gap-2">
-                                                                <span className="inline-block px-2 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-700 border border-blue-100">
-                                                                    Processed
+                                                                <span className="inline-block px-2 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-700">
+                                                                    Pending
                                                                 </span>
                                                                 {session?.user?.role !== 'user' && (
                                                                     <button
@@ -1023,10 +1028,6 @@ export default function InvoicesPage() {
                                                                     </button>
                                                                 )}
                                                             </div>
-                                                        ) : (
-                                                            <span className="inline-block px-2 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-700">
-                                                                {inv.status}
-                                                            </span>
                                                         )}
 
                                                         <button

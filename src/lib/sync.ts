@@ -262,7 +262,7 @@ export async function performSync(organizationId: string, options: {
                         location,
                         stall,
                         amount,
-                        status: 'Processed',
+                        status: 'Pending',
                         pdfPath: pdfPath || undefined,
                         syncedAt: new Date().toISOString(),
                         orgId: organizationId,
@@ -274,7 +274,7 @@ export async function performSync(organizationId: string, options: {
                         location,
                         stall,
                         amount,
-                        status: 'Processed',
+                        status: 'Pending',
                         serviceDateRange,
                         pdfUrl: `/documents/${uniqueId}.pdf`
                     });

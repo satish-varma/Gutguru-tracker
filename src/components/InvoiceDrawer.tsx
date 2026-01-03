@@ -53,8 +53,8 @@ export function InvoiceDrawer({ invoice, onClose, isOpen }: InvoiceDrawerProps) 
         {invoice ? (
           <div className="drawer-content">
             {/* Status Banner */}
-            <div className={`status-banner ${invoice.status.toLowerCase()}`}>
-              <span className="status-label">{invoice.status}</span>
+            <div className={`status-banner ${invoice.status.toLowerCase() === 'processed' ? 'pending' : invoice.status.toLowerCase()}`}>
+              <span className="status-label">{invoice.status.toLowerCase() === 'processed' ? 'Pending' : invoice.status}</span>
               <span className="status-date">Detected on {new Date().toLocaleDateString()}</span>
             </div>
 
@@ -245,7 +245,7 @@ export function InvoiceDrawer({ invoice, onClose, isOpen }: InvoiceDrawerProps) 
           align-items: center;
         }
 
-        .status-banner.processed {
+        .status-banner.paid {
           background: #ecfdf5;
           border: 1px solid #a7f3d0;
           color: #047857;

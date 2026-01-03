@@ -179,13 +179,10 @@ export default function Home() {
 
   const totalAmount = filteredInvoices.reduce((acc, inv) => acc + inv.amount, 0);
   const paidAmount = filteredInvoices
-    .filter(inv => inv.status === 'Paid')
-    .reduce((acc, inv) => acc + inv.amount, 0);
-  const processedAmount = filteredInvoices
-    .filter(inv => inv.status === 'Processed')
+    .filter(inv => inv.status?.toLowerCase() === 'paid')
     .reduce((acc, inv) => acc + inv.amount, 0);
   const pendingAmount = filteredInvoices
-    .filter(inv => inv.status === 'Pending')
+    .filter(inv => inv.status?.toLowerCase() === 'pending' || inv.status?.toLowerCase() === 'processed')
     .reduce((acc, inv) => acc + inv.amount, 0);
 
   const locationStats = filteredInvoices.reduce((acc, inv) => {
@@ -193,8 +190,6 @@ export default function Home() {
     return acc;
   }, {} as Record<string, number>);
 
-  // Get unique stalls for the current selected location (BEFORE filtering by stall/date to keep dropdown populated)
-  // Actually we should filter by location only for the dropdowns
   // Get unique stalls for the current selected locations
   const availableStalls = selectedLocations.length === 0
     ? invoices
@@ -336,7 +331,7 @@ export default function Home() {
       </header>
 
       {/* Stats Row */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.5rem', marginBottom: '3rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', marginBottom: '3rem' }}>
         <div className="glass-panel stat-card">
           <span className="stat-label">Total Revenue</span>
           <span className="stat-value">₹{totalAmount.toLocaleString()}</span>
@@ -344,10 +339,6 @@ export default function Home() {
         <div className="glass-panel stat-card">
           <span className="stat-label" style={{ color: '#059669' }}>Paid</span>
           <span className="stat-value" style={{ fontSize: '1.5rem' }}>₹{paidAmount.toLocaleString()}</span>
-        </div>
-        <div className="glass-panel stat-card">
-          <span className="stat-label" style={{ color: '#10b981' }}>Processed</span>
-          <span className="stat-value" style={{ fontSize: '1.5rem' }}>₹{processedAmount.toLocaleString()}</span>
         </div>
         <div className="glass-panel stat-card">
           <span className="stat-label" style={{ color: '#f59e0b' }}>Pending</span>
@@ -359,218 +350,6 @@ export default function Home() {
       {!isLoading && filteredInvoices.length > 0 && (
         <DashboardCharts invoices={filteredInvoices} />
       )}
-
-      {/* Main Content Area */}
-      <div className="glass-panel" style={{ padding: '2rem' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
-          <h2>Recent Invoices</h2>
-          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
-
-            {/* Search Input */}
-            <input
-              type="text"
-              placeholder="Search ID, Stall..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              style={{ width: '180px', background: 'var(--input-bg)', border: '1px solid var(--card-border)', padding: '0.6rem 1rem', borderRadius: '0.5rem', color: 'var(--foreground)' }}
-            />
-
-            {/* Sort Dropdown */}
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              style={{ background: 'var(--input-bg)', border: '1px solid var(--card-border)', padding: '0.5rem', borderRadius: '0.5rem', color: 'var(--foreground)' }}
-            >
-              <option value="date-desc">Newest First</option>
-              <option value="date-asc">Oldest First</option>
-              <option value="amount-desc">Amount: High to Low</option>
-              <option value="amount-asc">Amount: Low to High</option>
-            </select>
-            {/* Multi-Select Locations */}
-            <MultiSelect
-              label="Location"
-              options={uniqueLocations}
-              value={selectedLocations}
-              onChange={(vals) => {
-                setSelectedLocations(vals);
-                // Optional: Clear selected stalls if they are no longer valid? 
-                // For now, let's keep it simple. If a stall is selected but not in the new location set, 
-                // the filter logic (stall filter) handles it, or the stall filter logic might need to be smart.
-                // However, usually it's better to clear stalls or filter them out.
-                // Let's reset stalls if locations change to avoid invalid combinations?
-                // Actually, standard behavior: keep selections if possible.
-                // But simplified: reset stalls on location change is often safer.
-                // Let's NOT reset for now (user might want to select generic stall names across locations if names matched).
-                // Actually, names are unique per location now (e.g. Stall X Location Y).
-                // So old selections will naturally result in 0 results unless user clears them.
-              }}
-            />
-
-            {/* Multi-Select Stalls */}
-            <MultiSelect
-              label="Stall"
-              options={uniqueStalls}
-              value={selectedStalls}
-              onChange={setSelectedStalls}
-            />
-
-            {/* Date Filter */}
-            <select
-              value={dateFilter}
-              onChange={(e) => setDateFilter(e.target.value)}
-              style={{ background: 'var(--input-bg)', border: '1px solid var(--card-border)', padding: '0.5rem', borderRadius: '0.5rem', color: 'var(--foreground)' }}
-            >
-              <option value="All Time">All Time</option>
-              <option value="Last 7 Days">Last 7 Days</option>
-              <option value="Last Month">Last Month</option>
-              <option value="Last 3 Months">Last 3 Months</option>
-              <option value="Specific Month">Specific Month</option>
-              <option value="Custom Range">Custom Range</option>
-            </select>
-
-            {/* Status Filter */}
-            <select
-              value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value)}
-              style={{ background: 'var(--input-bg)', border: '1px solid var(--card-border)', padding: '0.5rem', borderRadius: '0.5rem', color: 'var(--foreground)' }}
-            >
-              <option value="All Status">All Status</option>
-              <option value="Paid">Paid</option>
-              <option value="Processed">Processed</option>
-              <option value="Pending">Pending</option>
-            </select>
-
-            {dateFilter === 'Specific Month' && (
-              <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-                <select
-                  value={specificMonth}
-                  onChange={(e) => setSpecificMonth(e.target.value)}
-                  style={{ background: 'var(--input-bg)', border: '1px solid var(--card-border)', padding: '0.5rem', borderRadius: '0.5rem', color: 'var(--foreground)' }}
-                >
-                  {Array.from({ length: 12 }, (_, i) => i + 1).map(m => (
-                    <option key={m} value={m}>{new Date(0, m - 1).toLocaleString('default', { month: 'short' })}</option>
-                  ))}
-                </select>
-                <select
-                  value={specificYear}
-                  onChange={(e) => setSpecificYear(e.target.value)}
-                  style={{ background: 'var(--input-bg)', border: '1px solid var(--card-border)', padding: '0.5rem', borderRadius: '0.5rem', color: 'var(--foreground)' }}
-                >
-                  {uniqueYears.map(y => (
-                    <option key={y} value={y}>{y}</option>
-                  ))}
-                </select>
-              </div>
-            )}
-
-            {dateFilter === 'Custom Range' && (
-              <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-                <input
-                  type="date"
-                  value={customStart}
-                  onChange={(e) => setCustomStart(e.target.value)}
-                  style={{ background: 'var(--input-bg)', border: '1px solid var(--card-border)', padding: '0.4rem', borderRadius: '0.5rem', color: 'var(--foreground)' }}
-                />
-                <span style={{ color: '#94a3b8' }}>-</span>
-                <input
-                  type="date"
-                  value={customEnd}
-                  onChange={(e) => setCustomEnd(e.target.value)}
-                  style={{ background: 'var(--input-bg)', border: '1px solid var(--card-border)', padding: '0.4rem', borderRadius: '0.5rem', color: 'var(--foreground)' }}
-                />
-              </div>
-            )}
-
-          </div>
-        </div>
-
-        <div className="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>Service Period</th>
-                <th>Date</th>
-                <th>Location</th>
-                <th>Stall Name</th>
-                <th>Amount</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {isLoading ? (
-                <tr>
-                  <td colSpan={6} style={{ textAlign: 'center', padding: '2rem', color: '#94a3b8' }}>
-                    Loading invoices...
-                  </td>
-                </tr>
-              ) : filteredInvoices.length === 0 ? (
-                <tr>
-                  <td colSpan={6} style={{ textAlign: 'center', padding: '2rem', color: '#94a3b8' }}>
-                    No invoices found. Sync to fetch new data.
-                  </td>
-                </tr>
-              ) : (
-                paginatedInvoices.map((inv, index) => (
-                  <tr
-                    key={`${inv.id}-${index}`}
-                    onClick={() => setSelectedInvoice(inv)}
-                    style={{ cursor: 'pointer' }}
-                  >
-                    <td
-                      title={`Invoice ID: ${inv.id}`}
-                      style={{ fontSize: '0.85rem', color: '#475569', cursor: 'help' }}
-                    >
-                      {inv.serviceDateRange || 'N/A'}
-                    </td>
-                    <td>{inv.date}</td>
-                    <td>{inv.location}</td>
-                    <td>{inv.stall}</td>
-                    <td style={{ fontWeight: 600 }}>₹{inv.amount.toLocaleString()}</td>
-                    <td>
-                      <span style={{
-                        padding: '0.25rem 0.75rem',
-                        borderRadius: '9999px',
-                        fontSize: '0.75rem',
-                        background: inv.status?.toLowerCase() === 'paid' ? 'rgba(16, 185, 129, 0.15)' : inv.status?.toLowerCase() === 'processed' ? 'rgba(16, 185, 129, 0.2)' : 'rgba(245, 158, 11, 0.2)',
-                        color: inv.status?.toLowerCase() === 'paid' ? '#059669' : inv.status?.toLowerCase() === 'processed' ? '#34d399' : '#fbbf24'
-                      }}>
-                        {inv.status}
-                      </span>
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
-
-        {/* Pagination Controls */}
-        {filteredInvoices.length > 0 && (
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '1.5rem', padding: '0 0.5rem' }}>
-            <div style={{ color: '#64748b', fontSize: '0.875rem' }}>
-              Showing <span style={{ fontWeight: 600, color: '#0f172a' }}>{(currentPage - 1) * ITEMS_PER_PAGE + 1}</span> to <span style={{ fontWeight: 600, color: '#0f172a' }}>{Math.min(currentPage * ITEMS_PER_PAGE, filteredInvoices.length)}</span> of <span style={{ fontWeight: 600, color: '#0f172a' }}>{filteredInvoices.length}</span> results
-            </div>
-            <div style={{ display: 'flex', gap: '0.5rem' }}>
-              <button
-                className="btn glass-panel"
-                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                disabled={currentPage === 1}
-                style={{ padding: '0.5rem 1rem' }}
-              >
-                Previous
-              </button>
-              <button
-                className="btn glass-panel"
-                onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                disabled={currentPage === totalPages}
-                style={{ padding: '0.5rem 1rem' }}
-              >
-                Next
-              </button>
-            </div>
-          </div>
-        )}
-      </div>
 
       <InvoiceDrawer
         isOpen={!!selectedInvoice}
