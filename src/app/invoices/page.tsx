@@ -745,7 +745,7 @@ export default function InvoicesPage() {
                     </div>
                 </div>
 
-                {/* Second Row: Quick Access + Action Buttons */}
+                {/* Second Row: Quick Access + Action Buttons/Save Dialog */}
                 <div className="filter-bar-footer">
                     {savedFilters.length > 0 && (
                         <div className="quick-access">
@@ -775,51 +775,50 @@ export default function InvoicesPage() {
 
                     <div style={{ flex: 1 }} />
 
-                    <div className="action-buttons">
-                        <button
-                            onClick={clearAllFilters}
-                            className="filter-action-btn clear-btn"
-                        >
-                            <X size={14} />
-                            Clear Filters
-                        </button>
-                        <button
-                            onClick={() => setShowSaveFilter(!showSaveFilter)}
-                            className="filter-action-btn save-btn"
-                        >
-                            <Save size={14} />
-                            Save Filter
-                        </button>
-                    </div>
+                    {showSaveFilter ? (
+                        <div className="save-filter-dialog-inline">
+                            <Bookmark size={16} className="text-indigo-500" />
+                            <input
+                                type="text"
+                                placeholder="Filter name..."
+                                value={filterName}
+                                onChange={e => setFilterName(e.target.value)}
+                                className="save-filter-input"
+                                onKeyDown={e => e.key === 'Enter' && saveCurrentFilter()}
+                                autoFocus
+                            />
+                            <button
+                                onClick={saveCurrentFilter}
+                                className="btn-save-confirm"
+                            >
+                                Save
+                            </button>
+                            <button
+                                onClick={() => setShowSaveFilter(false)}
+                                className="btn-save-cancel"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    ) : (
+                        <div className="action-buttons">
+                            <button
+                                onClick={clearAllFilters}
+                                className="filter-action-btn clear-btn"
+                            >
+                                <X size={14} />
+                                Clear Filters
+                            </button>
+                            <button
+                                onClick={() => setShowSaveFilter(true)}
+                                className="filter-action-btn save-btn"
+                            >
+                                <Save size={14} />
+                                Save Filter
+                            </button>
+                        </div>
+                    )}
                 </div>
-
-                {/* Save Filter Dialog - Integrated */}
-                {showSaveFilter && (
-                    <div className="save-filter-dialog-inline">
-                        <Bookmark size={16} className="text-indigo-500" />
-                        <input
-                            type="text"
-                            placeholder="Filter name..."
-                            value={filterName}
-                            onChange={e => setFilterName(e.target.value)}
-                            className="save-filter-input"
-                            onKeyDown={e => e.key === 'Enter' && saveCurrentFilter()}
-                            autoFocus
-                        />
-                        <button
-                            onClick={saveCurrentFilter}
-                            className="btn-save-confirm"
-                        >
-                            Save
-                        </button>
-                        <button
-                            onClick={() => setShowSaveFilter(false)}
-                            className="btn-save-cancel"
-                        >
-                            Cancel
-                        </button>
-                    </div>
-                )}
             </div>
 
             <div className="glass-panel p-6">
@@ -1036,8 +1035,8 @@ export default function InvoicesPage() {
                 .filter-bar {
                     display: flex;
                     flex-direction: column;
-                    gap: 1.25rem;
-                    padding: 1.25rem;
+                    gap: 1rem;
+                    padding: 1rem;
                     background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f0fdf4 100%);
                     border-radius: 1rem;
                     margin-bottom: 1.5rem;
@@ -1300,11 +1299,10 @@ export default function InvoicesPage() {
                     display: flex;
                     align-items: center;
                     gap: 0.75rem;
-                    padding: 0.75rem 1rem;
+                    padding: 0.375rem 1rem;
                     background: #f5f3ff;
                     border: 1px solid #c7d2fe;
                     border-radius: 0.75rem;
-                    margin-top: 0.5rem;
                     animation: slideDown 0.2s ease-out;
                 }
 
