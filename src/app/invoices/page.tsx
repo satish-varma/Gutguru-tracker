@@ -273,6 +273,9 @@ export default function InvoicesPage() {
 
     // Pagination
     const totalFilteredAmount = filteredInvoices.reduce((sum, inv) => sum + inv.amount, 0);
+    const totalSelectedAmount = invoices
+        .filter(inv => selectedIds.has(inv.id))
+        .reduce((sum, inv) => sum + inv.amount, 0);
     const totalPages = Math.ceil(filteredInvoices.length / ITEMS_PER_PAGE);
     const paginatedInvoices = filteredInvoices.slice(
         (currentPage - 1) * ITEMS_PER_PAGE,
@@ -554,8 +557,14 @@ export default function InvoicesPage() {
                 <div>
                     <div className="flex items-baseline gap-4">
                         <h1>Invoices</h1>
-                        <span className="text-lg font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100 shadow-sm" title="Total of filtered invoices">
-                            ₹{totalFilteredAmount.toLocaleString('en-IN', { maximumFractionDigits: 2 })}
+                        <span
+                            className={`text-lg font-bold px-3 py-1 rounded-full border shadow-sm transition-all duration-300 ${selectedIds.size > 0
+                                    ? 'bg-amber-50 text-amber-700 border-amber-200 ring-2 ring-amber-100'
+                                    : 'bg-indigo-50 text-indigo-600 border-indigo-100'
+                                }`}
+                            title={selectedIds.size > 0 ? "Total of selected invoices" : "Total of filtered invoices"}
+                        >
+                            {selectedIds.size > 0 ? 'Selected: ' : ''}₹{(selectedIds.size > 0 ? totalSelectedAmount : totalFilteredAmount).toLocaleString('en-IN', { maximumFractionDigits: 2 })}
                         </span>
                     </div>
                     <p style={{ color: '#64748b' }}>Manage and view all payment advices.</p>
