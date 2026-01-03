@@ -854,80 +854,82 @@ export default function InvoicesPage() {
                     </div>
                 </div>
 
-                {/* Second Row: Quick Access + Action Buttons/Save Dialog */}
-                <div className="filter-bar-footer">
-                    {savedFilters.length > 0 && (
-                        <div className="quick-access">
-                            <span className="quick-access-label">Quick Access:</span>
-                            <div className="filter-chips">
-                                {savedFilters.map(filter => (
-                                    <button
-                                        key={filter.id}
-                                        onClick={() => loadFilter(filter)}
-                                        className="filter-chip"
-                                    >
-                                        <span>{filter.name}</span>
-                                        <span
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                deleteFilter(filter.id);
-                                            }}
-                                            className="delete-chip"
+                {/* Second Row: Quick Access + Action Buttons/Save Dialog - ONLY FOR ADMINS/MANAGERS */}
+                {(session?.user?.role !== 'user') && (
+                    <div className="filter-bar-footer">
+                        {savedFilters.length > 0 && (
+                            <div className="quick-access">
+                                <span className="quick-access-label">Quick Access:</span>
+                                <div className="filter-chips">
+                                    {savedFilters.map(filter => (
+                                        <button
+                                            key={filter.id}
+                                            onClick={() => loadFilter(filter)}
+                                            className="filter-chip"
                                         >
-                                            <X size={12} />
-                                        </span>
-                                    </button>
-                                ))}
+                                            <span>{filter.name}</span>
+                                            <span
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    deleteFilter(filter.id);
+                                                }}
+                                                className="delete-chip"
+                                            >
+                                                <X size={12} />
+                                            </span>
+                                        </button>
+                                    ))}
+                                </div>
                             </div>
-                        </div>
-                    )}
+                        )}
 
-                    <div style={{ flex: 1 }} />
+                        <div style={{ flex: 1 }} />
 
-                    {showSaveFilter ? (
-                        <div className="save-filter-dialog-inline">
-                            <Bookmark size={16} className="text-indigo-500" />
-                            <input
-                                type="text"
-                                placeholder="Filter name..."
-                                value={filterName}
-                                onChange={e => setFilterName(e.target.value)}
-                                className="save-filter-input"
-                                onKeyDown={e => e.key === 'Enter' && saveCurrentFilter()}
-                                autoFocus
-                            />
-                            <button
-                                onClick={saveCurrentFilter}
-                                className="btn-save-confirm"
-                            >
-                                Save
-                            </button>
-                            <button
-                                onClick={() => setShowSaveFilter(false)}
-                                className="btn-save-cancel"
-                            >
-                                Cancel
-                            </button>
-                        </div>
-                    ) : (
-                        <div className="action-buttons">
-                            <button
-                                onClick={clearAllFilters}
-                                className="filter-action-btn clear-btn"
-                            >
-                                <X size={14} />
-                                Clear Filters
-                            </button>
-                            <button
-                                onClick={() => setShowSaveFilter(true)}
-                                className="filter-action-btn save-btn"
-                            >
-                                <Save size={14} />
-                                Save Filter
-                            </button>
-                        </div>
-                    )}
-                </div>
+                        {showSaveFilter ? (
+                            <div className="save-filter-dialog-inline">
+                                <Bookmark size={16} className="text-indigo-500" />
+                                <input
+                                    type="text"
+                                    placeholder="Filter name..."
+                                    value={filterName}
+                                    onChange={e => setFilterName(e.target.value)}
+                                    className="save-filter-input"
+                                    onKeyDown={e => e.key === 'Enter' && saveCurrentFilter()}
+                                    autoFocus
+                                />
+                                <button
+                                    onClick={saveCurrentFilter}
+                                    className="btn-save-confirm"
+                                >
+                                    Save
+                                </button>
+                                <button
+                                    onClick={() => setShowSaveFilter(false)}
+                                    className="btn-save-cancel"
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+                        ) : (
+                            <div className="action-buttons">
+                                <button
+                                    onClick={clearAllFilters}
+                                    className="filter-action-btn clear-btn"
+                                >
+                                    <X size={14} />
+                                    Clear Filters
+                                </button>
+                                <button
+                                    onClick={() => setShowSaveFilter(true)}
+                                    className="filter-action-btn save-btn"
+                                >
+                                    <Save size={14} />
+                                    Save Filter
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                )}
             </div>
 
             <div className="glass-panel p-6">

@@ -118,11 +118,15 @@ export function GroupedInvoiceView({
                     const allSelected = groupIds.every(id => selectedIds.has(id));
                     const someSelected = groupIds.some(id => selectedIds.has(id)) && !allSelected;
 
+                    const allPaid = useMemo(() => {
+                        return group.invoices.length > 0 && group.invoices.every(inv => inv.status?.toLowerCase() === 'paid');
+                    }, [group.invoices]);
+
                     return (
-                        <div key={group.period} className="period-group">
+                        <div key={group.period} className={`period-group ${allPaid ? 'fully-paid' : ''}`}>
                             {/* Period Header - Clickable */}
                             <div
-                                className="period-header"
+                                className={`period-header ${allPaid ? 'fully-paid' : ''}`}
                                 onClick={() => togglePeriod(group.period)}
                             >
                                 <div className="period-selection" onClick={(e) => e.stopPropagation()}>
@@ -318,6 +322,26 @@ export function GroupedInvoiceView({
 
                 .period-header:hover {
                     background: linear-gradient(to right, #f1f5f9, #f8fafc);
+                }
+
+                .period-group.fully-paid {
+                    border-color: #b9fbc0;
+                }
+
+                .period-header.fully-paid {
+                    background: linear-gradient(to right, #f0fdf4, #ffffff);
+                }
+
+                .period-header.fully-paid:hover {
+                    background: linear-gradient(to right, #dcfce7, #f0fdf4);
+                }
+
+                .period-header.fully-paid .period-date {
+                    color: #166534;
+                }
+
+                .period-header.fully-paid .period-amount {
+                    color: #059669;
                 }
 
                 .period-toggle {
