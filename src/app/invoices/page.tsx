@@ -325,10 +325,10 @@ export default function InvoicesPage() {
 
     const summaryTotals = activeInvoicesForSummary.reduce((acc, inv) => {
         acc.total += inv.amount;
-        if (inv.status === 'Paid') acc.paid += inv.amount;
-        if (inv.status === 'Processed') acc.processed += inv.amount;
+        if (inv.status?.toLowerCase() === 'paid') acc.paid += inv.amount;
+        if (inv.status?.toLowerCase() === 'pending' || inv.status?.toLowerCase() === 'processed') acc.pending += inv.amount;
         return acc;
-    }, { total: 0, paid: 0, processed: 0 });
+    }, { total: 0, paid: 0, pending: 0 });
 
     // Pagination
     const totalPages = Math.ceil(filteredInvoices.length / ITEMS_PER_PAGE);
@@ -632,10 +632,10 @@ export default function InvoicesPage() {
                                 Paid: ₹{summaryTotals.paid.toLocaleString('en-IN', { maximumFractionDigits: 2 })}
                             </span>
                             <span
-                                className="text-sm font-bold px-3 py-1 rounded-full border bg-blue-50 text-blue-700 border-blue-200 shadow-sm"
-                                title="Total amount processed"
+                                className="text-sm font-bold px-3 py-1 rounded-full border bg-amber-50 text-amber-700 border-amber-200 shadow-sm"
+                                title="Total amount pending"
                             >
-                                Processed: ₹{summaryTotals.processed.toLocaleString('en-IN', { maximumFractionDigits: 2 })}
+                                Pending: ₹{summaryTotals.pending.toLocaleString('en-IN', { maximumFractionDigits: 2 })}
                             </span>
                         </div>
                     </div>

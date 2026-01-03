@@ -136,7 +136,14 @@ export default function Home() {
     if (!matchesDate) return false;
 
     // 4. Status Filter
-    if (statusFilter !== 'All Status' && inv.status !== statusFilter) return false;
+    if (statusFilter !== 'All Status') {
+      const status = inv.status?.toLowerCase();
+      if (statusFilter === 'Pending') {
+        if (status !== 'pending' && status !== 'processed') return false;
+      } else if (inv.status !== statusFilter) {
+        return false;
+      }
+    }
 
     // 5. Search Term (ID, Stall, Amount)
     if (searchTerm) {
@@ -331,7 +338,7 @@ export default function Home() {
       </header>
 
       {/* Stats Row */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', marginBottom: '3rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', marginBottom: '2rem' }}>
         <div className="glass-panel stat-card">
           <span className="stat-label">Total Revenue</span>
           <span className="stat-value">₹{totalAmount.toLocaleString()}</span>
@@ -343,6 +350,93 @@ export default function Home() {
         <div className="glass-panel stat-card">
           <span className="stat-label" style={{ color: '#f59e0b' }}>Pending</span>
           <span className="stat-value" style={{ fontSize: '1.5rem' }}>₹{pendingAmount.toLocaleString()}</span>
+        </div>
+      </div>
+
+      {/* Filter Bar */}
+      <div className="glass-panel" style={{ padding: '1.5rem', marginBottom: '2rem' }}>
+        <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
+          {/* Multi-Select Locations */}
+          <MultiSelect
+            label="📍 Location"
+            options={uniqueLocations}
+            value={selectedLocations}
+            onChange={setSelectedLocations}
+          />
+
+          {/* Multi-Select Stalls */}
+          <MultiSelect
+            label="🏪 Stall"
+            options={uniqueStalls}
+            value={selectedStalls}
+            onChange={setSelectedStalls}
+          />
+
+          {/* Date Filter */}
+          <select
+            value={dateFilter}
+            onChange={(e) => setDateFilter(e.target.value)}
+            style={{ background: 'var(--input-bg)', border: '1px solid var(--card-border)', padding: '0.6rem 1rem', borderRadius: '0.5rem', color: 'var(--foreground)' }}
+          >
+            <option value="All Time">📅 All Time</option>
+            <option value="Last 7 Days">Last 7 Days</option>
+            <option value="Last Month">Last Month</option>
+            <option value="Last 3 Months">Last 3 Months</option>
+            <option value="Specific Month">Specific Month</option>
+            <option value="Custom Range">Custom Range</option>
+          </select>
+
+          {/* Status Filter */}
+          <select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+            style={{ background: 'var(--input-bg)', border: '1px solid var(--card-border)', padding: '0.6rem 1rem', borderRadius: '0.5rem', color: 'var(--foreground)' }}
+          >
+            <option value="All Status">📊 All Status</option>
+            <option value="Pending">🟡 Pending</option>
+            <option value="Paid">🔵 Paid</option>
+          </select>
+
+          {dateFilter === 'Specific Month' && (
+            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+              <select
+                value={specificMonth}
+                onChange={(e) => setSpecificMonth(e.target.value)}
+                style={{ background: 'var(--input-bg)', border: '1px solid var(--card-border)', padding: '0.6rem 1rem', borderRadius: '0.5rem', color: 'var(--foreground)' }}
+              >
+                {Array.from({ length: 12 }, (_, i) => i + 1).map(m => (
+                  <option key={m} value={m}>{new Date(0, m - 1).toLocaleString('default', { month: 'short' })}</option>
+                ))}
+              </select>
+              <select
+                value={specificYear}
+                onChange={(e) => setSpecificYear(e.target.value)}
+                style={{ background: 'var(--input-bg)', border: '1px solid var(--card-border)', padding: '0.6rem 1rem', borderRadius: '0.5rem', color: 'var(--foreground)' }}
+              >
+                {uniqueYears.map(y => (
+                  <option key={y} value={y}>{y}</option>
+                ))}
+              </select>
+            </div>
+          )}
+
+          {dateFilter === 'Custom Range' && (
+            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+              <input
+                type="date"
+                value={customStart}
+                onChange={(e) => setCustomStart(e.target.value)}
+                style={{ background: 'var(--input-bg)', border: '1px solid var(--card-border)', padding: '0.5rem 0.8rem', borderRadius: '0.5rem', color: 'var(--foreground)' }}
+              />
+              <span style={{ color: '#94a3b8' }}>-</span>
+              <input
+                type="date"
+                value={customEnd}
+                onChange={(e) => setCustomEnd(e.target.value)}
+                style={{ background: 'var(--input-bg)', border: '1px solid var(--card-border)', padding: '0.5rem 0.8rem', borderRadius: '0.5rem', color: 'var(--foreground)' }}
+              />
+            </div>
+          )}
         </div>
       </div>
 
