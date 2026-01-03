@@ -24,6 +24,7 @@ interface SavedFilter {
     yearFilter: string;
     customDateFrom: string;
     customDateTo: string;
+    selectedUser?: string;
 }
 
 export default function InvoicesPage() {
@@ -60,6 +61,10 @@ export default function InvoicesPage() {
     const [filterName, setFilterName] = useState('');
     const [showSaveFilter, setShowSaveFilter] = useState(false);
 
+    // Team Users (for manager/admin filter)
+    const [teamUsers, setTeamUsers] = useState<any[]>([]);
+    const [selectedUser, setSelectedUser] = useState<string>('All Users');
+
     // View Mode: 'list' or 'grouped'
     const [viewMode, setViewMode] = useState<'list' | 'grouped'>('grouped');
 
@@ -89,8 +94,23 @@ export default function InvoicesPage() {
             router.push('/auth/signin');
         } else if (status === 'authenticated') {
             fetchInvoices();
+            if (session?.user?.role === 'manager' || session?.user?.role === 'admin') {
+                fetchTeamUsers();
+            }
         }
     }, [status, router]);
+
+    const fetchTeamUsers = async () => {
+        try {
+            const res = await fetch('/api/team/users');
+            const data = await res.json();
+            if (data.success) {
+                setTeamUsers(data.users);
+            }
+        } catch (error) {
+            console.error('Failed to fetch team users:', error);
+        }
+    };
 
     const fetchInvoices = async () => {
         try {
@@ -268,6 +288,27 @@ export default function InvoicesPage() {
             if (yearFilter !== 'All' && d.getFullYear() !== parseInt(yearFilter)) return false;
         }
 
+        // User Filter (for admins/managers)
+        if (selectedUser !== 'All Users') {
+            const user = teamUsers.find(u => u.id === selectedUser);
+            if (user && user.permissions) {
+                const { locations, stalls, validFrom } = user.permissions;
+
+                // Location check
+                if (locations && locations.length > 0 && !locations.includes(inv.location)) return false;
+
+                // Stall check
+                if (stalls && stalls.length > 0 && !stalls.includes(inv.stall)) return false;
+
+                // Valid From check
+                if (validFrom) {
+                    const invoiceDate = new Date(inv.date);
+                    const validFromDate = new Date(validFrom);
+                    if (invoiceDate < validFromDate) return false;
+                }
+            }
+        }
+
         return true;
     });
 
@@ -319,6 +360,7 @@ export default function InvoicesPage() {
             yearFilter,
             customDateFrom,
             customDateTo,
+            selectedUser,
         };
 
         const updatedFilters = [...savedFilters, newFilter];
@@ -342,6 +384,7 @@ export default function InvoicesPage() {
         setYearFilter(filter.yearFilter || 'All');
         setCustomDateFrom(filter.customDateFrom);
         setCustomDateTo(filter.customDateTo);
+        setSelectedUser(filter.selectedUser || 'All Users');
         setCurrentPage(1);
     };
 
@@ -364,6 +407,7 @@ export default function InvoicesPage() {
         setYearFilter('All');
         setCustomDateFrom('');
         setCustomDateTo('');
+        setSelectedUser('All Users');
         setCurrentPage(1);
     };
 
@@ -559,8 +603,8 @@ export default function InvoicesPage() {
                         <h1>Invoices</h1>
                         <span
                             className={`text-lg font-bold px-3 py-1 rounded-full border shadow-sm transition-all duration-300 ${selectedIds.size > 0
-                                    ? 'bg-amber-50 text-amber-700 border-amber-200 ring-2 ring-amber-100'
-                                    : 'bg-indigo-50 text-indigo-600 border-indigo-100'
+                                ? 'bg-amber-50 text-amber-700 border-amber-200 ring-2 ring-amber-100'
+                                : 'bg-indigo-50 text-indigo-600 border-indigo-100'
                                 }`}
                             title={selectedIds.size > 0 ? "Total of selected invoices" : "Total of filtered invoices"}
                         >
@@ -647,6 +691,23 @@ export default function InvoicesPage() {
                             }}
                         />
                     </div>
+
+                    {/* Additional Primary Filters */}
+                    {(session?.user?.role === 'manager' || session?.user?.role === 'admin') && (
+                        <div className="filter-item">
+                            <label>Filter by User</label>
+                            <select
+                                className="filter-select"
+                                value={selectedUser}
+                                onChange={(e) => setSelectedUser(e.target.value)}
+                            >
+                                <option value="All Users">All Users</option>
+                                {teamUsers.map(u => (
+                                    <option key={u.id} value={u.id}>{u.name}</option>
+                                ))}
+                            </select>
+                        </div>
+                    )}
 
                     {/* Location */}
                     <div className="filter-item">

@@ -6,7 +6,7 @@ import { getUsers, createUser, updateUserRole, deleteUser, getUserByEmail, updat
 
 export async function GET() {
     const session = await getServerSession(authOptions);
-    if (!session || !session.user || session.user.role !== 'manager') {
+    if (!session || !session.user || (session.user.role !== 'manager' && session.user.role !== 'admin')) {
         return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 403 });
     }
 
@@ -26,7 +26,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
     const session = await getServerSession(authOptions);
-    if (!session || !session.user || session.user.role !== 'manager') {
+    if (!session || !session.user || (session.user.role !== 'manager' && session.user.role !== 'admin')) {
         return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 403 });
     }
 
@@ -64,7 +64,7 @@ export async function POST(request: Request) {
 
 export async function PUT(request: Request) {
     const session = await getServerSession(authOptions);
-    if (!session || !session.user || session.user.role !== 'manager') {
+    if (!session || !session.user || (session.user.role !== 'manager' && session.user.role !== 'admin')) {
         return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 403 });
     }
 
@@ -103,7 +103,7 @@ export async function PUT(request: Request) {
 
 export async function DELETE(request: Request) {
     const session = await getServerSession(authOptions);
-    if (!session || !session.user || session.user.role !== 'manager') {
+    if (!session || !session.user || (session.user.role !== 'manager' && session.user.role !== 'admin')) {
         return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 403 });
     }
 
