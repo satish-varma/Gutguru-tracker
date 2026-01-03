@@ -240,15 +240,20 @@ export default function InvoicesPage() {
             const d = new Date(inv.date);
             if (customDateFrom && d < new Date(customDateFrom)) return false;
             if (customDateTo && d > new Date(customDateTo)) return false;
-        } else if (dateFilter === 'Last 7 Days') {
+        } else if (dateFilter === 'Last Month') {
             const d = new Date(inv.date);
             const limit = new Date();
-            limit.setDate(limit.getDate() - 7);
+            limit.setMonth(limit.getMonth() - 1);
             if (d < limit) return false;
-        } else if (dateFilter === 'Last 30 Days') {
+        } else if (dateFilter === 'Last 2 Months') {
             const d = new Date(inv.date);
             const limit = new Date();
-            limit.setDate(limit.getDate() - 30);
+            limit.setMonth(limit.getMonth() - 2);
+            if (d < limit) return false;
+        } else if (dateFilter === 'Last 3 Months') {
+            const d = new Date(inv.date);
+            const limit = new Date();
+            limit.setMonth(limit.getMonth() - 3);
             if (d < limit) return false;
         }
 
@@ -648,25 +653,38 @@ export default function InvoicesPage() {
                     <option value="Paid">🔵 Paid</option>
                 </select>
 
+                {/* Date Range Filter */}
+                <select
+                    className="filter-select date-select"
+                    value={dateFilter}
+                    onChange={e => setDateFilter(e.target.value)}
+                >
+                    <option value="All Time">📅 All Time</option>
+                    <option value="Last Month">Last Month</option>
+                    <option value="Last 2 Months">Last 2 Months</option>
+                    <option value="Last 3 Months">Last 3 Months</option>
+                    <option value="Custom">Custom Range</option>
+                </select>
+
                 {/* Month Filter */}
                 <select
                     className="filter-select month-select"
                     value={monthFilter}
                     onChange={e => setMonthFilter(e.target.value)}
                 >
-                    <option>📅 All</option>
-                    <option>Jan</option>
-                    <option>Feb</option>
-                    <option>Mar</option>
-                    <option>Apr</option>
-                    <option>May</option>
-                    <option>Jun</option>
-                    <option>Jul</option>
-                    <option>Aug</option>
-                    <option>Sep</option>
-                    <option>Oct</option>
-                    <option>Nov</option>
-                    <option>Dec</option>
+                    <option value="All">📆 Month</option>
+                    <option value="Jan">Jan</option>
+                    <option value="Feb">Feb</option>
+                    <option value="Mar">Mar</option>
+                    <option value="Apr">Apr</option>
+                    <option value="May">May</option>
+                    <option value="Jun">Jun</option>
+                    <option value="Jul">Jul</option>
+                    <option value="Aug">Aug</option>
+                    <option value="Sep">Sep</option>
+                    <option value="Oct">Oct</option>
+                    <option value="Nov">Nov</option>
+                    <option value="Dec">Dec</option>
                 </select>
 
                 {/* Year Filter */}
@@ -675,11 +693,32 @@ export default function InvoicesPage() {
                     value={yearFilter}
                     onChange={e => setYearFilter(e.target.value)}
                 >
-                    <option>🗓️ All</option>
-                    <option>2024</option>
-                    <option>2025</option>
-                    <option>2026</option>
+                    <option value="All">🗓️ Year</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
                 </select>
+
+                {/* Custom Date Range - inline */}
+                {dateFilter === 'Custom' && (
+                    <>
+                        <input
+                            type="date"
+                            value={customDateFrom}
+                            onChange={e => setCustomDateFrom(e.target.value)}
+                            className="filter-date-input"
+                            title="From date"
+                        />
+                        <span style={{ color: '#64748b' }}>→</span>
+                        <input
+                            type="date"
+                            value={customDateTo}
+                            onChange={e => setCustomDateTo(e.target.value)}
+                            className="filter-date-input"
+                            title="To date"
+                        />
+                    </>
+                )}
 
                 {/* Spacer */}
                 <div style={{ flex: 1 }} />
@@ -1098,6 +1137,22 @@ export default function InvoicesPage() {
                     outline: none;
                     border-color: #f97316;
                     box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.15);
+                }
+
+                .filter-date-input {
+                    padding: 0.5rem 0.75rem;
+                    border-radius: 0.5rem;
+                    border: 2px solid #94a3b8;
+                    background: white;
+                    font-size: 0.875rem;
+                    color: #475569;
+                    transition: all 0.2s;
+                }
+
+                .filter-date-input:focus {
+                    outline: none;
+                    border-color: #6366f1;
+                    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
                 }
 
                 .view-toggle {
