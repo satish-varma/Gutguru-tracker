@@ -109,7 +109,7 @@ export default function SalesPage() {
 
                 <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
                     {lastSynced && (
-                        <div style={{ textAlign: 'right', display: 'none', md: 'block' }}>
+                        <div className="last-synced-desktop" style={{ textAlign: 'right' }}>
                             <div style={{ fontSize: '0.75rem', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Last Synced</div>
                             <div style={{ fontSize: '0.875rem', color: '#64748b', fontWeight: 500 }}>
                                 {format(new Date(lastSynced), 'MMM d, h:mm a')}
@@ -268,6 +268,14 @@ export default function SalesPage() {
                 }
                 .table-row:hover {
                     background-color: #f8fafc !important;
+                }
+                .last-synced-desktop {
+                    display: none;
+                }
+                @media (min-width: 768px) {
+                    .last-synced-desktop {
+                        display: block;
+                    }
                 }
             `}</style>
         </div>
