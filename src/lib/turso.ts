@@ -363,12 +363,12 @@ export async function saveSettings(orgId: string, settings: {
 
 // Audit Log operations
 export async function createAuditLog(log: {
-    userId?: string;
-    userEmail?: string;
+    userId?: string | null;
+    userEmail?: string | null;
     action: string;
-    details?: string;
+    details?: string | null;
     orgId: string;
-    ipAddress?: string;
+    ipAddress?: string | null;
 }) {
     const id = `LOG-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
     await turso.execute({
@@ -405,12 +405,12 @@ export async function getAuditLogs(orgId: string, limit = 100) {
 
 // Login History operations
 export async function createLoginHistory(history: {
-    userId?: string;
-    userEmail?: string;
+    userId?: string | null;
+    userEmail?: string | null;
     status: 'success' | 'failed';
-    ipAddress?: string;
-    userAgent?: string;
-    location?: string;
+    ipAddress?: string | null;
+    userAgent?: string | null;
+    location?: string | null;
     orgId: string;
 }) {
     const id = `LOGIN-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;

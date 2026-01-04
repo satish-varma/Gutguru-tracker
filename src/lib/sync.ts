@@ -289,6 +289,8 @@ export async function performSync(organizationId: string, options: {
         return {
             success: true,
             count: addedInvoices.length,
+            totalChecked: processedCount,
+            newHighWatermark: new Date().toISOString(),
             data: addedInvoices,
             message: addedInvoices.length > 0
                 ? `Successfully synced ${addedInvoices.length} new invoices (scanned ${processedCount} emails)`
