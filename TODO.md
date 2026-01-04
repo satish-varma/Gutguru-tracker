@@ -142,6 +142,7 @@ This file tracks planned enhancements for the HungerBox Tracker application.
 - [ ] **Manual Upload** - Upload invoices from local files
 - [ ] **Multiple Email Accounts** - Sync from multiple email sources
 - [ ] **OCR for Scanned Invoices** - AI-based text extraction from images
+- [✓] **HungerBox Sales Automation** - Integrate external worker for real-time sales reports
 
 ---
 
@@ -193,6 +194,7 @@ This file tracks planned enhancements for the HungerBox Tracker application.
 | 2026-01-04 | PWA Support & Manifest | ✅ Completed |
 | 2026-01-04 | Audit Logs & User Activity Tracking | ✅ Completed |
 | 2026-01-04 | Login Attempt History | ✅ Completed |
+| 2026-01-04 | HungerBox Sales Integration | ✅ Completed |
 
 ---
 

@@ -86,6 +86,22 @@ export async function initializeDatabase() {
             )
         `);
 
+        // Create hungerbox_sales table
+        await turso.execute(`
+            CREATE TABLE IF NOT EXISTS hungerbox_sales (
+                id TEXT PRIMARY KEY,
+                order_id TEXT UNIQUE NOT NULL,
+                order_date TEXT NOT NULL,
+                vendor_name TEXT,
+                cafeteria_name TEXT,
+                amount REAL,
+                item_name TEXT,
+                status TEXT,
+                org_id TEXT NOT NULL,
+                synced_at TEXT DEFAULT CURRENT_TIMESTAMP
+            )
+        `);
+
         // Create indexes for better query performance
         await turso.execute(`
             CREATE INDEX IF NOT EXISTS idx_invoices_org_id ON invoices(org_id)
@@ -113,6 +129,12 @@ export async function initializeDatabase() {
         `);
         await turso.execute(`
             CREATE INDEX IF NOT EXISTS idx_login_history_timestamp ON login_history(timestamp)
+        `);
+        await turso.execute(`
+            CREATE INDEX IF NOT EXISTS idx_hungerbox_sales_org_id ON hungerbox_sales(org_id)
+        `);
+        await turso.execute(`
+            CREATE INDEX IF NOT EXISTS idx_hungerbox_sales_order_date ON hungerbox_sales(order_date)
         `);
 
         // Add permissions and sync_interval_hours column if they don't exist
@@ -447,6 +469,55 @@ export async function getLoginHistory(orgId: string, limit = 100) {
         timestamp: row.timestamp as string,
     }));
 }
+// HungerBox Sales operations
+export async function getHungerBoxSales(orgId: string, limit = 50) {
+    const result = await turso.execute({
+        sql: 'SELECT * FROM hungerbox_sales WHERE org_id = ? ORDER BY order_date DESC LIMIT ?',
+        args: [orgId, limit],
+    });
+    return result.rows.map(row => ({
+        id: row.id as string,
+        orderId: row.order_id as string,
+        orderDate: row.order_date as string,
+        vendorName: row.vendor_name as string,
+        cafeteriaName: row.cafeteria_name as string,
+        amount: row.amount as number,
+        itemName: row.item_name as string,
+        status: row.status as string,
+        orgId: row.org_id as string,
+        syncedAt: row.synced_at as string,
+    }));
+}
+
+export async function createHungerBoxSale(sale: {
+    orderId: string;
+    orderDate: string;
+    vendorName?: string;
+    cafeteriaName?: string;
+    amount: number;
+    itemName?: string;
+    status?: string;
+    orgId: string;
+}) {
+    const id = `SALE-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    await turso.execute({
+        sql: `INSERT OR REPLACE INTO hungerbox_sales 
+              (id, order_id, order_date, vendor_name, cafeteria_name, amount, item_name, status, org_id)
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        args: [
+            id,
+            sale.orderId,
+            sale.orderDate,
+            sale.vendorName || null,
+            sale.cafeteriaName || null,
+            sale.amount,
+            sale.itemName || null,
+            sale.status || null,
+            sale.orgId,
+        ],
+    });
+}
+
 export async function seedDefaultAdmin(orgId: string, hashedPassword: string) {
     const existingAdmin = await getUserByEmail('admin@thegutguru.com');
     if (!existingAdmin) {

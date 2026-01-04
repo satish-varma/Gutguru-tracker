@@ -2,13 +2,14 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, FileText, BarChart3, Settings, PieChart, Users, Shield, ChevronLeft, ChevronRight, LogOut } from 'lucide-react';
+import { LayoutDashboard, FileText, BarChart3, Settings, PieChart, Users, Shield, ChevronLeft, ChevronRight, LogOut, TrendingUp } from 'lucide-react';
 import { useSession, signOut } from 'next-auth/react';
 import styles from './Sidebar.module.css';
 
 const MENU_ITEMS = [
   { name: 'Overview', icon: LayoutDashboard, path: '/' },
   { name: 'Invoices', icon: FileText, path: '/invoices' },
+  { name: 'Sales', icon: TrendingUp, path: '/sales' },
   { name: 'Analytics', icon: BarChart3, path: '/analytics' },
 ];
 
