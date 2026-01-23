@@ -14,14 +14,20 @@ export async function POST(request: Request) {
     const orgId = (session.user as any).organizationId;
     const settings = await getSettings(orgId);
 
-    const workerUrl = settings.hungerboxWorkerUrl || process.env.HUNGERBOX_WORKER_URL;
-    const apiKey = settings.hungerboxWorkerApiKey || process.env.WORKER_API_KEY;
+    let workerUrl = (settings.hungerboxWorkerUrl || process.env.HUNGERBOX_WORKER_URL || '').trim();
+    const apiKey = (settings.hungerboxWorkerApiKey || process.env.WORKER_API_KEY || '').trim();
 
     if (!workerUrl || !apiKey) {
         return NextResponse.json({
             success: false,
             error: 'Worker configuration missing. Please set HungerBox Worker URL and API Key in Settings or environment variables.'
         }, { status: 500 });
+    }
+
+    // Ensure URL doesn't end with a slash before /run-app logic if applicable
+    // But here we just want to make sure it's a clean URL
+    if (workerUrl.endsWith('/')) {
+        workerUrl = workerUrl.slice(0, -1);
     }
 
     try {
@@ -50,11 +56,11 @@ export async function POST(request: Request) {
             result = await response.json();
         } else {
             const text = await response.text();
-            throw new Error(`Worker returned non-JSON response (Status: ${response.status})`);
+            throw new Error(`Worker returned non-JSON response (Status: ${response.status}) from URL: ${workerUrl}`);
         }
 
         if (!response.ok) {
-            throw new Error(`Worker Error: ${result?.error || result?.message || response.statusText}`);
+            throw new Error(`Worker Error (Status: ${response.status}) from URL: ${workerUrl}. Details: ${result?.error || result?.message || response.statusText}`);
         }
 
         // Record audit log
