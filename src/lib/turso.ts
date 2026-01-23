@@ -146,6 +146,14 @@ export async function initializeDatabase() {
             await turso.execute('ALTER TABLE settings ADD COLUMN sync_interval_hours INTEGER DEFAULT 6');
         } catch (e) { }
 
+        try {
+            await turso.execute('ALTER TABLE settings ADD COLUMN hungerbox_worker_url TEXT');
+        } catch (e) { }
+
+        try {
+            await turso.execute('ALTER TABLE settings ADD COLUMN hungerbox_worker_api_key TEXT');
+        } catch (e) { }
+
         console.log('[Turso] Database initialized successfully');
     } catch (error) {
         console.error('[Turso] Failed to initialize database:', error);
@@ -344,6 +352,8 @@ export async function getSettings(orgId: string) {
         emailUser: '',
         emailPassword: '',
         syncIntervalHours: 6,
+        hungerboxWorkerUrl: '',
+        hungerboxWorkerApiKey: '',
     };
 
     if (result.rows.length === 0) return defaults;
@@ -355,6 +365,8 @@ export async function getSettings(orgId: string) {
         emailUser: (row.email_user as string) || defaults.emailUser,
         emailPassword: (row.email_password as string) || defaults.emailPassword,
         syncIntervalHours: (row.sync_interval_hours as number) || defaults.syncIntervalHours,
+        hungerboxWorkerUrl: (row.hungerbox_worker_url as string) || defaults.hungerboxWorkerUrl,
+        hungerboxWorkerApiKey: (row.hungerbox_worker_api_key as string) || defaults.hungerboxWorkerApiKey,
     };
 }
 
@@ -364,11 +376,13 @@ export async function saveSettings(orgId: string, settings: {
     emailUser?: string;
     emailPassword?: string;
     syncIntervalHours?: number;
+    hungerboxWorkerUrl?: string;
+    hungerboxWorkerApiKey?: string;
 }) {
     await turso.execute({
         sql: `INSERT OR REPLACE INTO settings 
-              (org_id, email_search_term, sync_lookback_days, email_user, email_password, sync_interval_hours, updated_at)
-              VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)`,
+              (org_id, email_search_term, sync_lookback_days, email_user, email_password, sync_interval_hours, hungerbox_worker_url, hungerbox_worker_api_key, updated_at)
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)`,
         args: [
             orgId,
             settings.emailSearchTerm || 'TheGutGuru',
@@ -376,6 +390,8 @@ export async function saveSettings(orgId: string, settings: {
             settings.emailUser || '',
             settings.emailPassword || '',
             settings.syncIntervalHours || 6,
+            settings.hungerboxWorkerUrl || '',
+            settings.hungerboxWorkerApiKey || '',
         ],
     });
 }

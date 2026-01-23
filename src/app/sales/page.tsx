@@ -241,9 +241,18 @@ export default function SalesPage() {
                                 <AlertCircle size={32} style={{ color: '#94a3b8' }} />
                             </div>
                             <h3 style={{ color: '#1e293b', marginBottom: '0.5rem' }}>No orders found</h3>
-                            <p style={{ color: '#64748b', maxWidth: '320px', margin: '0 auto' }}>
+                            <p style={{ color: '#64748b', maxWidth: '320px', margin: '0 auto 1.5rem' }}>
                                 Try adjusting your search or trigger a new sync to fetch the latest sales data.
                             </p>
+                            {['admin', 'manager'].includes(session?.user?.role?.toLowerCase() || '') && (
+                                <button
+                                    onClick={() => router.push('/settings')}
+                                    className="btn"
+                                    style={{ background: '#f8fafc', border: '1px solid #e2e8f0', color: '#0284c7' }}
+                                >
+                                    Check Worker Configuration
+                                </button>
+                            )}
                         </div>
                     )}
                 </div>

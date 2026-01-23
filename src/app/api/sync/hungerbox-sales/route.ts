@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
-import { createAuditLog } from '@/lib/turso';
+import { createAuditLog, getSettings } from '@/lib/turso';
 import { headers } from 'next/headers';
 
 export async function POST(request: Request) {
@@ -11,13 +11,16 @@ export async function POST(request: Request) {
         return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
     }
 
-    const workerUrl = process.env.HUNGERBOX_WORKER_URL;
-    const apiKey = process.env.WORKER_API_KEY;
+    const orgId = (session.user as any).organizationId;
+    const settings = await getSettings(orgId);
+
+    const workerUrl = settings.hungerboxWorkerUrl || process.env.HUNGERBOX_WORKER_URL;
+    const apiKey = settings.hungerboxWorkerApiKey || process.env.WORKER_API_KEY;
 
     if (!workerUrl || !apiKey) {
         return NextResponse.json({
             success: false,
-            error: 'Worker configuration missing (HUNGERBOX_WORKER_URL or WORKER_API_KEY)'
+            error: 'Worker configuration missing. Please set HungerBox Worker URL and API Key in Settings or environment variables.'
         }, { status: 500 });
     }
 

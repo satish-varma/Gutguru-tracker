@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Save, RefreshCw, Settings as SettingsIcon, AlertTriangle, Trash2 } from 'lucide-react';
+import { Save, RefreshCw, Settings as SettingsIcon, AlertTriangle, Trash2, TrendingUp } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 
@@ -25,6 +25,8 @@ export default function SettingsPage() {
     const [emailUser, setEmailUser] = useState('');
     const [emailPassword, setEmailPassword] = useState('');
     const [syncInterval, setSyncInterval] = useState(6);
+    const [workerUrl, setWorkerUrl] = useState('');
+    const [workerApiKey, setWorkerApiKey] = useState('');
     const [isLoading, setIsLoading] = useState(true);
     const [isSaving, setIsSaving] = useState(false);
     const [isSyncing, setIsSyncing] = useState(false);
@@ -50,6 +52,8 @@ export default function SettingsPage() {
                 setEmailUser(data.emailUser || '');
                 setEmailPassword(data.emailPassword || '');
                 setSyncInterval(data.syncIntervalHours || 6);
+                setWorkerUrl(data.hungerboxWorkerUrl || '');
+                setWorkerApiKey(data.hungerboxWorkerApiKey || '');
             } catch (e) {
                 console.error('Failed to load settings', e);
             } finally {
@@ -73,7 +77,9 @@ export default function SettingsPage() {
                     syncLookbackDays: Number(lookbackDays),
                     emailUser,
                     emailPassword,
-                    syncIntervalHours: Number(syncInterval)
+                    syncIntervalHours: Number(syncInterval),
+                    hungerboxWorkerUrl: workerUrl,
+                    hungerboxWorkerApiKey: workerApiKey
                 }),
             });
 
@@ -264,6 +270,46 @@ export default function SettingsPage() {
                                 <RefreshCw size={16} className={isSyncing ? "animate-spin" : ""} />
                                 {isSyncing ? 'Running Full Sync...' : 'Trigger Full Sync Now'}
                             </button>
+                        </div>
+                    </div>
+                </div>
+
+                {/* HungerBox Sales Worker Section */}
+                <div className="glass-panel" style={{ padding: '2rem', marginBottom: '2rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
+                        <div style={{ padding: '0.5rem', background: '#fef3c7', borderRadius: '8px', color: '#d97706' }}>
+                            <TrendingUp size={20} />
+                        </div>
+                        <h2 style={{ fontSize: '1.25rem', margin: 0 }}>HungerBox Sales Worker</h2>
+                    </div>
+
+                    <div style={{ display: 'grid', gap: '1.5rem' }}>
+                        <div className="form-group">
+                            <label>Worker URL</label>
+                            <input
+                                type="url"
+                                value={workerUrl}
+                                onChange={(e) => setWorkerUrl(e.target.value)}
+                                placeholder="https://hf.space/your-user/your-worker/api/sync"
+                                className="full-width-input"
+                            />
+                            <p className="help-text">
+                                The URL of your external automation worker (e.g., Hugging Face Space).
+                            </p>
+                        </div>
+
+                        <div className="form-group">
+                            <label>Worker API Key</label>
+                            <input
+                                type="password"
+                                value={workerApiKey}
+                                onChange={(e) => setWorkerApiKey(e.target.value)}
+                                placeholder="Enter your secure API Key"
+                                className="full-width-input"
+                            />
+                            <p className="help-text">
+                                Shared secret key for secure communication with the worker.
+                            </p>
                         </div>
                     </div>
                 </div>
