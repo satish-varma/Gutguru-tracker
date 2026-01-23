@@ -56,7 +56,12 @@ export async function POST(request: Request) {
             result = await response.json();
         } else {
             const text = await response.text();
-            throw new Error(`Worker returned non-JSON response (Status: ${response.status}) from URL: ${workerUrl}`);
+            console.error('[Sync] Unexpected worker response:', text);
+            return NextResponse.json({
+                success: false,
+                error: `Worker returned non-JSON response (Status: ${response.status})`,
+                details: `URL: ${workerUrl}\nResponse Body: ${text.substring(0, 500)}`
+            }, { status: 500 });
         }
 
         if (!response.ok) {
