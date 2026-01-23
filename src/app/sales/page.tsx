@@ -15,7 +15,10 @@ import {
     AlertCircle,
     TrendingUp,
     ChevronRight,
-    Search
+    Search,
+    X,
+    Copy,
+    Check
 } from 'lucide-react';
 import { format } from 'date-fns';
 
@@ -27,6 +30,18 @@ export default function SalesPage() {
     const [isSyncing, setIsSyncing] = useState(false);
     const [lastSynced, setLastSynced] = useState<string | null>(null);
     const [searchTerm, setSearchTerm] = useState('');
+    const [statusModal, setStatusModal] = useState<{
+        isOpen: boolean;
+        title: string;
+        message: string;
+        details?: string;
+        type: 'success' | 'error' | 'info';
+    }>({
+        isOpen: false,
+        title: '',
+        message: '',
+        type: 'info'
+    });
 
     useEffect(() => {
         if (status === 'unauthenticated') {
@@ -59,16 +74,30 @@ export default function SalesPage() {
             const result = await res.json();
 
             if (result.success) {
-                alert('Sync trigger sent! The worker will update data in a few minutes.');
-                // Refresh data after a short delay or just let the user know
+                setStatusModal({
+                    isOpen: true,
+                    title: 'Sync Started',
+                    message: 'Sync trigger sent! The worker will update data in a few minutes.',
+                    type: 'success'
+                });
                 setTimeout(fetchSales, 5000);
             } else {
-                const errorMsg = result.error || 'Unknown error';
-                const details = result.details ? `\n\nDetails: ${result.details}` : '';
-                alert(`Sync failed: ${errorMsg}${details}`);
+                setStatusModal({
+                    isOpen: true,
+                    title: 'Sync Failed',
+                    message: result.error || 'Unknown error',
+                    details: result.details,
+                    type: 'error'
+                });
             }
-        } catch (error) {
-            alert('Fatal error triggering sync');
+        } catch (error: any) {
+            setStatusModal({
+                isOpen: true,
+                title: 'Fatal Error',
+                message: 'Fatal error triggering sync',
+                details: error.message,
+                type: 'error'
+            });
         } finally {
             setIsSyncing(false);
         }
@@ -266,6 +295,124 @@ export default function SalesPage() {
                 </div>
             </div>
 
+            {/* Status Modal */}
+            {statusModal.isOpen && (
+                <div style={{
+                    position: 'fixed',
+                    inset: 0,
+                    backgroundColor: 'rgba(0,0,0,0.5)',
+                    backdropFilter: 'blur(4px)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    zIndex: 1000,
+                    padding: '1rem'
+                }}>
+                    <div style={{
+                        backgroundColor: 'white',
+                        borderRadius: '16px',
+                        width: '100%',
+                        maxWidth: '500px',
+                        boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)',
+                        overflow: 'hidden',
+                        animation: 'modalSlideUp 0.3s ease-out'
+                    }}>
+                        <div style={{
+                            padding: '1.25rem',
+                            borderBottom: '1px solid #f1f5f9',
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            background: statusModal.type === 'error' ? '#fff5f5' : '#f0f9ff'
+                        }}>
+                            <h3 style={{
+                                margin: 0,
+                                fontSize: '1.125rem',
+                                color: statusModal.type === 'error' ? '#c53030' : '#2b6cb0',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '0.5rem'
+                            }}>
+                                {statusModal.type === 'error' ? <AlertCircle size={20} /> : <CheckCircle2 size={20} />}
+                                {statusModal.title}
+                            </h3>
+                            <button
+                                onClick={() => setStatusModal(prev => ({ ...prev, isOpen: false }))}
+                                style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#64748b' }}
+                            >
+                                <X size={20} />
+                            </button>
+                        </div>
+
+                        <div style={{ padding: '1.5rem' }}>
+                            <p style={{ margin: '0 0 1rem 0', color: '#4a5568', lineHeight: 1.5, fontSize: '1rem' }}>
+                                {statusModal.message}
+                            </p>
+
+                            {statusModal.details && (
+                                <div style={{ marginTop: '1rem' }}>
+                                    <div style={{
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center',
+                                        marginBottom: '0.5rem'
+                                    }}>
+                                        <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#94a3b8', textTransform: 'uppercase' }}>
+                                            Technical Details
+                                        </span>
+                                        <button
+                                            onClick={() => {
+                                                navigator.clipboard.writeText(statusModal.details || '');
+                                                alert('Copied to clipboard!');
+                                            }}
+                                            style={{
+                                                fontSize: '0.75rem',
+                                                color: '#3182ce',
+                                                background: 'none',
+                                                border: 'none',
+                                                cursor: 'pointer',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '0.25rem'
+                                            }}
+                                        >
+                                            <Copy size={12} /> Copy Details
+                                        </button>
+                                    </div>
+                                    <pre style={{
+                                        margin: 0,
+                                        padding: '1rem',
+                                        backgroundColor: '#f8fafc',
+                                        borderRadius: '8px',
+                                        fontSize: '0.75rem',
+                                        color: '#475569',
+                                        maxHeight: '200px',
+                                        overflow: 'auto',
+                                        whiteSpace: 'pre-wrap',
+                                        wordBreak: 'break-all',
+                                        border: '1px solid #e2e8f0',
+                                        fontFamily: 'monospace',
+                                        userSelect: 'text'
+                                    }}>
+                                        {statusModal.details}
+                                    </pre>
+                                </div>
+                            )}
+                        </div>
+
+                        <div style={{ padding: '1.25rem', borderTop: '1px solid #f1f5f9', display: 'flex', justifyContent: 'flex-end' }}>
+                            <button
+                                onClick={() => setStatusModal(prev => ({ ...prev, isOpen: false }))}
+                                className="btn btn-primary"
+                                style={{ minWidth: '100px' }}
+                            >
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <style jsx>{`
                 .container {
                     padding: 2rem;
@@ -276,6 +423,10 @@ export default function SalesPage() {
                 @keyframes spin {
                     from { transform: rotate(0deg); }
                     to { transform: rotate(360deg); }
+                }
+                @keyframes modalSlideUp {
+                    from { opacity: 0; transform: translateY(20px); }
+                    to { opacity: 1; transform: translateY(0); }
                 }
                 .table-row:hover {
                     background-color: #f8fafc !important;
