@@ -28,22 +28,18 @@ export async function POST(request: Request) {
         // Prepare payload for the worker
         // You might want to pass parameters like date range or organizationId
         const payload = {
+            id: "hungerbox",
             organizationId: (session.user as any).organizationId,
             timestamp: new Date().toISOString()
         };
 
-        // Fire and forget (or return sync started)
-        // Note: fetch will wait for the response unless we implement a more complex background task
-        // But for HF Spaces, we typically wait for the trigger response
-
         console.log(`[Sync] Triggering HungerBox Worker at ${workerUrl}`);
 
-        // We don't await the full result if it takes too long, but usually trigger is fast
         const response = await fetch(workerUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-API-Key': apiKey
+                'x-api-key': apiKey
             },
             body: JSON.stringify(payload)
         });
