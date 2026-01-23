@@ -48,7 +48,18 @@ export async function POST(request: Request) {
             body: JSON.stringify(payload)
         });
 
-        const result = await response.json();
+        const contentType = response.headers.get("content-type");
+        let result;
+        if (contentType && contentType.includes("application/json")) {
+            result = await response.json();
+        } else {
+            const text = await response.text();
+            throw new Error(`Worker returned non-JSON response (Status: ${response.status})`);
+        }
+
+        if (!response.ok) {
+            throw new Error(`Worker Error: ${result?.error || result?.message || response.statusText}`);
+        }
 
         // Record audit log
         const headerList = headers();
@@ -58,7 +69,10 @@ export async function POST(request: Request) {
             userId: session.user.id,
             userEmail: session.user.email,
             action: 'Triggered HungerBox Sales Sync',
-            details: JSON.stringify({ workerResponse: result }),
+            details: JSON.stringify({
+                workerUrl: workerUrl.substring(0, 30) + '...',
+                workerResponse: result
+            }),
             orgId: (session.user as any).organizationId,
             ipAddress: ip
         });
@@ -73,8 +87,8 @@ export async function POST(request: Request) {
         console.error('[API] HungerBox Sync trigger failed:', error);
         return NextResponse.json({
             success: false,
-            error: 'Failed to trigger worker',
-            details: error.message
+            error: error.message || 'Failed to trigger worker',
+            details: error.stack
         }, { status: 500 });
     }
 }

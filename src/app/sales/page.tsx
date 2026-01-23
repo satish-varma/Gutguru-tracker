@@ -63,7 +63,9 @@ export default function SalesPage() {
                 // Refresh data after a short delay or just let the user know
                 setTimeout(fetchSales, 5000);
             } else {
-                alert(`Sync failed: ${result.error}`);
+                const errorMsg = result.error || 'Unknown error';
+                const details = result.details ? `\n\nDetails: ${result.details}` : '';
+                alert(`Sync failed: ${errorMsg}${details}`);
             }
         } catch (error) {
             alert('Fatal error triggering sync');
